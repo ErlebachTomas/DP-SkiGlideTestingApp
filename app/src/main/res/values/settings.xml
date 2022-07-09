@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings -->
+<resources>
+    <!--
+    Auth0 identifiers and settings
+    -->
+    <string name="auth0_scheme" translatable="false">app</string>
+
+    <string name="login_scopes" translatable="false">openid profile email read:current_user update:current_user_metadata</string>
+    <string name="login_audience" translatable="false">https://%1$s/api/v2/</string>
+
+
+
+</resources>

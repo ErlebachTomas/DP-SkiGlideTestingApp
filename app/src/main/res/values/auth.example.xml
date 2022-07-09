@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!--
+  NOTE: This is example file for Secret Auth0 identifiers and settings
+  ====================================================================
+  These values are required to connect to Auth0 for authorization
+  Create a new file called auth.xml and not check this file into a public repository!
+
+  The string that Android native apps use for both the callback URL and the logout URL use this format:
+  {SCHEME}://{YOUR_DOMAIN}/android/{YOUR_APP_PACKAGE_NAME}/callback
+
+  CZ
+  Ukázkový soubor popisující strukturu souboru pro Auth0 autorizaci
+  ====================================================================
+  Tyto údaje jsou potřebné pro správné připojení k Auth0
+  Vytvořte nový soubor auth.xml a nepublikujte tento soubor do veřejného úložiště!
+
+  Řetězec, který nativní aplikace systému Android používají má tento formát:
+  {Schéma}://{Vaše_doména}/android/{NÁZEV_aplikačního_balíčku}/callback
+  -->
+
+
+  <!--
+    <string name="auth0_domain" translatable="false">XXX.auth0.com</string>
+    <string name="auth0_client_id" translatable="false">XYZ...</string>
+  -->
+
+</resources>

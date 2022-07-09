@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ski testing</string>
+    <string name="login_failure_message">Přihlášení selhalo</string>
+    <string name="login_success_message">Ok</string>
+    <string name="btn_login">Přihlásit se</string>
+</resources>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Ski testing</string>
+    <!-- Strings related to login -->
+    <string name="btn_login">Login</string>
+    <string name="login_failure_message">Login fail</string>
+    <string name="login_success_message">OK: </string>
 </resources>
