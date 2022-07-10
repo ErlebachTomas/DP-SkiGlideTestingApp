@@ -4,4 +4,10 @@
     <string name="login_failure_message">Přihlášení selhalo</string>
     <string name="login_success_message">Ok</string>
     <string name="btn_login">Přihlásit se</string>
+    <string name="no_connection_text">Zařízení je offline</string>
+    <string name="btn_retry">Zkusit znovu</string>
+    <string name="logout_err_message">Neočekaváná chyba </string>
+    <string name="hello_home_fragment">Domovská obrazovka</string>
+    <string name="btn_sign_out">Odhlásit se</string>
+    <string name="logout_succes_message">Uživatel byl odhlášen</string>
 </resources>
