@@ -21,7 +21,7 @@ class LoginFragment : Fragment() {
 
         val myView = inflater.inflate(R.layout.fragment_login, container, false)
 
-        myView.findViewById<Button>(R.id.btn_login).setOnClickListener { view ->
+        myView.findViewById<Button>(R.id.btn_login).setOnClickListener { _ ->
 
             (activity as MainActivity?)!!.login() // volání funkce aktivity z fragmentu
 

@@ -7,6 +7,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -21,7 +22,7 @@ import cz.erlebach.skitesting.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity(), IAccountManagement {
-    private val TAG = "Activity Main"
+    private val TAG = "ActivityMain"
     /**
      * Instance vazební třídy obsahující přímé odkazy (nahrazuje findViewById konstrukci)
      */
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
             .start(this, object : Callback<Credentials, AuthenticationException> {
 
                 override fun onFailure(error: AuthenticationException) {
-                    showSnackBar(getString(R.string.login_failure_message) + ": " + error.message)
+                    toast(getString(R.string.login_failure_message) + ": " + error.message)
 
                     changeFragmentTo(NoConnectionFragment())
                 }
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
 
                     cachedCredentials = result
 
-                    showSnackBar(getString(R.string.login_success_message) + result.accessToken)
+                    toast(getString(R.string.login_success_message) + result.accessToken)
 
                     changeFragmentTo(HomeFragment())
 
@@ -87,11 +88,11 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
             .start(this, object : Callback<Void?, AuthenticationException> {
 
                 override fun onFailure(error: AuthenticationException) {
-                    showSnackBar( getString(R.string.logout_err_message) + error.getCode())
+                    toast( getString(R.string.logout_err_message) + error.getCode())
                 }
 
                 override fun onSuccess(result: Void?) {
-                    showSnackBar( getString(R.string.login_success_message))
+                    toast( getString(R.string.login_success_message))
                     changeFragmentTo(LoginFragment())
                     cachedCredentials = null
                 }
@@ -142,6 +143,13 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
     /** info výpis na obrazovku */
     private fun showSnackBar(text: String) {
         Snackbar.make(binding.root, text, Snackbar.LENGTH_LONG).show()
+
+    }
+
+    /** Zobrazí toast */
+    private fun toast(text: String, length: Int = Toast.LENGTH_SHORT) {
+        log(text)
+        Toast.makeText(applicationContext,text,length).show()
     }
 
     /** kontroluje zda je zařízení připojeno k internetu */
