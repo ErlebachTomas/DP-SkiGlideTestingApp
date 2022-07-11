@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/skiListFragment">
+
+    <fragment
+        android:id="@+id/skiListFragment"
+        android:name="cz.erlebach.skitesting.fragments.skiProfile.SkiListFragment"
+        android:label="fragment_ski_list"
+        tools:layout="@layout/fragment_ski_list" >
+        <action
+            android:id="@+id/action_skiListFragment_to_addSkiFragment"
+            app:destination="@id/addSkiFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addSkiFragment"
+        android:name="cz.erlebach.skitesting.fragments.skiProfile.AddSkiFragment"
+        android:label="fragment_add_ski"
+        tools:layout="@layout/fragment_add_ski" >
+        <action
+            android:id="@+id/action_addSkiFragment_to_skiListFragment"
+            app:destination="@id/skiListFragment" />
+    </fragment>
+</navigation>

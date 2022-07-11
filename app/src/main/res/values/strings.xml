@@ -12,4 +12,15 @@
     <string name="hello_home_fragment">Hello here home fragment</string>
     <string name="btn_sign_out">Log out</string>
     <string name="logout_succes_message">The user has been logged out</string>
+    <string name="btn_ski_profile">manage ski profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <!-- ski profile activity -->
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+    <string name="addSki">Add new ski</string>
+    <string name="browseSki">Browse Ski</string>
+    <string name="Name">Name</string>
+    <string name="errEmptyFormField">Fill in all required fields!</string>
+    <string name="success">Success!</string>
 </resources>

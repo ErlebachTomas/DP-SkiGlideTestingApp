@@ -19,6 +19,9 @@ import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.google.android.material.snackbar.Snackbar
 import cz.erlebach.skitesting.databinding.ActivityMainBinding
+import cz.erlebach.skitesting.fragments.HomeFragment
+import cz.erlebach.skitesting.fragments.LoginFragment
+import cz.erlebach.skitesting.fragments.NoConnectionFragment
 
 
 class MainActivity : AppCompatActivity(), IAccountManagement {

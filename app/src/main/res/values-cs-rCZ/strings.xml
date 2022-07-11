@@ -10,4 +10,14 @@
     <string name="hello_home_fragment">Domovská obrazovka</string>
     <string name="btn_sign_out">Odhlásit se</string>
     <string name="logout_succes_message">Uživatel byl odhlášen</string>
+    <string name="btn_ski_profile">"Spravovat lyže "</string>
+
+
+    <string name="back">Zpět</string>
+    <string name="save">Uložit</string>
+    <string name="addSki">Přidat nové lyže</string>
+    <string name="browseSki">Prohlížet lyže</string>
+    <string name="Name">Název</string>
+    <string name="errEmptyFormField">Vyplňte všechna povinná pole</string>
+    <string name="success">Úspěch</string>
 </resources>
