@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
     private lateinit var account: Auth0
     private var cachedCredentials: Credentials? = null
 
-
+    // todo autologin a debug mod
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,6 +101,7 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
                 }
             })
     }
+
 
 
     /**

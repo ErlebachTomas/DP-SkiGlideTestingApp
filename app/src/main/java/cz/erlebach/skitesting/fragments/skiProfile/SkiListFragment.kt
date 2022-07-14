@@ -57,14 +57,9 @@ class SkiListFragment : Fragment() {
 
         val adapter = SkiListAdapter()
 
-
         val recyclerView = view.findViewById<RecyclerView>(R.id.fsl_recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
-
-
-
-        println("adapter init")
 
         skiViewModel.readAllData.observe(viewLifecycleOwner, { ski ->
             adapter.setData(ski)

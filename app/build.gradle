@@ -1,8 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+
+    id 'androidx.navigation.safeargs.kotlin'
+
 }
 
 android {
@@ -54,10 +58,14 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.5.0'
 
     /* ROOM db */
-    implementation 'androidx.room:room-common:2.4.0-rc01' // BUG v 2.3.0 proto 2.4.0-rc01 -> https://stackoverflow.com/a/70193351
-    implementation 'androidx.room:room-ktx:2.4.0-rc01'
-    implementation "androidx.room:room-runtime:2.4.0-rc01"
-    kapt "androidx.room:room-compiler:2.4.0-rc01" //pro room
+    implementation 'androidx.room:room-common:2.5.0-alpha02' // BUG v 2.3.0 proto 2.4.0-rc01 -> https://stackoverflow.com/a/70193351
+    implementation 'androidx.room:room-ktx:2.5.0-alpha02'
+    implementation "androidx.room:room-runtime:2.5.0-alpha02"
+    kapt "androidx.room:room-compiler:2.5.0-alpha02" //pro room
+    //coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+    // nav safeargs
 
 
     testImplementation 'junit:junit:4.13.2'

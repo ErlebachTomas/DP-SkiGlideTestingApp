@@ -13,11 +13,14 @@
     <string name="btn_ski_profile">"Spravovat lyže "</string>
 
 
-    <string name="back">Zpět</string>
-    <string name="save">Uložit</string>
+    <string name="btn_back">Zpět</string>
+    <string name="btn_save">Uložit</string>
     <string name="addSki">Přidat nové lyže</string>
+    <string name="editSki">Upravit profile lyže</string>
     <string name="browseSki">Prohlížet lyže</string>
     <string name="Name">Název</string>
     <string name="errEmptyFormField">Vyplňte všechna povinná pole</string>
     <string name="success">Úspěch</string>
+    <string name="update_failure_message">Nevalidní vstupní data</string>
+    <string name="update_success_message">Změna úspěšně provedena</string>
 </resources>

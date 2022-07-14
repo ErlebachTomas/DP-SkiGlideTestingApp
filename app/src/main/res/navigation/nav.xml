@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_skiListFragment_to_addSkiFragment"
             app:destination="@id/addSkiFragment" />
+        <action
+            android:id="@+id/action_skiListFragment_to_updateSkiFragment"
+            app:destination="@id/updateSkiFragment" />
     </fragment>
     <fragment
         android:id="@+id/addSkiFragment"
@@ -22,5 +25,17 @@
         <action
             android:id="@+id/action_addSkiFragment_to_skiListFragment"
             app:destination="@id/skiListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateSkiFragment"
+        android:name="cz.erlebach.skitesting.fragments.skiProfile.UpdateSkiFragment"
+        android:label="fragment_update_ski"
+        tools:layout="@layout/fragment_update_ski" >
+        <action
+            android:id="@+id/action_updateSkiFragment_to_skiListFragment"
+            app:destination="@id/skiListFragment" />
+        <argument
+            android:name="currentSki"
+            app:argType="cz.erlebach.skitesting.model.Ski" />
     </fragment>
 </navigation>

@@ -19,4 +19,5 @@ data class Ski(
     val name: String,
     val description: String?
 ): Parcelable
-// todo color?
+// parcelable nutné pro možnost přidání jako argument k fragmentu
+// todo val description: String? + color?
