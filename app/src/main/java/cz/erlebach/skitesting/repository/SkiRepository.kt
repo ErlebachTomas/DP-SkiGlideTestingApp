@@ -20,9 +20,9 @@ class SkiRepository(private val skiDao: SkiDao) {
     suspend fun deleteSki(ski:Ski){
         skiDao.deleteSki(ski)
     }
-/*
-    suspend fun deleteAllSkis(){
+
+    suspend fun deleteAll(){
         skiDao.deleteAllSkis()
     }
-*/
+
 }

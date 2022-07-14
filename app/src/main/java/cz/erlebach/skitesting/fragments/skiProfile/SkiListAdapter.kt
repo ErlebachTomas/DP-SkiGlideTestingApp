@@ -1,6 +1,5 @@
 package cz.erlebach.skitesting.fragments.skiProfile
 
-
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +17,6 @@ class SkiListAdapter(): RecyclerView.Adapter<SkiListAdapter.MyViewHolder>(){
     private var myList = emptyList<Ski>()
 
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-
-
 
         // todo jednotlivé položky
         //val name:TextView  = itemView.findViewById(R.id.adap_tx_name)

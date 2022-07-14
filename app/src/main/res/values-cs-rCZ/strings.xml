@@ -23,4 +23,10 @@
     <string name="success">Úspěch</string>
     <string name="update_failure_message">Nevalidní vstupní data</string>
     <string name="update_success_message">Změna úspěšně provedena</string>
+    <string name="delete_success_message">Záznam smazán</string>
+    <string name="delete">Vymazat</string>
+    <string name="delete_info">Vymazat %1$s ?</string>
+    <string name="delete_message"> Jste si jisti, že chcete odstranit %1$s ?</string>
+    <string name="delete_everything">Jste si jisti, že chcete odstranit vše?</string>
+
 </resources>

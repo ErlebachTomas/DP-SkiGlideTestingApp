@@ -47,4 +47,10 @@ class SkiVM(application: Application): AndroidViewModel(application)  {
             repository.deleteSki(Ski)
         }
     }
+
+    fun deleteAll(){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteAll()
+        }
+    }
 }

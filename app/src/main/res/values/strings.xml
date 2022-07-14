@@ -26,5 +26,9 @@
     <string name="success">Success!</string>
     <string name="update_failure_message">invalid data</string>
     <string name="update_success_message">Updated Successfully!</string>
-
+    <string name="delete_success_message">Successfully removed!</string>
+    <string name="delete">Delete</string>
+    <string name="delete_info">Delete %1$s ?</string>
+    <string name="delete_message"> Are you sure you want to delete %1$s ?</string>
+    <string name="delete_everything">Are you sure you want to delete everything?</string>
 </resources>

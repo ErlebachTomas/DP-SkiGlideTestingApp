@@ -8,7 +8,6 @@ import cz.erlebach.skitesting.model.Ski
 @Dao
 interface SkiDao {
 
-    //@Query("SELECT * FROM skiTable")
     @Query("SELECT * FROM ${MyDatabase.skiTableName}")
     fun getLiveData(): LiveData<List<Ski>>
 
@@ -21,4 +20,7 @@ interface SkiDao {
 
     @Delete
     suspend fun deleteSki(ski: Ski)
+
+    @Query("DELETE FROM ${MyDatabase.skiTableName}")
+    suspend fun deleteAllSkis()
 }

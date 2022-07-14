@@ -1,10 +1,12 @@
 package cz.erlebach.skitesting.fragments.skiProfile
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +18,7 @@ import cz.erlebach.skitesting.viewModel.SkiVM
 
 class SkiListFragment : Fragment() {
 
-    //private lateinit var skiVM: SkiVM
+    private lateinit var skiViewModel: SkiVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,13 +44,18 @@ class SkiListFragment : Fragment() {
             activity?.finish()
 
         }
+        view.findViewById<View>(R.id.fsl_btnDelete).setOnClickListener {
+            deleteAllItems()
+        }
+
 
         return view
     }
 
+    /** Inicializace vm a adaptéru */
     private fun init(view : View ) {
 
-        val skiViewModel = ViewModelProvider(
+         skiViewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
         ).get(
@@ -61,10 +68,26 @@ class SkiListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
-        skiViewModel.readAllData.observe(viewLifecycleOwner, { ski ->
+        skiViewModel.readAllData.observe(viewLifecycleOwner) { ski ->
             adapter.setData(ski)
-        })
+        }
 
+    }
+    /** vymazat vše */
+    private fun deleteAllItems() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _, _ ->
+
+            skiViewModel.deleteAll()
+
+            Toast.makeText(requireContext(), getString(R.string.delete_success_message), Toast.LENGTH_SHORT).show()
+
+        }
+        builder.setNegativeButton("No") {_, _ ->}
+
+        builder.setTitle( getString(R.string.delete))
+        builder.setMessage(getString(R.string.delete_everything))
+        builder.create().show()
     }
 
 

@@ -1,5 +1,6 @@
 package cz.erlebach.skitesting.fragments.skiProfile
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -46,6 +47,14 @@ class UpdateSkiFragment : Fragment() {
             updateItem(view)
         }
 
+        view.findViewById<Button>(R.id.fus_btn_back).setOnClickListener {
+            findNavController().navigate(R.id.action_updateSkiFragment_to_skiListFragment)
+        }
+
+        view.findViewById<Button>(R.id.fus_btn_delete).setOnClickListener {
+            deleteItem()
+        }
+
         return view
     }
 
@@ -74,6 +83,22 @@ class UpdateSkiFragment : Fragment() {
 
             findNavController().navigate(R.id.action_updateSkiFragment_to_skiListFragment)
         }
+    }
+
+    private fun deleteItem() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _, _ ->
+
+            viewModel.deleteSki(args.currentSki)
+
+            Toast.makeText(requireContext(), getString(R.string.delete_success_message), Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_updateSkiFragment_to_skiListFragment)
+        }
+        builder.setNegativeButton("No") { _, _ -> }
+
+        builder.setTitle( getString(R.string.delete_info,args.currentSki.name))
+        builder.setMessage(getString(R.string.delete_message,args.currentSki.name))
+        builder.create().show()
     }
 
 
