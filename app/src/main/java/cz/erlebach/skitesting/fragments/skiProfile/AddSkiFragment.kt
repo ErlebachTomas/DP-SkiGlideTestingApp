@@ -36,7 +36,7 @@ class AddSkiFragment : Fragment() {
 
         skiViewModel = ViewModelProvider(this).get(SkiVM::class.java)
 
-        myView.findViewById<View>(R.id.fus_btnSave).setOnClickListener {
+        myView.findViewById<View>(R.id.fas_btnSave).setOnClickListener {
 
             sendForm()
         }
@@ -49,7 +49,7 @@ class AddSkiFragment : Fragment() {
     private fun sendForm() {
         val context = requireContext()
 
-        val name = myView.findViewById<TextView>(R.id.fus_tx_name).text.toString()
+        val name = myView.findViewById<TextView>(R.id.fas_tx_name).text.toString()
 
         //kontrola správného vyplnění polí
         if(!TextUtils.isEmpty(name))  {

@@ -43,7 +43,7 @@ class UpdateSkiFragment : Fragment() {
 
         showItems(view)
 
-        view.findViewById<Button>(R.id.fus_btnSave).setOnClickListener {
+        view.findViewById<Button>(R.id.fas_btnSave).setOnClickListener {
             updateItem(view)
         }
 
@@ -63,14 +63,14 @@ class UpdateSkiFragment : Fragment() {
      */
     private fun showItems(view: View) {
 
-        view.findViewById<TextView>(R.id.fus_tx_name).text = args.currentSki.name
+        view.findViewById<TextView>(R.id.fas_tx_name).text = args.currentSki.name
 
     }
 
     /** Editace hotnot a přepsání záznamu, při úspěchu přejde na list */
     private fun updateItem(view : View){
 
-        val newName = view.findViewById<TextView>(R.id.fus_tx_name).text.toString()
+        val newName = view.findViewById<TextView>(R.id.fas_tx_name).text.toString()
 
         if (TextUtils.isEmpty(newName)) {
         // špatně vyplněno
