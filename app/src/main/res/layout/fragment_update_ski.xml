@@ -7,7 +7,7 @@
     tools:context=".fragments.skiProfile.UpdateSkiFragment">
 
     <TextView
-        android:id="@+id/fas_tv_tittle"
+        android:id="@+id/fus_tv_tittle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/fas_tx_name"
+        android:id="@+id/fus_tx_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:autofillHints="@string/Name"
@@ -28,17 +28,17 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fas_tv_tittle" />
+        app:layout_constraintTop_toBottomOf="@+id/fus_tv_tittle" />
 
     <Button
-        android:id="@+id/fas_btnSave"
+        android:id="@+id/fus_btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btn_save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fas_tx_name" />
+        app:layout_constraintTop_toBottomOf="@+id/fus_tx_name" />
 
     <Button
         android:id="@+id/fus_btn_back"

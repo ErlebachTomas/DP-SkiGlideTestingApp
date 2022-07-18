@@ -76,14 +76,14 @@ class SkiListFragment : Fragment() {
     /** vymazat vše */
     private fun deleteAllItems() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes") { _, _ ->
+        builder.setPositiveButton(getString(R.string.Yes)) { _, _ ->
 
             skiViewModel.deleteAll()
 
             Toast.makeText(requireContext(), getString(R.string.delete_success_message), Toast.LENGTH_SHORT).show()
 
         }
-        builder.setNegativeButton("No") {_, _ ->}
+        builder.setNegativeButton(R.string.No) {_, _ ->}
 
         builder.setTitle( getString(R.string.delete))
         builder.setMessage(getString(R.string.delete_everything))

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Ski testing</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
     <!-- Strings related to login -->
     <string name="btn_login">Login</string>
     <string name="login_failure_message">Login fail</string>
@@ -31,4 +33,5 @@
     <string name="delete_info">Delete %1$s ?</string>
     <string name="delete_message"> Are you sure you want to delete %1$s ?</string>
     <string name="delete_everything">Are you sure you want to delete everything?</string>
+
 </resources>

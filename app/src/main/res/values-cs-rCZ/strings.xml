@@ -28,5 +28,6 @@
     <string name="delete_info">Vymazat %1$s ?</string>
     <string name="delete_message"> Jste si jisti, že chcete odstranit %1$s ?</string>
     <string name="delete_everything">Jste si jisti, že chcete odstranit vše?</string>
-
+    <string name="Yes">Ano</string>
+    <string name="No">Ne</string>
 </resources>

@@ -43,7 +43,7 @@ class UpdateSkiFragment : Fragment() {
 
         showItems(view)
 
-        view.findViewById<Button>(R.id.fas_btnSave).setOnClickListener {
+        view.findViewById<Button>(R.id.fus_btnSave).setOnClickListener {
             updateItem(view)
         }
 
@@ -63,14 +63,14 @@ class UpdateSkiFragment : Fragment() {
      */
     private fun showItems(view: View) {
 
-        view.findViewById<TextView>(R.id.fas_tx_name).text = args.currentSki.name
+        view.findViewById<TextView>(R.id.fus_tx_name).text = args.currentSki.name
 
     }
 
     /** Editace hotnot a přepsání záznamu, při úspěchu přejde na list */
     private fun updateItem(view : View){
 
-        val newName = view.findViewById<TextView>(R.id.fas_tx_name).text.toString()
+        val newName = view.findViewById<TextView>(R.id.fus_tx_name).text.toString()
 
         if (TextUtils.isEmpty(newName)) {
         // špatně vyplněno
@@ -87,14 +87,14 @@ class UpdateSkiFragment : Fragment() {
 
     private fun deleteItem() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes") { _, _ ->
+        builder.setPositiveButton(getString(R.string.Yes)) { _, _ ->
 
             viewModel.deleteSki(args.currentSki)
 
             Toast.makeText(requireContext(), getString(R.string.delete_success_message), Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_updateSkiFragment_to_skiListFragment)
         }
-        builder.setNegativeButton("No") { _, _ -> }
+        builder.setNegativeButton(R.string.No) { _, _ -> }
 
         builder.setTitle( getString(R.string.delete_info,args.currentSki.name))
         builder.setMessage(getString(R.string.delete_message,args.currentSki.name))
