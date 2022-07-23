@@ -35,8 +35,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     buildFeatures {
-        viewBinding true /* https://developer.android.com/topic/libraries/view-binding */
-        //dataBinding true //Binding data (from code) to views + ViewBinding
+       viewBinding true /* https://developer.android.com/topic/libraries/view-binding */
+       //dataBinding true //Binding data from code to views + ViewBinding
     }
 
     kotlinOptions {
