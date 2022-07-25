@@ -8,7 +8,7 @@ import retrofit2.awaitResponse
 class ApiService {
 
     /** Corutines backgroundTask, realizace načtení dat z API */
-    public suspend fun displayTestData(api: IWebApi) {
+    public suspend fun displayTestData(api: IWebApi){
 
         try {
             val response = api.getTestData().awaitResponse()

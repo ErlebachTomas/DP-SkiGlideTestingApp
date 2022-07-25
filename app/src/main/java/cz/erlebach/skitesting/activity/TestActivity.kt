@@ -1,6 +1,8 @@
 package cz.erlebach.skitesting.activity
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -14,7 +16,9 @@ import cz.erlebach.skitesting.network.ApiService
 import cz.erlebach.skitesting.network.IWebApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
+import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
 
 class TestActivity : AppCompatActivity() {
@@ -25,6 +29,7 @@ class TestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding = ActivityTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
@@ -33,13 +38,14 @@ class TestActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+
+            val BASE_URL = "https://ski-glide-testing.herokuapp.com"
+
+            Snackbar.make(view, "Call " + BASE_URL, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
 
             // todo pokrocila implementace dle API, trida API client
-                // test https://ski-glide-testing.herokuapp.com/api/data
-
-                val BASE_URL = "https://ski-glide-testing.herokuapp.com"
+            // test https://ski-glide-testing.herokuapp.com/api/data
 
                 val api = Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -47,11 +53,29 @@ class TestActivity : AppCompatActivity() {
                     .build()
                     .create(IWebApi::class.java)
 
-                val service = ApiService()
                 // Corutines scope na aktivitu
                 lifecycleScope.launch(Dispatchers.IO) {
 
-                    service.displayTestData(api)
+                    try {
+                        val response = api.getTestData().awaitResponse()
+                        if (response.isSuccessful) {
+                            val resData = response.body()!!
+                            withContext(Dispatchers.Main) { // nahrada await
+
+                                Log.v("API", resData.data) // ATRIBUT
+                                Toast.makeText(applicationContext,resData.data,Toast.LENGTH_LONG).show()
+
+                            }
+
+                        }
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main){
+                            Toast.makeText(applicationContext, "nepodařilo se načíst data z Internetu, zkontrolujte připojení",Toast.LENGTH_LONG).show()
+                            Log.e("API",e.message.toString())
+
+                        }
+                    }
+
                 }
 
 
