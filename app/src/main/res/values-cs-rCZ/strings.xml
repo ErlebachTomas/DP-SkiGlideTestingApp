@@ -30,4 +30,33 @@
     <string name="delete_everything">Jste si jisti, že chcete odstranit vše?</string>
     <string name="Yes">Ano</string>
     <string name="No">Ne</string>
+    <string name="snow_temperature">Teplota sněhu °C</string>
+    <string name="btn_add_measurement">Nové měření</string>
+    <string name="snow">Sníh</string>
+    <string name="temperature">Teplota °C</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="next">Další</string>
+    <string name="previous">Předchozí</string>
+    <string name="ski">Lyže</string>
+    <string name="new_measurement">Nové měření</string>
+    <string name="select_ski">Vybrat lyže</string>
+    <string-array name="snowType">
+        <item>Čerstvě napadaný prašan</item>
+        <item>Hranatozrnitý sníh</item>
+        <item>Led - extrém</item>
+        <item>Umělý sníh</item>
+        <item>Hruboznný sníh</item>
+        <item>Jemnozrnný sníh</item>
+        <item>Padající sníh</item>
+        <item>Špinavý sníh</item>
+        <item>Starý (transformovaný) sníh </item>
+        <!--
+        <item>Prachovy sníh</item>
+        <item>Vlhky sníh (čerstvý)</item>
+        <item>Přeměnný (transformovaný)</item>
+        <item>Starý / umělý</item>
+        <item>Spínavý</item>
+        -->
+    </string-array>
+
 </resources>

@@ -11,7 +11,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.snackbar.Snackbar
 import cz.erlebach.skitesting.R
-import cz.erlebach.skitesting.databinding.ActivityTestBinding
+import cz.erlebach.skitesting.databinding.ActivityRecommendationBinding
 import cz.erlebach.skitesting.network.ApiService
 import cz.erlebach.skitesting.network.IWebApi
 import kotlinx.coroutines.Dispatchers
@@ -21,15 +21,15 @@ import retrofit2.Retrofit
 import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
 
-class TestActivity : AppCompatActivity() {
+class RecommendationActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityTestBinding
+    private lateinit var binding: ActivityRecommendationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityTestBinding.inflate(layoutInflater)
+        binding = ActivityRecommendationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 

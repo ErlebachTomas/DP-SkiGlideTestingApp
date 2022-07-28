@@ -1,4 +1,4 @@
-package cz.erlebach.skitesting.fragments.test
+package cz.erlebach.skitesting.fragments.recommendation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

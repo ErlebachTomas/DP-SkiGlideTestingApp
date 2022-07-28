@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_measurement"
+    app:startDestination="@id/measurementFormFragment">
+
+    <fragment
+        android:id="@+id/measurementFormFragment"
+        android:name="cz.erlebach.skitesting.fragments.measurement.MeasurementFormFragment"
+        android:label="fragment_measurement_form"
+        tools:layout="@layout/fragment_measurement_form" >
+        <action
+            android:id="@+id/action_measurementFormFragment_to_addSkiRideFragment"
+            app:destination="@id/addSkiRideFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addSkiRideFragment"
+        android:name="cz.erlebach.skitesting.fragments.measurement.AddSkiRideFragment"
+        android:label="fragment_add_ski_ride"
+        tools:layout="@layout/fragment_add_ski_ride" >
+        <argument
+            android:name="idTestSession"
+            app:argType="long" />
+    </fragment>
+</navigation>

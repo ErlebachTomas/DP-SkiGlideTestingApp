@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="cz.erlebach.skitesting.fragments.test.FirstFragment"
+        android:name="cz.erlebach.skitesting.fragments.recommendation.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="cz.erlebach.skitesting.fragments.test.SecondFragment"
+        android:name="cz.erlebach.skitesting.fragments.recommendation.SecondFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 

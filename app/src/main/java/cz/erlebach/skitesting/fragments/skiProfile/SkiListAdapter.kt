@@ -47,6 +47,8 @@ class SkiListAdapter(): RecyclerView.Adapter<SkiListAdapter.MyViewHolder>(){
 
         //todo lisenery (tlacitka a layout long)
         holder.itemView.findViewById<View>(R.id.adap_layout_skiRow).setOnClickListener() {
+            // update
+
             //Toast.makeText(holder.itemView.context, "click " + currentItem.id, Toast.LENGTH_SHORT).show()
             Log.v("click", "click " + currentItem.name)
             

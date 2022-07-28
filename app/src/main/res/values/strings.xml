@@ -33,14 +33,37 @@
     <string name="delete_info">Delete %1$s ?</string>
     <string name="delete_message"> Are you sure you want to delete %1$s ?</string>
     <string name="delete_everything">Are you sure you want to delete everything?</string>
+    <!-- MeasurementActivity -->
+    <string name="btn_add_measurement">New measurement</string>
+    <string name="new_measurement">New measurement</string>
+    <string name="snow_temperature">Snow temperature °C</string>
+    <string name="snow">Snow: </string>
+     <string name="temperature">Temperature °C</string>
+    <string name="ski">Ski</string>
+
+    <string-array name="snowType">
+        <item>Freshly attacked powder</item>
+        <item>Coarse-grained snow</item>
+        <item>Ice / extreme</item>
+        <item>Soft snow</item>
+        <item>Coarse snow</item>
+        <item>Fine-grained snow</item>
+        <item>Falling snow</item>
+        <item>Dirty snow</item>
+        <item>Old (transformed) snow </item>
+    </string-array>
+
+    <!-- === -->
     <string name="title_activity_test">TestActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
+    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
+    <string name="select_ski">Select ski</string>
+
 
 </resources>
