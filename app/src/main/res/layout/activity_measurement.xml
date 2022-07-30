@@ -7,9 +7,11 @@
     tools:context=".activity.MeasurementActivity">
 
 
-    <androidx.fragment.app.FragmentContainerView
+    <fragment
         android:id="@+id/fragmentContainerView"
         android:name="cz.erlebach.skitesting.fragments.measurement.MeasurementFormFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_measurement" />
 </androidx.appcompat.widget.LinearLayoutCompat>

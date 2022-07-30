@@ -38,7 +38,7 @@
     <string name="new_measurement">New measurement</string>
     <string name="snow_temperature">Snow temperature °C</string>
     <string name="snow">Snow: </string>
-     <string name="temperature">Temperature °C</string>
+    <string name="temperature">Temperature °C</string>
     <string name="ski">Ski</string>
 
     <string-array name="snowType">

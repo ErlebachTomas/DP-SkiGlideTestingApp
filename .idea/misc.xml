@@ -4,20 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/activity_main.xml" value="0.2857789855072464" />
-        <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/activity_measurement.xml" value="0.2875905797101449" />
         <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/activity_recommendation.xml" value="0.2875905797101449" />
         <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/activity_ski_provile.xml" value="0.2857789855072464" />
-        <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/activity_test.xml" value="0.2875905797101449" />
         <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/adapter_fragment_ski_list_row.xml" value="0.2857789855072464" />
         <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/content_test.xml" value="0.2875905797101449" />
         <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_add_ski.xml" value="0.2857789855072464" />
-        <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_add_ski_ride.xml" value="0.2875905797101449" />
+        <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_blank1.xml" value="0.17604166666666668" />
         <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_first.xml" value="0.2875905797101449" />
         <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_home.xml" value="0.2857789855072464" />
         <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_login.xml" value="0.2857789855072464" />
-        <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_measurement_form.xml" value="0.2875905797101449" />
-        <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_no_connection.xml" value="0.2875905797101449" />
-        <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_second.xml" value="0.2875905797101449" />
+        <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_measurement_form.xml" value="0.17604166666666668" />
         <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_ski_list.xml" value="0.2857789855072464" />
         <entry key="..\:/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_update_ski.xml" value="0.2857789855072464" />
       </map>

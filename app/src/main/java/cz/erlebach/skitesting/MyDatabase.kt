@@ -14,7 +14,7 @@ import cz.erlebach.skitesting.utils.DateConverters
 /**
  * ORM ROOM lokální databáze
  */
-@Database(entities = [Ski::class, TestSession::class], version = 1, exportSchema = false)
+@Database(entities = [Ski::class, TestSession::class], version = 2, exportSchema = false)
 @TypeConverters(DateConverters::class)
 abstract class MyDatabase : RoomDatabase() {
 
@@ -43,12 +43,13 @@ abstract class MyDatabase : RoomDatabase() {
             if(tempInstance != null){
                 return tempInstance
             }
-            synchronized(this){
+            synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     MyDatabase::class.java,
                     this.dbName
-                ).build()
+                ).fallbackToDestructiveMigration()
+                 .build()
                 INSTANCE = instance
                 return instance
             }
