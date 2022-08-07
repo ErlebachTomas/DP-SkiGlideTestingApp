@@ -11,7 +11,7 @@
     <string name="btn_sign_out">Odhlásit se</string>
     <string name="logout_succes_message">Uživatel byl odhlášen</string>
     <string name="btn_ski_profile">"Spravovat lyže "</string>
-
+    <string name="btn_recomenndation">Doporučení lyží</string>
 
     <string name="btn_back">Zpět</string>
     <string name="btn_save">Uložit</string>
@@ -58,5 +58,5 @@
         <item>Spínavý</item>
         -->
     </string-array>
-
+    <string name="ma_btn_add">Přidat</string>
 </resources>

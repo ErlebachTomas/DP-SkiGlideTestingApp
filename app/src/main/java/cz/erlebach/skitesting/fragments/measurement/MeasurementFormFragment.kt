@@ -13,15 +13,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.FragmentMeasurementFormBinding
-import cz.erlebach.skitesting.fragments.skiProfile.SkiListFragmentDirections
-import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.model.TestSession
-import cz.erlebach.skitesting.viewModel.SkiVM
 import cz.erlebach.skitesting.viewModel.TestSessionVM
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -106,7 +101,7 @@ class MeasurementFormFragment : Fragment() {
             && !TextUtils.isEmpty(binding.mfSnowSpinner.selectedItem.toString())
         )  {
             // kontrola vyplnění
-            val testSesion = TestSession(0,
+            val testSession = TestSession(0,
                 datetime.time,
                 airTemperature,
                 snowTemperature,
@@ -115,7 +110,7 @@ class MeasurementFormFragment : Fragment() {
 
             CoroutineScope(Dispatchers.IO).launch() {
 
-                val id: Long = testSessionVM.add(testSesion) //uloží do db
+                val id: Long = testSessionVM.add(testSession) //uloží do db
                 Toast.makeText(context, context?.getString(R.string.success) , Toast.LENGTH_LONG).show()
 
                 val action = MeasurementFormFragmentDirections.actionMeasurementFormFragmentToAddSkiRideFragment(id)

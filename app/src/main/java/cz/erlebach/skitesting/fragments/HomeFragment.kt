@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import cz.erlebach.skitesting.MainActivity
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.activity.MeasurementActivity
 import cz.erlebach.skitesting.activity.RecommendationActivity
 import cz.erlebach.skitesting.activity.SkiProfileActivity
 
@@ -43,7 +44,13 @@ class HomeFragment : Fragment() {
         }
 
         myView.findViewById<Button>(R.id.btn_measurement).setOnClickListener { _ ->
-            Log.v("Home","click")
+
+            val intent = Intent(activity, MeasurementActivity::class.java)
+            startActivity(intent)
+        }
+
+        myView.findViewById<Button>(R.id.btn_recommendation).setOnClickListener { _ ->
+
             val intent = Intent(activity, RecommendationActivity::class.java)
             startActivity(intent)
         }

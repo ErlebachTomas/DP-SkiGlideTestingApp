@@ -15,6 +15,7 @@
     <string name="btn_sign_out">Log out</string>
     <string name="logout_succes_message">The user has been logged out</string>
     <string name="btn_ski_profile">manage ski profile</string>
+    <string name="btn_recomenndation">Ski recomenndation</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <!-- ski profile activity -->
@@ -52,7 +53,8 @@
         <item>Dirty snow</item>
         <item>Old (transformed) snow </item>
     </string-array>
-
+    <!-- MeasurementActivity List -->
+    <string name="ma_btn_add">Add</string>
     <!-- === -->
     <string name="title_activity_test">TestActivity</string>
     <!-- Strings used for fragments for navigation -->

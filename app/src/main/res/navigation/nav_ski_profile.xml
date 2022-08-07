@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_ski_profile"
-    app:startDestination="@id/blank1Fragment">
+    app:startDestination="@id/skiListFragment">
 
     <fragment
         android:id="@+id/skiListFragment"
@@ -37,14 +37,5 @@
         <argument
             android:name="currentSki"
             app:argType="cz.erlebach.skitesting.model.Ski" />
-    </fragment>
-    <fragment
-        android:id="@+id/blank1Fragment"
-        android:name="cz.erlebach.skitesting.fragments.skiProfile.Blank1Fragment"
-        android:label="fragment_blank1"
-        tools:layout="@layout/fragment_blank1" >
-        <action
-            android:id="@+id/action_blank1Fragment_to_skiListFragment"
-            app:destination="@id/skiListFragment" />
     </fragment>
 </navigation>
