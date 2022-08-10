@@ -1,14 +1,18 @@
 package cz.erlebach.skitesting.fragments.measurement
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.FragmentMeasurementBinding
+import cz.erlebach.skitesting.viewModel.TestSessionVM
 
 class MeasurementFragment : Fragment() {
 
@@ -28,12 +32,34 @@ class MeasurementFragment : Fragment() {
 
         _binding = FragmentMeasurementBinding.inflate(inflater, container, false)
 
+
+        init()
+
         binding.mlBtnAddNew.setOnClickListener {
-            findNavController().navigate(R.id.action_mListFragment_to_measurementFormFragment)
+
+            findNavController().navigate(R.id.action_MeasurementFragment_to_measurementFormFragment)
 
         }
+
         return binding.root
     }
+    private fun init() {
+
+        val viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))[TestSessionVM::class.java]
+
+        val adapter = MeasurementRecyclerViewAdapter()
+
+        binding.mlRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.mlRecyclerView.adapter = adapter
+
+        viewModel.readAllData.observe(viewLifecycleOwner) { item ->
+            adapter.setData(item)
+        }
+
+    }
+
 
 
 }

@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.util.findColumnIndexBySuffix
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.FragmentAddSkiRideBinding
 import cz.erlebach.skitesting.viewModel.SkiVM
@@ -26,6 +27,10 @@ class AddSkiRideFragment : Fragment() {
 
         _binding = FragmentAddSkiRideBinding.inflate(inflater, container, false)
 
+        binding.srBtnSave.setOnClickListener {
+            activity?.finish() //todo changeFragmentTo
+        }
+
         return binding.root
 
     }
@@ -33,7 +38,8 @@ class AddSkiRideFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initSpinnerData()
+
+       //todo initSpinnerData()
 
     }
 

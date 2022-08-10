@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_measurement"
-    app:startDestination="@id/MeasurementListFragment">
+    app:startDestination="@id/MeasurementFragment">
 
     <fragment
         android:id="@+id/measurementFormFragment"
@@ -24,12 +24,12 @@
             app:argType="long" />
     </fragment>
     <fragment
-        android:id="@+id/MeasurementListFragment"
+        android:id="@+id/MeasurementFragment"
         android:name="cz.erlebach.skitesting.fragments.measurement.MeasurementFragment"
-        android:label="fragment_measurement_list"
+        android:label="fragment_measurement"
         tools:layout="@layout/fragment_measurement">
         <action
-            android:id="@+id/action_mListFragment_to_measurementFormFragment"
+            android:id="@+id/action_MeasurementFragment_to_measurementFormFragment"
             app:destination="@id/measurementFormFragment" />
     </fragment>
 </navigation>

@@ -65,8 +65,19 @@ class MeasurementFormFragment : Fragment() {
         createSpinners()
 
         binding.mfBtnSave.setOnClickListener {
-            saveForm()
-            findNavController().navigate(R.id.action_measurementFormFragment_to_addSkiRideFragment)
+
+        try {
+            // todo odstranit, ted jen pro debugging
+            val action = MeasurementFormFragmentDirections.actionMeasurementFormFragmentToAddSkiRideFragment(1)
+            findNavController().navigate(action)
+
+            //todo saveForm()
+
+        } catch (e: Exception) {
+            Log.e("err",e.toString())
+        }
+
+
         }
 
         setPickers()

@@ -8,16 +8,17 @@ import android.widget.TextView
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.FragmentMeasurementListObjectContentBinding
 
-import cz.erlebach.skitesting.fragments.measurement.placeholder.PlaceholderContent.PlaceholderItem
+import cz.erlebach.skitesting.model.TestSession
+import cz.erlebach.skitesting.utils.getDateFormatString
 
 
 /**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
+ * [RecyclerView.Adapter] který zobrazuje [TestSession].
  */
 class MeasurementRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>
-) : RecyclerView.Adapter<MeasurementRecyclerViewAdapter.ViewHolder>() {
+):RecyclerView.Adapter<MeasurementRecyclerViewAdapter.ViewHolder>() {
+
+    private var values: List<TestSession> = emptyList<TestSession>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -33,8 +34,9 @@ class MeasurementRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        holder.idView.text = item.id.toString()
+        holder.contentView.text = getDateFormatString(item.datetime)
+
     }
 
     override fun getItemCount(): Int = values.size
@@ -47,6 +49,11 @@ class MeasurementRecyclerViewAdapter(
         override fun toString(): String {
             return super.toString() + " '" + contentView.text + "'"
         }
+    }
+
+    fun setData(list: List<TestSession>){
+        this.values = list
+        notifyDataSetChanged()
     }
 
 }

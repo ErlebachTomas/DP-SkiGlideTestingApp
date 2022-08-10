@@ -6,10 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".activity.MeasurementActivity">
 
-
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="cz.erlebach.skitesting.fragments.measurement.MeasurementFormFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
