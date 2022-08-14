@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 import cz.erlebach.skitesting.MyDatabase
 import kotlinx.parcelize.Parcelize
 
+
 /**
  * Třída reprezentuje profil Lyže
  */
@@ -18,6 +19,16 @@ data class Ski(
     val id: Int,
     val name: String,
     val description: String?
-): Parcelable
+): Parcelable {
+
+    override fun toString(): String {
+
+        return if( description == null) {
+            "[$id] $name"
+        } else {
+            "[$id] $name ($description)"
+        }
+    }
+}
 // parcelable nutné pro možnost přidání jako argument k fragmentu
 // todo val description: String? + color?

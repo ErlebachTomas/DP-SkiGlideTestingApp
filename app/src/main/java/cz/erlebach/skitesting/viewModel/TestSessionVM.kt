@@ -33,7 +33,11 @@ class TestSessionVM (application: Application): AndroidViewModel(application)  {
         repository.add(TestSession)
     }
 
-
+    fun insert(TestSession: TestSession) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.insert(TestSession)
+        }
+    }
 
     fun update(TestSession: TestSession){
         viewModelScope.launch(Dispatchers.IO) {

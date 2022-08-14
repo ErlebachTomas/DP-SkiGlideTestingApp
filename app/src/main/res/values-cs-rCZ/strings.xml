@@ -59,4 +59,5 @@
         -->
     </string-array>
     <string name="ma_btn_add">Přidat</string>
+    <string name="ma_hint_result">Výsledek</string>
 </resources>

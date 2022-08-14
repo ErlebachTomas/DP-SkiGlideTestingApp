@@ -12,6 +12,10 @@ class TestSessionRepository(private val testSessionDao: TestSessionDao){
         return testSessionDao.add(testSession)
     }
 
+    suspend fun insert(testSession:TestSession) {
+        return testSessionDao.insert(testSession)
+    }
+
     suspend fun update(testSession:TestSession){
         testSessionDao.update(testSession)
     }

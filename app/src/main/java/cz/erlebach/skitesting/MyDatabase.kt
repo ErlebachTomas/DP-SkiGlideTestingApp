@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import cz.erlebach.skitesting.db.SkiDao
+import cz.erlebach.skitesting.db.SkiRideDao
 import cz.erlebach.skitesting.db.TestSessionDao
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.model.TestSession
@@ -21,6 +22,8 @@ abstract class MyDatabase : RoomDatabase() {
     // todo ostatni dao
     abstract fun skiDao(): SkiDao
     abstract fun testSessionDao(): TestSessionDao
+    abstract fun skiRideDao(): SkiRideDao
+
 
     companion object {
 
@@ -28,7 +31,7 @@ abstract class MyDatabase : RoomDatabase() {
         const val dbName = "mydatabase"
         const val skiTableName: String="skiTable"
         const val testSessionsTableName: String="testSessionTable"
-
+        const val skiRideTableName: String="skiRideTable"
         /**
          * Singleton, držící jednu instantci databáze
          */
