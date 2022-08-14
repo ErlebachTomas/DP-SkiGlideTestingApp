@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import cz.erlebach.skitesting.R
-import cz.erlebach.skitesting.databinding.FragmentMeasurementListObjectContentBinding
+import cz.erlebach.skitesting.databinding.AdapterFragmentMeasurementListContentBinding
 
 import cz.erlebach.skitesting.model.TestSession
 import cz.erlebach.skitesting.utils.getDateFormatString
@@ -23,7 +23,7 @@ class MeasurementRecyclerViewAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(
-            FragmentMeasurementListObjectContentBinding.inflate(
+            AdapterFragmentMeasurementListContentBinding.inflate(
                 LayoutInflater.from(
                     parent.context
                 ), parent, false
@@ -41,7 +41,7 @@ class MeasurementRecyclerViewAdapter(
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(binding: FragmentMeasurementListObjectContentBinding) :
+    inner class ViewHolder(binding: AdapterFragmentMeasurementListContentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val idView: TextView = binding.itemNumber
         val contentView: TextView = binding.content

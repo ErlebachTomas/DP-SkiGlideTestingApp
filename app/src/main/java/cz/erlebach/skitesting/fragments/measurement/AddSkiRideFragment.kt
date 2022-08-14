@@ -1,6 +1,7 @@
 package cz.erlebach.skitesting.fragments.measurement
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,25 +10,28 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.room.util.findColumnIndexBySuffix
 import cz.erlebach.skitesting.R
-import cz.erlebach.skitesting.databinding.FragmentAddSkiRideBinding
+import cz.erlebach.skitesting.databinding.FragmentMeasurementAddSkiRideBinding
 import cz.erlebach.skitesting.viewModel.SkiVM
 
 
 class AddSkiRideFragment : Fragment() {
 
-    private var _binding: FragmentAddSkiRideBinding? = null
+    private var _binding: FragmentMeasurementAddSkiRideBinding? = null
     private val binding get() = _binding!!
+
+    private val TAG = "AddSkiRideFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentAddSkiRideBinding.inflate(inflater, container, false)
+
+        _binding = FragmentMeasurementAddSkiRideBinding.inflate(inflater, container, false)
 
         binding.srBtnSave.setOnClickListener {
+            Log.v(TAG,"finish")
             activity?.finish() //todo changeFragmentTo
         }
 
@@ -38,8 +42,7 @@ class AddSkiRideFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-       //todo initSpinnerData()
+            initSpinnerData()
 
     }
 
@@ -51,15 +54,18 @@ class AddSkiRideFragment : Fragment() {
            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))[SkiVM::class.java]
 
 
-            val allSkis = context?.let {
-                ArrayAdapter<Any>(it, R.layout.fragment_add_ski_ride)
-            }
+       val allSkis = context?.let {
+                ArrayAdapter<Any>(it, R.layout.)
+       }
+
         skiViewModel.readAllData
                 .observe(viewLifecycleOwner) { skis ->
                     skis?.forEach { ski ->
                         allSkis?.add(ski)
                     }
                 }
+
+
         binding.mfSkiSpinner.adapter = allSkis
 
         binding.mfSkiSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -77,5 +83,6 @@ class AddSkiRideFragment : Fragment() {
                 }
             }
         }
-    }
+
+}
 

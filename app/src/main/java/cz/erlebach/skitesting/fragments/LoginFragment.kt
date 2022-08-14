@@ -21,7 +21,7 @@ class LoginFragment : Fragment() {
 
     ): View? {
 
-        val myView = inflater.inflate(R.layout.fragment_login, container, false)
+        val myView = inflater.inflate(R.layout.fragment_main_login, container, false)
 
         myView.findViewById<Button>(R.id.btn_login).setOnClickListener { _ ->
 

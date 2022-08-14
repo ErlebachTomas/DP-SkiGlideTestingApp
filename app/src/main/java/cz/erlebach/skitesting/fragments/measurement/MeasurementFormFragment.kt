@@ -62,31 +62,35 @@ class MeasurementFormFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //todo smazat
+        val action = MeasurementFormFragmentDirections.actionMeasurementFormFragmentToAddSkiRideFragment(1)
+        findNavController().navigate(action)
+
+
         createSpinners()
 
         binding.mfBtnSave.setOnClickListener {
 
-        try {
-            // todo odstranit, ted jen pro debugging
-            val action = MeasurementFormFragmentDirections.actionMeasurementFormFragmentToAddSkiRideFragment(1)
-            findNavController().navigate(action)
+            Log.d(TAG, "mfBtnSave")
 
-            //todo saveForm()
-
-        } catch (e: Exception) {
-            Log.e("err",e.toString())
-        }
-
+            try {
+                saveForm()
+            } catch (e: Exception) {
+                Log.e(TAG,e.toString())
+            }
 
         }
-
         setPickers()
 
         binding.mfBtnBack.setOnClickListener {
             activity?.finish() //ukončí aktivitu
         }
+
     }
 
+    /**
+     * Nastavení výběru data a času
+     */
     private fun setPickers() {
         binding.mfBtnDatePicker.setOnClickListener {
             showDatePickerDialog(binding.mfTwDate)
@@ -103,15 +107,20 @@ class MeasurementFormFragment : Fragment() {
     private fun saveForm() {
 
         val airTemperature = binding.mfTemperature.text.toString().toDouble()
-        val snowTemperature = binding.mfSnowTemperature.toString().toDouble()
+        val snowTemperature = binding.mfSnowTemperature.text.toString().toDouble()
+
+
 
         val snowType = binding.mfSnowSpinner.selectedItem.toString() //todo předělat, zatím jen pro testování
+
+        Log.v(  TAG, "Zadano: $airTemperature, $snowTemperature, $snowType")
 
         if(!TextUtils.isEmpty(binding.mfTemperature.text)
             && !TextUtils.isEmpty(binding.mfSnowTemperature.text)
             && !TextUtils.isEmpty(binding.mfSnowSpinner.selectedItem.toString())
         )  {
             // kontrola vyplnění
+
             val testSession = TestSession(0,
                 datetime.time,
                 airTemperature,
@@ -122,7 +131,7 @@ class MeasurementFormFragment : Fragment() {
             CoroutineScope(Dispatchers.IO).launch() {
 
                 val id: Long = testSessionVM.add(testSession) //uloží do db
-                Toast.makeText(context, context?.getString(R.string.success) , Toast.LENGTH_LONG).show()
+                Log.v(TAG, "Měření uložono jako $id")
 
                 val action = MeasurementFormFragmentDirections.actionMeasurementFormFragmentToAddSkiRideFragment(id)
                 findNavController().navigate(action)
@@ -152,16 +161,6 @@ class MeasurementFormFragment : Fragment() {
 
             datetime.set(myear,mmonth,mday)
 
-            //todo smazat ?
-            /*
-            val monthOfYear = mmonth+1
-            val date = "$mday/$monthOfYear/$myear"
-            tw.text = date
-             */
-
-            datetime.get(Calendar.YEAR)
-            datetime.get(Calendar.MONTH)
-
             val format = SimpleDateFormat("MMMM d, yyyy h:mm")
             format.format(datetime.time)
 
@@ -185,8 +184,7 @@ class MeasurementFormFragment : Fragment() {
             datetime.set(Calendar.MINUTE,mm)
             datetime.set(Calendar.HOUR, hh)
 
-            Log.v("time","$hh:$mm")
-            // tw.text = "$hh:$mm"
+            Log.v(TAG,"set time $hh:$mm")
 
             val format = SimpleDateFormat("MMMM d, yyyy h:mm")
             tw.text =  format.format(datetime.time)

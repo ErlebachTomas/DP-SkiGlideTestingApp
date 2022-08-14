@@ -48,6 +48,8 @@ class MeasurementActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.mf_btnDatePicker)).perform(click())
         setDateTime()
 
+            Espresso.onView(ViewMatchers.withId(R.id.mf_btnSave)).perform(click())
+
         pauseTestFor(3000)
 
     }

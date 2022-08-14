@@ -32,7 +32,7 @@ class AddSkiFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        myView = inflater.inflate(R.layout.fragment_add_ski, container, false)
+        myView = inflater.inflate(R.layout.fragment_ski_add_ski, container, false)
 
         skiViewModel = ViewModelProvider(this).get(SkiVM::class.java)
 

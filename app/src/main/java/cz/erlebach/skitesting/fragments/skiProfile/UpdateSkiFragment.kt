@@ -37,7 +37,7 @@ class UpdateSkiFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val view = inflater.inflate(R.layout.fragment_update_ski, container, false)
+        val view = inflater.inflate(R.layout.fragment_ski_update_ski, container, false)
 
         viewModel = ViewModelProvider(this)[SkiVM::class.java]
 

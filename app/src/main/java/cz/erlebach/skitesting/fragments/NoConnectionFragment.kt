@@ -20,7 +20,7 @@ class NoConnectionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val myView = inflater.inflate(R.layout.fragment_no_connection, container, false)
+        val myView = inflater.inflate(R.layout.fragment_main_no_connection, container, false)
 
         myView.findViewById<Button>(R.id.btn_retry_conn).setOnClickListener { _ ->
             (activity as MainActivity?)!!.login()

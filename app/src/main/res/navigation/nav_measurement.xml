@@ -18,16 +18,16 @@
         android:id="@+id/addSkiRideFragment"
         android:name="cz.erlebach.skitesting.fragments.measurement.AddSkiRideFragment"
         android:label="fragment_add_ski_ride"
-        tools:layout="@layout/fragment_add_ski_ride" >
+        tools:layout="@layout/fragment_measurement_add_ski_ride" >
         <argument
             android:name="idTestSession"
             app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/MeasurementFragment"
-        android:name="cz.erlebach.skitesting.fragments.measurement.MeasurementFragment"
+        android:name="cz.erlebach.skitesting.fragments.measurement.MeasurementListFragment"
         android:label="fragment_measurement"
-        tools:layout="@layout/fragment_measurement">
+        tools:layout="@layout/fragment_measurement_list">
         <action
             android:id="@+id/action_MeasurementFragment_to_measurementFormFragment"
             app:destination="@id/measurementFormFragment" />

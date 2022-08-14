@@ -19,17 +19,19 @@
         <activity
             android:name=".activity.MeasurementActivity"
             android:exported="true" >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".activity.RecommendationActivity"
             android:exported="true"
-            android:label="@string/title_activity_test"
+            android:label="@string/title_activity"
             android:theme="@style/Theme.SkiTesting.NoActionBar">
+
+
         </activity>
         <activity
             android:name=".activity.SkiProfileActivity"

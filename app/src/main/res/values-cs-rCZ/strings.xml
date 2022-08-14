@@ -34,7 +34,7 @@
     <string name="btn_add_measurement">Nové měření</string>
     <string name="snow">Sníh</string>
     <string name="temperature">Teplota °C</string>
-    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity">Aktivita</string>
     <string name="next">Další</string>
     <string name="previous">Předchozí</string>
     <string name="ski">Lyže</string>

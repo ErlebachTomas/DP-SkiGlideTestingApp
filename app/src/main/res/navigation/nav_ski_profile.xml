@@ -21,7 +21,7 @@
         android:id="@+id/addSkiFragment"
         android:name="cz.erlebach.skitesting.fragments.skiProfile.AddSkiFragment"
         android:label="fragment_add_ski"
-        tools:layout="@layout/fragment_add_ski" >
+        tools:layout="@layout/fragment_ski_add_ski" >
         <action
             android:id="@+id/action_addSkiFragment_to_skiListFragment"
             app:destination="@id/skiListFragment" />
@@ -30,7 +30,7 @@
         android:id="@+id/updateSkiFragment"
         android:name="cz.erlebach.skitesting.fragments.skiProfile.UpdateSkiFragment"
         android:label="fragment_update_ski"
-        tools:layout="@layout/fragment_update_ski" >
+        tools:layout="@layout/fragment_ski_update_ski" >
         <action
             android:id="@+id/action_updateSkiFragment_to_skiListFragment"
             app:destination="@id/skiListFragment" />
