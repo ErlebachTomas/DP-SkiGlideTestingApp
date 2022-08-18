@@ -1,13 +1,16 @@
 package cz.erlebach.skitesting.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import cz.erlebach.skitesting.MyDatabase
+import kotlinx.parcelize.Parcelize
 
 /**
  * Třída reprezentuje jeden záznam konkrétního měření dané lyže
  */
+@Parcelize
 @Entity(tableName = MyDatabase.skiRideTableName)
 data class SkiRide(
     @PrimaryKey(autoGenerate = true)
@@ -15,7 +18,7 @@ data class SkiRide(
     val id: Int,
     //todo FK https://stackoverflow.com/a/65754091
     val skiID: Int,
-    val testSessionID: Int,
-    val time: Int, //todo timestemp
+    val testSessionID: Long,
+    val result: Double,
     val note: String?
-)
+) : Parcelable

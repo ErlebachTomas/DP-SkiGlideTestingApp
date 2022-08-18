@@ -2,7 +2,7 @@ package cz.erlebach.skitesting.repository
 import cz.erlebach.skitesting.db.BaseDao
 
 /**
- * @param T Dao
+ * @param T model class
  */
 abstract class BaseRepository<T>(private val baseDao: BaseDao<T>) {
 

@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class SkiRideVM(application: Application) : BaseVM<SkiRideVM>(application) {
+class SkiRideVM(application: Application) : BaseVM<SkiRide>(application) {
 
     private val _repository: SkiRideRepository
     val readAllData: LiveData<List<SkiRide>>
@@ -26,10 +26,8 @@ class SkiRideVM(application: Application) : BaseVM<SkiRideVM>(application) {
         readAllData = _repository.readAllData
     }
 
-    @Suppress("UNCHECKED_CAST")
-    override val repository: BaseRepository<SkiRideVM>
-        get() = _repository as BaseRepository<SkiRideVM>
-
+    override val repository: BaseRepository<SkiRide>
+        get() = _repository
 
     fun deleteAll(){
         viewModelScope.launch(Dispatchers.IO) {

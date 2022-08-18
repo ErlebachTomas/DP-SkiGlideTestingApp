@@ -1,4 +1,4 @@
-package cz.erlebach.skitesting.interfaces
+package cz.erlebach.skitesting.common.interfaces
 
 interface IAccountManagement {
 

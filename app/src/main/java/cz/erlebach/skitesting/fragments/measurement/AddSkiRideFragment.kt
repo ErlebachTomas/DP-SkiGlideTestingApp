@@ -1,6 +1,7 @@
 package cz.erlebach.skitesting.fragments.measurement
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +11,19 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.FragmentMeasurementAddSkiRideBinding
+import cz.erlebach.skitesting.fragments.skiProfile.UpdateSkiFragmentArgs
 import cz.erlebach.skitesting.model.Ski
+import cz.erlebach.skitesting.model.SkiRide
+import cz.erlebach.skitesting.viewModel.SkiRideVM
 import cz.erlebach.skitesting.viewModel.SkiVM
+import cz.erlebach.skitesting.viewModel.TestSessionVM
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class AddSkiRideFragment : Fragment() {
@@ -23,7 +33,13 @@ class AddSkiRideFragment : Fragment() {
 
     private val TAG = "AddSkiRideFragment"
 
+    private val args by navArgs<AddSkiRideFragmentArgs>()
+    /**
+     * Zvolená lyže pro měření
+     */
     private lateinit var selectedSki: Ski
+
+    private lateinit var skiRideVM: SkiRideVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,9 +49,13 @@ class AddSkiRideFragment : Fragment() {
 
         _binding = FragmentMeasurementAddSkiRideBinding.inflate(inflater, container, false)
 
+        skiRideVM = ViewModelProvider(this)[SkiRideVM::class.java]
+
         binding.srBtnSave.setOnClickListener {
             Log.v(TAG,"save")
-            activity?.finish() //todo changeFragmentTo
+
+            save()
+
         }
 
         binding.srBtnBack.setOnClickListener {
@@ -46,6 +66,32 @@ class AddSkiRideFragment : Fragment() {
 
     }
 
+    private fun save() {
+
+        val result = binding.mfResult.text
+        val note = binding.mfNote.text
+
+        if (!TextUtils.isEmpty(result)) {
+            val ride = SkiRide(0,
+                selectedSki.id,
+                args.idTestSession,
+                result.toString().toDouble(),
+                note.toString())
+
+            CoroutineScope(Dispatchers.IO).launch() {
+                skiRideVM.insert(ride)
+            }
+            Toast.makeText(context, R.string.success, Toast.LENGTH_SHORT).show()
+
+            binding.mfResult.text = null
+            binding.mfNote.text = null
+
+        } else {
+            Toast.makeText(context, context?.getString(R.string.errEmptyFormField), Toast.LENGTH_LONG).show()
+        }
+
+
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

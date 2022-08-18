@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/ma_hint_result"
-        android:inputType="textPersonName"
+        android:inputType="number|numberDecimal"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,8 +47,9 @@
         android:layout_height="wrap_content"
         android:text="@string/btn_save"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mf_result" />
+        app:layout_constraintTop_toBottomOf="@+id/mf_note" />
 
     <Button
         android:id="@+id/sr_btnBack"
@@ -59,4 +60,17 @@
         android:text="@string/btn_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/mf_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/ma_hint_note"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mf_result" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

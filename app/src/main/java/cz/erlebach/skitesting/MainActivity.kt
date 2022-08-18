@@ -22,7 +22,7 @@ import cz.erlebach.skitesting.databinding.ActivityMainBinding
 import cz.erlebach.skitesting.fragments.HomeFragment
 import cz.erlebach.skitesting.fragments.LoginFragment
 import cz.erlebach.skitesting.fragments.NoConnectionFragment
-import cz.erlebach.skitesting.interfaces.IAccountManagement
+import cz.erlebach.skitesting.common.interfaces.IAccountManagement
 
 
 class MainActivity : AppCompatActivity(), IAccountManagement {

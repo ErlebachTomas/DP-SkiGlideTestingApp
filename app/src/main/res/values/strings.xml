@@ -57,6 +57,7 @@
     <!-- MeasurementActivity List -->
     <string name="ma_btn_add">Add</string>
     <string name="ma_hint_result">Result</string>
+    <string name="ma_hint_note">Note...</string>
     <!-- === -->
     <string name="title_activity">Activity</string>
     <!-- Strings used for fragments for navigation -->

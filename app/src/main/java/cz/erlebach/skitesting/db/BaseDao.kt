@@ -6,6 +6,7 @@ import androidx.room.Update
 
 /**
  * Zakládní template Data Access Object rozhraní pro práci s ROOM databází, definující základní operace
+ * @param T model class
  */
 interface BaseDao<T> {
 
