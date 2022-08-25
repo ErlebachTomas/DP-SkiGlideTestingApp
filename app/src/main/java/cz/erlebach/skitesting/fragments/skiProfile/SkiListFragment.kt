@@ -2,6 +2,7 @@ package cz.erlebach.skitesting.fragments.skiProfile
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -68,9 +69,11 @@ class SkiListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
+
         skiViewModel.readAllData.observe(viewLifecycleOwner) { ski ->
-            adapter.setData(ski)
+                adapter.setData(ski)
         }
+
 
     }
     /** vymazat vše */

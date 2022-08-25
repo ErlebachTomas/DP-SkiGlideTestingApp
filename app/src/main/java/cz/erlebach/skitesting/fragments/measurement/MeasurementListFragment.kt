@@ -32,8 +32,8 @@ class MeasurementListFragment : Fragment() {
 
         _binding = FragmentMeasurementListBinding.inflate(inflater, container, false)
 
-        //todo smazat
-        findNavController().navigate(R.id.action_MeasurementFragment_to_measurementFormFragment)
+        //todo smazat jen pro debug
+        //findNavController().navigate(R.id.action_MeasurementFragment_to_measurementFormFragment)
 
         init()
 

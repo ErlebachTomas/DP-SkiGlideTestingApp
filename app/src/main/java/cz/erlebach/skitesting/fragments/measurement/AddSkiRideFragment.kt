@@ -1,5 +1,6 @@
 package cz.erlebach.skitesting.fragments.measurement
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.activity.SkiProfileActivity
 import cz.erlebach.skitesting.databinding.FragmentMeasurementAddSkiRideBinding
 import cz.erlebach.skitesting.fragments.skiProfile.UpdateSkiFragmentArgs
 import cz.erlebach.skitesting.model.Ski
@@ -62,6 +64,13 @@ class AddSkiRideFragment : Fragment() {
             Log.v(TAG,"back")
             activity?.finish() //todo changeFragmentTo
         }
+
+        binding.srAddSki.setOnClickListener {
+            //TODO start Ski Activity for result?
+            val intent = Intent(activity, SkiProfileActivity::class.java)
+            startActivity(intent)
+        }
+
         return binding.root
 
     }
@@ -86,6 +95,8 @@ class AddSkiRideFragment : Fragment() {
             binding.mfResult.text = null
             binding.mfNote.text = null
 
+            // todo next fragment?
+
         } else {
             Toast.makeText(context, context?.getString(R.string.errEmptyFormField), Toast.LENGTH_LONG).show()
         }
@@ -95,7 +106,8 @@ class AddSkiRideFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-            initSpinnerData()
+
+         initSpinnerData()
 
     }
 
@@ -111,13 +123,19 @@ class AddSkiRideFragment : Fragment() {
                 ArrayAdapter<Ski>(it, R.layout.adapter_spinner_measurement_ski_row,R.id.mf_twSpinnerRow)
        }
 
-        //todo ošetření žádná lyže
+
         skiViewModel.readAllData
                 .observe(viewLifecycleOwner) { skis ->
-                    skis?.forEach { ski ->
-                        allSkis?.add(ski)
+
+                    if (skis.isNotEmpty()) {
+                        skis?.forEach { ski ->
+                            allSkis?.add(ski)
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), "No skis",Toast.LENGTH_LONG)
+                        //todo ošetření žádná lyže
                     }
-                }
+          }
 
 
         binding.mfSkiSpinner.adapter = allSkis //todo bind spinner to custom object list https://stackoverflow.com/a/21169383
@@ -129,7 +147,6 @@ class AddSkiRideFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-
                     selectedSki = parent?.selectedItem as Ski
                     Toast.makeText(requireContext(), selectedSki.name, Toast.LENGTH_SHORT).show()
                 }
@@ -138,7 +155,11 @@ class AddSkiRideFragment : Fragment() {
                     TODO("Not yet implemented")
                 }
             }
+
+
         }
+
+
 
 }
 

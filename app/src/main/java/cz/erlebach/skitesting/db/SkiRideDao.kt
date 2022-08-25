@@ -15,4 +15,6 @@ interface SkiRideDao : BaseDao<SkiRide> {
     @Query("SELECT * FROM " + MyDatabase.skiRideTableName)
     fun getLiveData(): LiveData<List<SkiRide>>
 
+    @Query("SELECT * FROM " + MyDatabase.skiRideTableName + " WHERE testSessionID = :testID")
+    fun loadTestSessionRideByID(testID: Long): LiveData<List<SkiRide>>
 }

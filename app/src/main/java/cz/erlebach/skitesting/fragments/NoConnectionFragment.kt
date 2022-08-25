@@ -25,6 +25,9 @@ class NoConnectionFragment : Fragment() {
         myView.findViewById<Button>(R.id.btn_retry_conn).setOnClickListener { _ ->
             (activity as MainActivity?)!!.login()
         }
+        myView.findViewById<Button>(R.id.btn_skip).setOnClickListener { _ ->
+            (activity as MainActivity?)!!.skip()
+        }
         return myView
     }
 

@@ -102,7 +102,13 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
                 }
             })
     }
-
+    /*
+    jen pro debug
+     */
+    fun skip() {
+        changeFragmentTo(HomeFragment())
+        //todo: uprava pro offline použití
+    }
 
 
     /**

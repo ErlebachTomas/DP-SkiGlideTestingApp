@@ -1,15 +1,18 @@
 package cz.erlebach.skitesting.fragments.measurement
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.AdapterFragmentMeasurementSkiRideListBinding
 import cz.erlebach.skitesting.model.SkiRide
 
 
 /**
- * [RecyclerView.Adapter] který zobrazuje [SkiRide].
+ * [RecyclerView.Adapter] který zobrazuje [SkiRide] pro [SkiRideListFragment].
  */
 class SkiRideListAdapter(
 ):RecyclerView.Adapter<SkiRideListAdapter.ViewHolder>() {
@@ -29,11 +32,21 @@ class SkiRideListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
+        val currentSkiRide = values[position]
 
-        val temp = item.skiID//todo holder ski name misto id
+        val temp = currentSkiRide.skiID//todo holder ski name misto id
 
-        holder.content.text = "ID lyže:" + temp + " " + item.result.toString()
+        holder.content.text = "[ID lyže:" + temp + "] " + currentSkiRide.result.toString()
+
+
+        holder.itemView.findViewById<View>(R.id.adap_layout_skiRide_row).setOnClickListener {
+
+            val action = SkiRideListFragmentDirections.actionSkiRideListFragmentToUpdateSkiRideFragment(
+                currentSkiRide
+                )
+
+            holder.itemView.findNavController().navigate(action)
+        }
 
     }
 

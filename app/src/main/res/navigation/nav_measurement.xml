@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_MeasurementFragment_to_skiRideListFragment"
             app:destination="@id/skiRideListFragment" />
+        <action
+            android:id="@+id/action_MeasurementFragment_to_measurementUpdateFragment"
+            app:destination="@id/measurementUpdateFragment" />
     </fragment>
     <fragment
         android:id="@+id/skiRideListFragment"
@@ -46,5 +49,35 @@
         <action
             android:id="@+id/action_skiRideListFragment_to_addSkiRideFragment"
             app:destination="@id/addSkiRideFragment" />
+        <argument
+            android:name="idTestSession"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_skiRideListFragment_to_updateSkiRideFragment"
+            app:destination="@id/updateSkiRideFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/measurementUpdateFragment"
+        android:name="cz.erlebach.skitesting.fragments.measurement.MeasurementUpdateFragment"
+        android:label="fragment_measurement_update"
+        tools:layout="@layout/fragment_measurement_update" >
+        <action
+            android:id="@+id/action_measurementUpdateFragment_to_MeasurementFragment"
+            app:destination="@id/MeasurementFragment" />
+        <argument
+            android:name="testSession"
+            app:argType="cz.erlebach.skitesting.model.TestSession" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateSkiRideFragment"
+        android:name="cz.erlebach.skitesting.fragments.measurement.UpdateSkiRideFragment"
+        android:label="fragment_measurement_update_ski_ride"
+        tools:layout="@layout/fragment_measurement_update_ski_ride" >
+        <action
+            android:id="@+id/action_updateSkiRideFragment_to_skiRideListFragment"
+            app:destination="@id/skiRideListFragment" />
+        <argument
+            android:name="skiRide"
+            app:argType="cz.erlebach.skitesting.model.SkiRide" />
     </fragment>
 </navigation>

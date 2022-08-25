@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.AdapterFragmentMeasurementListContentBinding
 
@@ -13,7 +14,7 @@ import cz.erlebach.skitesting.utils.getDateFormatString
 
 
 /**
- * [RecyclerView.Adapter] který zobrazuje [TestSession].
+ * [RecyclerView.Adapter] který zobrazuje [TestSession] pro [MeasurementListFragment].
  */
 class MeasurementRecyclerViewAdapter(
 ):RecyclerView.Adapter<MeasurementRecyclerViewAdapter.ViewHolder>() {
@@ -33,9 +34,27 @@ class MeasurementRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = item.id.toString()
-        holder.contentView.text = getDateFormatString(item.datetime)
+        val testSession = values[position]
+
+        holder.idView.text = testSession.id.toString()
+        holder.contentView.text = getDateFormatString(testSession.datetime)
+
+        holder.itemView.findViewById<View>(R.id.adap_layout_measurement_row).setOnClickListener {
+
+            val action = MeasurementListFragmentDirections.actionMeasurementFragmentToSkiRideListFragment(
+                testSession.id
+            )
+            holder.itemView.findNavController().navigate(action)
+        }
+
+        holder.itemView.findViewById<View>(R.id.adap_layout_measurement_row).setOnLongClickListener {
+
+         val action = MeasurementListFragmentDirections.actionMeasurementFragmentToMeasurementUpdateFragment(
+             testSession)
+
+            holder.itemView.findNavController().navigate(action)
+            return@setOnLongClickListener true
+        }
 
     }
 

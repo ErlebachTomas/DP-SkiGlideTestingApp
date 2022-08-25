@@ -84,7 +84,7 @@ class UpdateSkiFragment : Fragment() {
             findNavController().navigate(R.id.action_updateSkiFragment_to_skiListFragment)
         }
     }
-
+    /** Zobrazí dialog a vymaže záznam */
     private fun deleteItem() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton(getString(R.string.Yes)) { _, _ ->

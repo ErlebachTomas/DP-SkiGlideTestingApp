@@ -1,7 +1,6 @@
 package cz.erlebach.skitesting.repository
 
 import androidx.lifecycle.LiveData
-import cz.erlebach.skitesting.db.BaseDao
 import cz.erlebach.skitesting.db.SkiRideDao
 import cz.erlebach.skitesting.model.SkiRide
 
@@ -13,5 +12,11 @@ class SkiRideRepository(private val skiRideDao: SkiRideDao) : BaseRepository<Ski
     suspend fun deleteAll() {
         skiRideDao.deleteAllSkiRides()
     }
+
+     fun loadTestSessionRideByID(testID: Long): LiveData<List<SkiRide>> {
+        return skiRideDao.loadTestSessionRideByID(testID)
+    }
+
+
 
 }

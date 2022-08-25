@@ -10,7 +10,9 @@ import cz.erlebach.skitesting.repository.SkiRideRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
+/**
+ * Repozitář pro testovací jízdy
+ */
 class SkiRideVM(application: Application) : BaseVM<SkiRide>(application) {
 
     private val _repository: SkiRideRepository
@@ -29,10 +31,22 @@ class SkiRideVM(application: Application) : BaseVM<SkiRide>(application) {
     override val repository: BaseRepository<SkiRide>
         get() = _repository
 
+    /**
+     * Smaže všechna data z repozitáře
+     */
     fun deleteAll(){
         viewModelScope.launch(Dispatchers.IO) {
             _repository.deleteAll()
         }
+    }
+
+    /**
+     * Načte všechny provedené jízdy z testu
+     * @param testID [Long] id testu
+     * @return [LiveData] jízdy testu
+     */
+    fun loadTestSessionRideByID(testID: Long) : LiveData<List<SkiRide>> {
+        return _repository.loadTestSessionRideByID(testID)
     }
 
 }

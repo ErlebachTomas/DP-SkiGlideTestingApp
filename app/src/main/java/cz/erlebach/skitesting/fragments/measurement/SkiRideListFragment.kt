@@ -1,11 +1,13 @@
 package cz.erlebach.skitesting.fragments.measurement
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import cz.erlebach.skitesting.databinding.FragmentMeasurementSkiRideListBinding
@@ -17,9 +19,8 @@ class SkiRideListFragment : Fragment() {
     private var _binding: FragmentMeasurementSkiRideListBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    private val args by navArgs<SkiRideListFragmentArgs>()
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +29,12 @@ class SkiRideListFragment : Fragment() {
 
         _binding = FragmentMeasurementSkiRideListBinding.inflate(inflater, container, false)
 
-        initviewModel()
+        try {
+            initviewModel()
+        } catch (e: Exception) {
+            Log.e("ViewModel",e.printStackTrace().toString())
+        }
+
 
         return binding.root
     }
@@ -48,11 +54,16 @@ class SkiRideListFragment : Fragment() {
         binding.srlRecyclerView.adapter = adapter
 
 
+        val liveData = viewModel.loadTestSessionRideByID(args.idTestSession)
+        liveData.observe(viewLifecycleOwner) { item ->
+            adapter.setData(item)
+        }
 
+        /*
         viewModel.readAllData.observe(viewLifecycleOwner) { item ->
             adapter.setData(item)  // todo read data with id!!!!!
         }
-
+        */
     }
 
 }

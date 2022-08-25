@@ -60,5 +60,8 @@
     </string-array>
     <string name="ma_btn_add">Přidat</string>
     <string name="ma_hint_result">Výsledek</string>
-    <string name="ma_hint_note">Poznámka...</string>
+    <string name="ma_hint_note">Poznámka…</string>
+    <string name="usr_update">Změnit</string>
+    <string name="usr_edit">Editace</string>
+
 </resources>

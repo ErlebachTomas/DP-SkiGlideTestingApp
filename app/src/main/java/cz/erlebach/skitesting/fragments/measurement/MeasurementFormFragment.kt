@@ -21,6 +21,7 @@ import cz.erlebach.skitesting.viewModel.TestSessionVM
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -63,8 +64,8 @@ class MeasurementFormFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //todo smazat
-        val action = MeasurementFormFragmentDirections.actionMeasurementFormFragmentToAddSkiRideFragment(1)
-        findNavController().navigate(action)
+       // val action = MeasurementFormFragmentDirections.actionMeasurementFormFragmentToAddSkiRideFragment(1)
+       // findNavController().navigate(action)
 
 
         createSpinners()
@@ -133,8 +134,12 @@ class MeasurementFormFragment : Fragment() {
                 val id: Long = testSessionVM.add(testSession) //uloží do db
                 Log.v(TAG, "Měření uložono jako $id")
 
-                val action = MeasurementFormFragmentDirections.actionMeasurementFormFragmentToAddSkiRideFragment(id)
-                findNavController().navigate(action)
+                withContext(Dispatchers.Main) {
+                    // musi udělat main thread až po uloženi
+                    val action = MeasurementFormFragmentDirections.actionMeasurementFormFragmentToAddSkiRideFragment(id)
+                    findNavController().navigate(action)
+                }
+
             }
 
         } else
