@@ -39,7 +39,7 @@ class AddSkiRideFragment : Fragment() {
     /**
      * Zvolená lyže pro měření
      */
-    private lateinit var selectedSki: Ski
+    private lateinit var selectedSki: Ski //todo ošetření
 
     private lateinit var skiRideVM: SkiRideVM
 

@@ -1,12 +1,16 @@
 package cz.erlebach.skitesting.fragments.measurement
 
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.findNavController
+import com.google.android.material.internal.ContextUtils.getActivity
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.activity.MeasurementActivity
 import cz.erlebach.skitesting.databinding.AdapterFragmentMeasurementListContentBinding
 
 import cz.erlebach.skitesting.model.TestSession
@@ -52,7 +56,8 @@ class MeasurementRecyclerViewAdapter(
          val action = MeasurementListFragmentDirections.actionMeasurementFragmentToMeasurementUpdateFragment(
              testSession)
 
-            holder.itemView.findNavController().navigate(action)
+             holder.itemView.findNavController().navigate(action) //todo padá zde
+
             return@setOnLongClickListener true
         }
 

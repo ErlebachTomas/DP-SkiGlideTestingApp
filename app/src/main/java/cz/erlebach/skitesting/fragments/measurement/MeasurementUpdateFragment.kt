@@ -29,8 +29,9 @@ class MeasurementUpdateFragment : Fragment() {
 
     private lateinit var viewModel: TestSessionVM
 
-    private var datetime = args.testSession.datetime
-    private var snowType = args.testSession.snowType
+    private lateinit var datetime : Date
+    private lateinit var snowType :String
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,8 +40,10 @@ class MeasurementUpdateFragment : Fragment() {
 
         _binding = FragmentMeasurementUpdateBinding.inflate(inflater, container, false)
 
-
+        datetime = args.testSession.datetime
+        snowType = args.testSession.snowType
         viewModel = ViewModelProvider(this)[TestSessionVM::class.java]
+
         fillForm(args.testSession)
 
         binding.umfBtnBack.setOnClickListener {

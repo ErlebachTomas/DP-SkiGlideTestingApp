@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.FragmentMeasurementListBinding
+import cz.erlebach.skitesting.model.TestSession
 import cz.erlebach.skitesting.viewModel.TestSessionVM
+import java.util.*
 
 class MeasurementListFragment : Fragment() {
 
@@ -32,8 +35,6 @@ class MeasurementListFragment : Fragment() {
 
         _binding = FragmentMeasurementListBinding.inflate(inflater, container, false)
 
-        //todo smazat jen pro debug
-        //findNavController().navigate(R.id.action_MeasurementFragment_to_measurementFormFragment)
 
         init()
 

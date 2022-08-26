@@ -17,6 +17,7 @@ import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.model.SkiRide
 import cz.erlebach.skitesting.viewModel.SkiRideVM
 import cz.erlebach.skitesting.viewModel.SkiVM
+import kotlin.properties.Delegates
 
 
 class UpdateSkiRideFragment : Fragment() {
@@ -25,7 +26,7 @@ class UpdateSkiRideFragment : Fragment() {
     private val binding get()= _binding!!
 
     private val args by navArgs<UpdateSkiRideFragmentArgs>()
-    private var selectedSkiID: Int =  args.skiRide.skiID
+    private var selectedSkiID: Int = 0
 
     private lateinit var viewModel: SkiRideVM
     override fun onCreateView(
@@ -34,6 +35,8 @@ class UpdateSkiRideFragment : Fragment() {
     ): View {
 
         _binding = FragmentMeasurementUpdateSkiRideBinding.inflate(inflater, container, false)
+
+        selectedSkiID =  args.skiRide.skiID
 
         viewModel = ViewModelProvider(this)[SkiRideVM::class.java]
 
