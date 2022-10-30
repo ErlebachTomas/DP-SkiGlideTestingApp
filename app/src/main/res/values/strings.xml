@@ -1,4 +1,6 @@
 <resources>
+    <!-- <resources> -->
+    <string name="cachedCredentials" translatable="false">cachedCredentials</string>
     <!-- MAIN -->
     <string name="app_name">Ski testing</string>
     <string name="Yes">Yes</string>

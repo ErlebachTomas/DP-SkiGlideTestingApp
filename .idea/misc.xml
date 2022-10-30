@@ -37,14 +37,18 @@
         <entry key="..\:/SkyDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_measurement_list_layout.xml" value="0.35260416666666666" />
         <entry key="..\:/SkyDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_measurement_list_object_content.xml" value="0.36666666666666664" />
         <entry key="..\:/SkyDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_ski_list.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/Terle/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/activity_measurement.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Terle/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/activity_recommendation.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Terle/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/adapter_fragment_measurement_list_content.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Terle/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/adapter_fragment_measurement_ski_ride_list.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Terle/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/adapter_fragment_ski_list_row.xml" value="0.2504528985507246" />
+        <entry key="..\:/Users/Terle/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_first.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Terle/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_measurement_add_ski_ride.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Terle/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_measurement_form.xml" value="0.1" />
         <entry key="..\:/Users/Terle/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_measurement_ski_ride_list.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Terle/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_measurement_update.xml" value="0.35260416666666666" />
         <entry key="..\:/Users/Terle/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_measurement_update_ski_ride.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/Terle/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_second.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Terle/OneDrive/_TUL_NS/_DP/Aplikace/DP-SkiGlideTestingApp/app/src/main/res/layout/fragment_ski_update_ski.xml" value="0.1" />
       </map>
     </option>

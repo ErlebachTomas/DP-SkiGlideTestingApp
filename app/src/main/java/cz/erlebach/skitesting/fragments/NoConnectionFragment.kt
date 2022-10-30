@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import cz.erlebach.skitesting.MainActivity
 import cz.erlebach.skitesting.R
 
@@ -26,7 +27,7 @@ class NoConnectionFragment : Fragment() {
             (activity as MainActivity?)!!.login()
         }
         myView.findViewById<Button>(R.id.btn_skip).setOnClickListener { _ ->
-            (activity as MainActivity?)!!.skip()
+           Toast.makeText(activity,"not implemented", Toast.LENGTH_SHORT).show() //undone debug feature
         }
         return myView
     }

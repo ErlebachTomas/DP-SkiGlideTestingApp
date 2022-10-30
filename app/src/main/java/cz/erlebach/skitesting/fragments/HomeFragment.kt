@@ -54,6 +54,11 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
+        myView.findViewById<Button>(R.id.btnApi).setOnClickListener { _ ->
+            (activity as MainActivity?)!!.apiCall()
+        }
+
+
         return myView
 
     }

@@ -12,17 +12,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.callback.Callback
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
+import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.Headers
+import com.github.kittinunf.fuel.json.responseJson
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import cz.erlebach.skitesting.common.interfaces.IAccountManagement
 import cz.erlebach.skitesting.databinding.ActivityMainBinding
 import cz.erlebach.skitesting.fragments.HomeFragment
 import cz.erlebach.skitesting.fragments.LoginFragment
 import cz.erlebach.skitesting.fragments.NoConnectionFragment
-import cz.erlebach.skitesting.common.interfaces.IAccountManagement
+import cz.erlebach.skitesting.network.ApiService
+import kotlinx.coroutines.*
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 class MainActivity : AppCompatActivity(), IAccountManagement {
@@ -35,8 +44,6 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
     private lateinit var account: Auth0
     private var cachedCredentials: Credentials? = null
 
-    // todo autologin a debug mod
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -46,7 +53,13 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
         checkAllpermissions()
 
         if (!this.isDeviceOnline(this)) {
-            changeFragmentTo(NoConnectionFragment())
+            changeFragmentTo(NoConnectionFragment()) // undone offline politika
+        } else {
+            if(checkIfloginInfoAlreadyExist()) {
+                autologin()
+            } else {
+                changeFragmentTo(LoginFragment())
+            }
         }
 
         account = Auth0(
@@ -56,9 +69,10 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
 
     }
 
+    /**
+     * Realizace přihlášení do aplikace + login sesion pomocí shared pref
+     */
     override fun login() {
-
-        log("login")
 
         WebAuthProvider
             .login(account)
@@ -69,22 +83,31 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
 
                 override fun onFailure(error: AuthenticationException) {
                     toast(getString(R.string.login_failure_message) + ": " + error.message)
-
                     changeFragmentTo(NoConnectionFragment())
                 }
 
                 override fun onSuccess(result: Credentials) {
 
-                    cachedCredentials = result
+                    cachedCredentials = result // výsledek uložen do shared pref jako json
 
-                    toast(getString(R.string.login_success_message) + result.accessToken)
+                    val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
+                    with (sharedPref.edit()) {
 
+                        val gson = Gson()
+                        val json = gson.toJson(result)
+
+                        putString(getString(R.string.cachedCredentials), json)
+                        apply()
+                    }
                     changeFragmentTo(HomeFragment())
 
                 }
             })
     }
 
+    /**
+     * Odhlášení
+     */
     override fun logout() {
         WebAuthProvider
             .logout(account) // Auth0 tenant account
@@ -96,20 +119,31 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
                 }
 
                 override fun onSuccess(result: Void?) {
-                    toast( getString(R.string.login_success_message))
+                    toast( getString(R.string.login_success_message)) // undone logout msg
                     changeFragmentTo(LoginFragment())
                     cachedCredentials = null
                 }
             })
     }
-    /*
-    jen pro debug
-     */
-    fun skip() {
+
+
+    fun autologin() {
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        val myCredentials = sharedPref.getString(getString(R.string.cachedCredentials), null)
+        cachedCredentials = Gson().fromJson(myCredentials, Credentials::class.java)
+
+        toast(getString(R.string.login_success_message))
         changeFragmentTo(HomeFragment())
-        //todo: uprava pro offline použití
     }
 
+    /**
+     * kontrola aktivniho přihlašeni
+     */
+    private fun checkIfloginInfoAlreadyExist(): Boolean {
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        val value = sharedPref.getString(getString(R.string.cachedCredentials), null)
+        return value != null
+    }
 
     /**
      * Kontrola potřebných oprávnění
@@ -183,5 +217,111 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
         return false
     }
 
+
+    fun apiCall() {
+        val url = ApiService.BASE_URL + "/api/getAllUsers"
+
+        lifecycleScope.launch(Dispatchers.IO) {
+           // fuelGet(url)
+            //sendGet(url)
+
+            cachedCredentials?.let { getApiToken(it) }
+        }
+
+    // undone https://github.com/zeeshanejaz/unirest-android | https://github.com/kittinunf/fuel
+        /*
+    if (token!= null) {
+
+        log("apiCall $url $token")
+
+        val response = Unirest.get(url)
+            .header("content-type", "application/json")
+            .header("authorization", "Bearer $token")
+            .asJsonAsync { httpResponse ->
+                toast(httpResponse.body.toPrettyString())
+                log(httpResponse.body.toPrettyString())
+
+                httpResponse.ifFailure {
+                    toast( "Faill")
+                }
+                httpResponse.ifSuccess {
+                    var data =  it.body.toPrettyString()
+                    toast(
+                         data
+                    )
+                    log("log $data")
+                }
+            }
+    } else {
+        throw IllegalStateException("Invalid credentials")
+    }
+    */
+    }
+
+    fun sendGet(url: String) {
+        val geUrl = URL(url)
+
+        with(geUrl.openConnection() as HttpURLConnection) {
+            requestMethod = "GET"  // optional default is GET
+
+            log("\nSent 'GET' request to URL : $geUrl; Response Code : $responseCode")
+
+            inputStream.bufferedReader().use {
+                it.lines().forEach { line ->
+                   log(line)
+                }
+            }
+        }
+    }
+
+    fun fuelGet( url: String) {
+        // DO get token
+        /*
+       val token = "mytoken"
+        Fuel.get("https://httpbin.org/bearer")
+            .authentication()
+            .bearer(token)
+            .response { result -> }
+        * */
+        Fuel.get(url).responseJson { _, _, result ->
+            result.fold(success = { json ->
+                log(json.array().toString())
+            }, failure = { error ->
+                Log.e(TAG, error.toString())
+            })
+        }
+    }
+
+
+    /**
+     * Získá access API jw token
+     * @see <a href="https://auth0.com/docs/get-started/architecture-scenarios/mobile-api/part-3">Auth0 doc</a>
+     */
+    private fun getApiToken(credentials: Credentials) {
+
+        val domain = getString(R.string.auth0_domain)
+        val clientID = getString(R.string.auth0_client_id)
+        val apiIdentifier = getString(R.string.api_identifier)
+        val clientSecret = credentials.idToken
+
+        Fuel.post("https://$domain/oauth/token")
+            .header(Headers.CONTENT_TYPE, "application/x-www-form-urlencoded")
+            .body("grant_type=client_credentials&client_id=$clientID&client_secret=$clientSecret&audience=$apiIdentifier")
+            .also { println(it)
+            }
+            .responseJson { _, _, result ->
+                result.fold(success = { json ->
+                    log(json.array().toString())
+                }, failure = { error ->
+                    Log.e(TAG, error.toString()) // -> "Grant type 'client_credentials' not allowed for the client.",
+                })
+            }
+/*
+    val response: HttpResponse<String> = Unirest.post("https://YOUR_DOMAIN/oauth/token")
+        .header("content-type", "application/x-www-form-urlencoded")
+        .body("grant_type=client_credentials&client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&audience=YOUR_API_IDENTIFIER")
+        .asString()
+*/
+    }
 
 }

@@ -24,6 +24,7 @@
   <!--
     <string name="auth0_domain" translatable="false">XXX.auth0.com</string>
     <string name="auth0_client_id" translatable="false">XYZ...</string>
-  -->
+    <string name="api_identifier" translatable="false"> https://exampleAPIUrl.com</string>
+   -->
 
 </resources>

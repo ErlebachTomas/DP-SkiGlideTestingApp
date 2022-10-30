@@ -11,7 +11,7 @@ plugins {
 
 android {
     compileSdk 32
-
+    namespace 'cz.erlebach.skitesting'
     defaultConfig {
         applicationId "cz.erlebach.skitesting"
         minSdk 28
@@ -42,10 +42,13 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES' // unirest https://stackoverflow.com/a/44767574'
+    }
 }
 
 dependencies {
-
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
@@ -71,10 +74,20 @@ dependencies {
     //coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+
+    // == REST API support ==
+    // unirest
+    // implementation 'com.konghq:unirest-java:3.13.11' // http://kong.github.io/unirest-java/
+    // fuel
+    implementation "com.github.kittinunf.fuel:fuel:2.3.1" // https://github.com/kittinunf/fuel
+    implementation 'com.github.kittinunf.fuel:fuel-json:2.3.1'
+    // gson jsonDeserializer
+    implementation 'com.google.code.gson:gson:2.10'
     //retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.2'
+
     //Tests
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

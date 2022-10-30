@@ -21,6 +21,6 @@ data class TestSession(
     val snowTemperature: Double,
     val snowType: String,
     val humidity: Double?
-    // todo snowType distribuce?
+    // todo snowType distribuce, klíč z tabulky?
 
 ): Parcelable

@@ -7,6 +7,12 @@ import retrofit2.awaitResponse
 
 class ApiService {
 
+    companion object {
+        /**
+         * URL API */
+       const val BASE_URL = "https://ngrok-router.herokuapp.com"
+
+    }
     /** Corutines backgroundTask, realizace načtení dat z API */
     public suspend fun displayTestData(api: IWebApi){
 
@@ -17,7 +23,6 @@ class ApiService {
                 withContext(Dispatchers.Main) { // nahrada await
                     Log.v("API", resData.data) // ATRIBUT
                 }
-
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main){
@@ -25,7 +30,6 @@ class ApiService {
             }
         }
     }
-
 }
 
 

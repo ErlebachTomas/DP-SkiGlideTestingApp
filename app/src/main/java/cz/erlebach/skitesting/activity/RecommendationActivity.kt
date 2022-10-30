@@ -2,6 +2,7 @@ package cz.erlebach.skitesting.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -38,48 +39,11 @@ class RecommendationActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.fab.setOnClickListener { view ->
-
-            val BASE_URL = "https://ski-glide-testing.herokuapp.com"
-
-            Snackbar.make(view, "Call " + BASE_URL, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-
-            // todo pokrocila implementace dle API, trida API client
-            // test https://ski-glide-testing.herokuapp.com/api/data
-
-                val api = Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-                    .create(IWebApi::class.java)
-
-                // Corutines scope na aktivitu
-                lifecycleScope.launch(Dispatchers.IO) {
-
-                    try {
-                        val response = api.getTestData().awaitResponse()
-                        if (response.isSuccessful) {
-                            val resData = response.body()!!
-                            withContext(Dispatchers.Main) { // nahrada await
-
-                                Log.v("API", resData.data) // ATRIBUT
-                                Toast.makeText(applicationContext,resData.data,Toast.LENGTH_LONG).show()
-
-                            }
-
-                        }
-                    } catch (e: Exception) {
-                        withContext(Dispatchers.Main){
-                            Toast.makeText(applicationContext, "nepodařilo se načíst data z Internetu, zkontrolujte připojení",Toast.LENGTH_LONG).show()
-                            Log.e("API",e.message.toString())
-
-                        }
-                    }
-
-                }
-
-
+            retrofitApiCall(view)
         }
+
+
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -88,5 +52,55 @@ class RecommendationActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp()
     }
 
+
+
+
+
+    /**
+     * Načte testovací data z API
+     */
+    private fun retrofitApiCall(view: View) {
+
+        val BASE_URL = ApiService.BASE_URL
+
+        Snackbar.make(view, "Call " + BASE_URL, Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
+
+        // todo pokrocila implementace dle API, trida API client
+        // test https://ski-glide-testing.herokuapp.com/api/data
+
+        val api = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(IWebApi::class.java)
+
+        // Corutines scope na aktivitu
+        lifecycleScope.launch(Dispatchers.IO) {
+
+            try {
+                val response = api.getTestData().awaitResponse()
+                if (response.isSuccessful) {
+                    val resData = response.body()!!
+                    withContext(Dispatchers.Main) { // nahrada await
+
+                        Log.v("API", resData.data) // ATRIBUT
+                        Toast.makeText(applicationContext,resData.data,Toast.LENGTH_LONG).show()
+
+                    }
+
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main){
+                    Toast.makeText(applicationContext, "nepodařilo se načíst data z Internetu, zkontrolujte připojení",Toast.LENGTH_LONG).show()
+                    Log.e("API",e.message.toString())
+
+                }
+            }
+
+        }
+
+
+    }
 
 }
