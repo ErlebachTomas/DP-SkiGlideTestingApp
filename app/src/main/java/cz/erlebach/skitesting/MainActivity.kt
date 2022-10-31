@@ -14,12 +14,19 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.auth0.android.Auth0
+import com.auth0.android.Auth0Exception
+import com.auth0.android.authentication.AuthenticationAPIClient
 import com.auth0.android.authentication.AuthenticationException
+import com.auth0.android.authentication.storage.CredentialsManager
+import com.auth0.android.authentication.storage.CredentialsManagerException
+import com.auth0.android.authentication.storage.SharedPreferencesStorage
+import com.auth0.android.callback.BaseCallback
 import com.auth0.android.callback.Callback
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.Headers
+import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.json.responseJson
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
@@ -29,13 +36,16 @@ import cz.erlebach.skitesting.fragments.HomeFragment
 import cz.erlebach.skitesting.fragments.LoginFragment
 import cz.erlebach.skitesting.fragments.NoConnectionFragment
 import cz.erlebach.skitesting.network.ApiService
-import kotlinx.coroutines.*
+import cz.erlebach.skitesting.utils.AuthorizationClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.net.HttpURLConnection
 import java.net.URL
 
 
 class MainActivity : AppCompatActivity(), IAccountManagement {
     private val TAG = "ActivityMain"
+    lateinit var PACKAGE_NAME: String
     /**
      * Instance vazební třídy obsahující přímé odkazy (nahrazuje findViewById konstrukci)
      */
@@ -48,6 +58,7 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        PACKAGE_NAME = applicationContext.packageName
         binding = ActivityMainBinding.inflate(layoutInflater) // metoda generující binding class
 
         checkAllpermissions()
@@ -74,6 +85,10 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
      */
     override fun login() {
 
+        val authAPIClient = AuthenticationAPIClient(account)
+        val sharedPrefStorage = SharedPreferencesStorage(this)
+        val credentialsManager = CredentialsManager(authAPIClient, sharedPrefStorage)
+
         WebAuthProvider
             .login(account)
             .withScheme(getString(R.string.auth0_scheme))
@@ -88,6 +103,7 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
 
                 override fun onSuccess(result: Credentials) {
 
+                    credentialsManager.saveCredentials(result)
                     cachedCredentials = result // výsledek uložen do shared pref jako json
 
                     val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
@@ -217,8 +233,57 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
         return false
     }
 
+    fun auth0TestConnection() {
+
+        var token: String
+
+        val auth0 = Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain))
+        val authAPIClient = AuthenticationAPIClient(auth0)
+        val sharedPrefStorage = SharedPreferencesStorage(this)
+
+        val credentialsManager = CredentialsManager(authAPIClient, sharedPrefStorage)
+
+        credentialsManager.getCredentials(object: Callback<Credentials, CredentialsManagerException> {
+
+            override fun onFailure(error: CredentialsManagerException) {
+              Log.e(TAG,error.message.toString())
+              toast(error.message.toString())
+            }
+
+            override fun onSuccess(result: Credentials) {
+
+                token = result.accessToken
+                log("Access token retrieved")
+
+                lifecycleScope.launch(Dispatchers.IO) {
+
+                    val url = ApiService.BASE_URL + "/api/getAllUsers"
+
+                    Fuel.get(url)
+                        .authentication()
+                        .bearer(token)
+                        .responseJson { _, _, result ->
+                        result.fold(success = { json ->
+                            log("Access token work, retrieve:")
+                            log(json.array().toString())
+
+                        }, failure = { error ->
+                            Log.e(TAG, error.toString())
+                        })
+                    }
+
+                }
+
+            }
+        })
+
+    }
 
     fun apiCall() {
+        auth0TestConnection()
+    }
+
+    fun apiCallOld() {
         val url = ApiService.BASE_URL + "/api/getAllUsers"
 
         lifecycleScope.launch(Dispatchers.IO) {
@@ -297,7 +362,7 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
      * Získá access API jw token
      * @see <a href="https://auth0.com/docs/get-started/architecture-scenarios/mobile-api/part-3">Auth0 doc</a>
      */
-    private fun getApiToken(credentials: Credentials) {
+    private fun getApiTokenOLD(credentials: Credentials) {
 
         val domain = getString(R.string.auth0_domain)
         val clientID = getString(R.string.auth0_client_id)
@@ -316,12 +381,74 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
                     Log.e(TAG, error.toString()) // -> "Grant type 'client_credentials' not allowed for the client.",
                 })
             }
-/*
-    val response: HttpResponse<String> = Unirest.post("https://YOUR_DOMAIN/oauth/token")
-        .header("content-type", "application/x-www-form-urlencoded")
-        .body("grant_type=client_credentials&client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&audience=YOUR_API_IDENTIFIER")
-        .asString()
-*/
+    }
+
+    /**
+     * Získá access API jw token
+     * @see <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/call-your-api-using-the-authorization-code-flow-with-pkce#prerequisites">Auth0 doc</a>
+     */
+    private fun getApiToken(credentials: Credentials) {
+
+        val domain = getString(R.string.auth0_domain)
+        val clientID = getString(R.string.auth0_client_id)
+        val apiIdentifier = getString(R.string.api_identifier)
+
+        val authClient = AuthorizationClient(domain, PACKAGE_NAME)
+        val grantType = authClient.grantType
+        val codeVerifier = authClient.codeVerifier
+
+
+        val getString = "https://$domain/authorize?response_type=" + authClient.responseType +
+                "&code_challenge=" + authClient.codeChallenge
+                "&code_challenge_method=" + authClient.codeChallengeMethod +
+                "&client_id= " + getString(R.string.auth0_client_id) +
+                "&redirect_uri=" + authClient.redirectUri +
+                "&scope=" + authClient.scope +
+                "&audience=" + getString(R.string.api_identifier) +
+                "&state=" + authClient.state
+
+        log(getString)
+        // DO demo aplikace
+
+        Fuel.get("https://$domain/authorize", listOf("response_type" to authClient.responseType,
+                "code_challenge" to authClient.codeChallenge,
+                "code_challenge_method" to authClient.codeChallengeMethod,
+                "client_id" to getString(R.string.auth0_client_id),
+                "redirect_uri" to authClient.redirectUri,
+                "scope" to authClient.scope,
+                "audience" to getString(R.string.api_identifier),
+                "state" to authClient.state
+                ))
+            .also { println(it) }
+            .response { _, _, result ->
+                result.fold(success = { res ->
+                    log(res.toString())
+                }, failure = { error ->
+                    Log.e(TAG, error.toString())
+                })
+            }
+
+
+        /*
+
+        Fuel.post("https://$domain/oauth/token")
+            .header(Headers.CONTENT_TYPE, "application/x-www-form-urlencoded")
+            .body("grant_type=$grantType" +
+                        "&client_id=$clientID" +
+                    "&code_verifier=$codeVerifier +" +
+                    "&code=" +
+                    "&redirect_uri=app://dev-uzy9mju6.us.auth0.com/android/cz.erlebach.skitesting/callback")
+            .also { println(it)
+            }
+            .responseJson { _, _, result ->
+                result.fold(success = { json ->
+                    log(json.array().toString())
+                }, failure = { error ->
+                    Log.e(TAG, error.toString()) // -> "Grant type 'client_credentials' not allowed for the client.",
+                })
+            }
+
+        */
     }
 
 }
