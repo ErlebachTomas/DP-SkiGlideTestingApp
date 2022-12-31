@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.model.Ski
+import cz.erlebach.skitesting.utils.generateDateISO8601string
 import cz.erlebach.skitesting.viewModel.SkiVM
 
 
@@ -54,7 +55,7 @@ class AddSkiFragment : Fragment() {
         //kontrola správného vyplnění polí
         if(!TextUtils.isEmpty(name))  {
 
-            val ski = Ski(0,name, null)
+            val ski = Ski(0,name, null, generateDateISO8601string()) //todo description
             skiViewModel.addSki(ski)
             Toast.makeText(context, context.getString(R.string.success), Toast.LENGTH_LONG).show()
 

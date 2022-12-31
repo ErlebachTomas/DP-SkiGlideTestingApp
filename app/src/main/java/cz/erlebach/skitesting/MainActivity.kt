@@ -14,18 +14,15 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.auth0.android.Auth0
-import com.auth0.android.Auth0Exception
 import com.auth0.android.authentication.AuthenticationAPIClient
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.authentication.storage.CredentialsManager
 import com.auth0.android.authentication.storage.CredentialsManagerException
 import com.auth0.android.authentication.storage.SharedPreferencesStorage
-import com.auth0.android.callback.BaseCallback
 import com.auth0.android.callback.Callback
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.github.kittinunf.fuel.Fuel
-import com.github.kittinunf.fuel.core.Headers
 import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.json.responseJson
 import com.google.android.material.snackbar.Snackbar
@@ -36,11 +33,8 @@ import cz.erlebach.skitesting.fragments.HomeFragment
 import cz.erlebach.skitesting.fragments.LoginFragment
 import cz.erlebach.skitesting.fragments.NoConnectionFragment
 import cz.erlebach.skitesting.network.ApiService
-import cz.erlebach.skitesting.utils.AuthorizationClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.net.HttpURLConnection
-import java.net.URL
 
 
 class MainActivity : AppCompatActivity(), IAccountManagement {
@@ -52,7 +46,7 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
     private lateinit var binding: ActivityMainBinding
     /* Auth0 */
     private lateinit var account: Auth0
-    private var cachedCredentials: Credentials? = null
+    private var cachedCredentials: Credentials? = null // todo odstranit, již zbytečné, funkci řeší CredentialsManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,11 +138,15 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
 
 
     fun autologin() {
+
+        // todo odstranit, již zbytečné, funkci řeší CredentialsManager
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
         val myCredentials = sharedPref.getString(getString(R.string.cachedCredentials), null)
         cachedCredentials = Gson().fromJson(myCredentials, Credentials::class.java)
+        log(cachedCredentials?.expiresAt.toString())  // undone Credentials need to be renewed but no Refresh Token is available to renew them.
 
-        toast(getString(R.string.login_success_message))
+
+        // toast(getString(R.string.login_success_message))
         changeFragmentTo(HomeFragment())
     }
 
@@ -156,9 +154,18 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
      * kontrola aktivniho přihlašeni
      */
     private fun checkIfloginInfoAlreadyExist(): Boolean {
+        /*
+        // todo odstranit, již zbytečné, funkci řeší CredentialsManager
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
         val value = sharedPref.getString(getString(R.string.cachedCredentials), null)
         return value != null
+        */
+        val auth0 = Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain))
+        val authAPIClient = AuthenticationAPIClient(auth0)
+        val sharedPrefStorage = SharedPreferencesStorage(this)
+        val credentialsManager = CredentialsManager(authAPIClient, sharedPrefStorage)
+
+        return credentialsManager.hasValidCredentials()
     }
 
     /**
@@ -233,6 +240,9 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
         return false
     }
 
+    /**
+     * Jedinná funkční metoda na získání API tokenu
+     */
     fun auth0TestConnection() {
 
         var token: String
@@ -282,173 +292,4 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
     fun apiCall() {
         auth0TestConnection()
     }
-
-    fun apiCallOld() {
-        val url = ApiService.BASE_URL + "/api/getAllUsers"
-
-        lifecycleScope.launch(Dispatchers.IO) {
-           // fuelGet(url)
-            //sendGet(url)
-
-            cachedCredentials?.let { getApiToken(it) }
-        }
-
-    // undone https://github.com/zeeshanejaz/unirest-android | https://github.com/kittinunf/fuel
-        /*
-    if (token!= null) {
-
-        log("apiCall $url $token")
-
-        val response = Unirest.get(url)
-            .header("content-type", "application/json")
-            .header("authorization", "Bearer $token")
-            .asJsonAsync { httpResponse ->
-                toast(httpResponse.body.toPrettyString())
-                log(httpResponse.body.toPrettyString())
-
-                httpResponse.ifFailure {
-                    toast( "Faill")
-                }
-                httpResponse.ifSuccess {
-                    var data =  it.body.toPrettyString()
-                    toast(
-                         data
-                    )
-                    log("log $data")
-                }
-            }
-    } else {
-        throw IllegalStateException("Invalid credentials")
-    }
-    */
-    }
-
-    fun sendGet(url: String) {
-        val geUrl = URL(url)
-
-        with(geUrl.openConnection() as HttpURLConnection) {
-            requestMethod = "GET"  // optional default is GET
-
-            log("\nSent 'GET' request to URL : $geUrl; Response Code : $responseCode")
-
-            inputStream.bufferedReader().use {
-                it.lines().forEach { line ->
-                   log(line)
-                }
-            }
-        }
-    }
-
-    fun fuelGet( url: String) {
-        // DO get token
-        /*
-       val token = "mytoken"
-        Fuel.get("https://httpbin.org/bearer")
-            .authentication()
-            .bearer(token)
-            .response { result -> }
-        * */
-        Fuel.get(url).responseJson { _, _, result ->
-            result.fold(success = { json ->
-                log(json.array().toString())
-            }, failure = { error ->
-                Log.e(TAG, error.toString())
-            })
-        }
-    }
-
-
-    /**
-     * Získá access API jw token
-     * @see <a href="https://auth0.com/docs/get-started/architecture-scenarios/mobile-api/part-3">Auth0 doc</a>
-     */
-    private fun getApiTokenOLD(credentials: Credentials) {
-
-        val domain = getString(R.string.auth0_domain)
-        val clientID = getString(R.string.auth0_client_id)
-        val apiIdentifier = getString(R.string.api_identifier)
-        val clientSecret = credentials.idToken
-
-        Fuel.post("https://$domain/oauth/token")
-            .header(Headers.CONTENT_TYPE, "application/x-www-form-urlencoded")
-            .body("grant_type=client_credentials&client_id=$clientID&client_secret=$clientSecret&audience=$apiIdentifier")
-            .also { println(it)
-            }
-            .responseJson { _, _, result ->
-                result.fold(success = { json ->
-                    log(json.array().toString())
-                }, failure = { error ->
-                    Log.e(TAG, error.toString()) // -> "Grant type 'client_credentials' not allowed for the client.",
-                })
-            }
-    }
-
-    /**
-     * Získá access API jw token
-     * @see <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/call-your-api-using-the-authorization-code-flow-with-pkce#prerequisites">Auth0 doc</a>
-     */
-    private fun getApiToken(credentials: Credentials) {
-
-        val domain = getString(R.string.auth0_domain)
-        val clientID = getString(R.string.auth0_client_id)
-        val apiIdentifier = getString(R.string.api_identifier)
-
-        val authClient = AuthorizationClient(domain, PACKAGE_NAME)
-        val grantType = authClient.grantType
-        val codeVerifier = authClient.codeVerifier
-
-
-        val getString = "https://$domain/authorize?response_type=" + authClient.responseType +
-                "&code_challenge=" + authClient.codeChallenge
-                "&code_challenge_method=" + authClient.codeChallengeMethod +
-                "&client_id= " + getString(R.string.auth0_client_id) +
-                "&redirect_uri=" + authClient.redirectUri +
-                "&scope=" + authClient.scope +
-                "&audience=" + getString(R.string.api_identifier) +
-                "&state=" + authClient.state
-
-        log(getString)
-        // DO demo aplikace
-
-        Fuel.get("https://$domain/authorize", listOf("response_type" to authClient.responseType,
-                "code_challenge" to authClient.codeChallenge,
-                "code_challenge_method" to authClient.codeChallengeMethod,
-                "client_id" to getString(R.string.auth0_client_id),
-                "redirect_uri" to authClient.redirectUri,
-                "scope" to authClient.scope,
-                "audience" to getString(R.string.api_identifier),
-                "state" to authClient.state
-                ))
-            .also { println(it) }
-            .response { _, _, result ->
-                result.fold(success = { res ->
-                    log(res.toString())
-                }, failure = { error ->
-                    Log.e(TAG, error.toString())
-                })
-            }
-
-
-        /*
-
-        Fuel.post("https://$domain/oauth/token")
-            .header(Headers.CONTENT_TYPE, "application/x-www-form-urlencoded")
-            .body("grant_type=$grantType" +
-                        "&client_id=$clientID" +
-                    "&code_verifier=$codeVerifier +" +
-                    "&code=" +
-                    "&redirect_uri=app://dev-uzy9mju6.us.auth0.com/android/cz.erlebach.skitesting/callback")
-            .also { println(it)
-            }
-            .responseJson { _, _, result ->
-                result.fold(success = { json ->
-                    log(json.array().toString())
-                }, failure = { error ->
-                    Log.e(TAG, error.toString()) // -> "Grant type 'client_credentials' not allowed for the client.",
-                })
-            }
-
-        */
-    }
-
 }

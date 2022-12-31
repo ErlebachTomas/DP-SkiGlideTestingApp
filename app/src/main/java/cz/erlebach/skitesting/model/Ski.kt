@@ -18,7 +18,8 @@ data class Ski(
     @ColumnInfo(name = "id")
     val id: Int,
     val name: String,
-    val description: String?
+    val description: String?,
+    val updated_at: String?
 ): Parcelable {
 
     override fun toString(): String {

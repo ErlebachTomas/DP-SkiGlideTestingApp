@@ -85,7 +85,9 @@ class AddSkiRideFragment : Fragment() {
                 selectedSki.id,
                 args.idTestSession,
                 result.toString().toDouble(),
-                note.toString())
+                note.toString(),
+                null,
+                ) //todo update
 
             CoroutineScope(Dispatchers.IO).launch() {
                 skiRideVM.insert(ride)

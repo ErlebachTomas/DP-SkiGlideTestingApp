@@ -18,12 +18,12 @@ class MainActivityTest {
 
     @Test
     fun login() {
-        //todo not implemented yet
+        //undone not implemented yet
     }
 
     @Test
     fun logout() {
-        //todo not implemented yet
+        //undone not implemented yet
     }
 
     fun checkToast(msg: String) {

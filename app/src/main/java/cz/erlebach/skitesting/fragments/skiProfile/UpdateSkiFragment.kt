@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.model.Ski
+import cz.erlebach.skitesting.utils.generateDateISO8601string
 import cz.erlebach.skitesting.viewModel.SkiVM
 
 /**
@@ -76,7 +77,7 @@ class UpdateSkiFragment : Fragment() {
         // špatně vyplněno
             Toast.makeText(requireContext(),getString(R.string.update_failure_message) , Toast.LENGTH_SHORT).show()
         } else {
-            val updatedSki = Ski(args.currentSki.id, newName, null)
+            val updatedSki = Ski(args.currentSki.id, newName, null, generateDateISO8601string())
             viewModel.updateSki(updatedSki)
             Toast.makeText(requireContext(), getString(R.string.update_success_message), Toast.LENGTH_SHORT).show()
 

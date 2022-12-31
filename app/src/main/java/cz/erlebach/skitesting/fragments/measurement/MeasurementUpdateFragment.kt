@@ -1,10 +1,12 @@
 package cz.erlebach.skitesting.fragments.measurement
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -12,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.FragmentMeasurementUpdateBinding
 import cz.erlebach.skitesting.model.TestSession
+import cz.erlebach.skitesting.utils.generateDateISO8601string
 import cz.erlebach.skitesting.utils.getDateFormatString
 import cz.erlebach.skitesting.viewModel.TestSessionVM
 import java.util.*
@@ -30,7 +33,7 @@ class MeasurementUpdateFragment : Fragment() {
     private lateinit var viewModel: TestSessionVM
 
     private lateinit var datetime : Date
-    private lateinit var snowType :String
+
 
 
     override fun onCreateView(
@@ -41,7 +44,9 @@ class MeasurementUpdateFragment : Fragment() {
         _binding = FragmentMeasurementUpdateBinding.inflate(inflater, container, false)
 
         datetime = args.testSession.datetime
-        snowType = args.testSession.snowType
+
+        binding.testType.text = resources.getStringArray(R.array.testType)[args.testSession.testType]
+
         viewModel = ViewModelProvider(this)[TestSessionVM::class.java]
 
         fillForm(args.testSession)
@@ -80,23 +85,33 @@ class MeasurementUpdateFragment : Fragment() {
         binding.umfTwDate.text = getDateFormatString(testSession.datetime,"MM d yyyy")
         binding.umfTwTime.text = getDateFormatString(testSession.datetime,"h:mm")
 
+        val adapterProfile = ArrayAdapter.createFromResource(requireContext(),R.array.snowType, android.R.layout.simple_spinner_dropdown_item)
+        binding.umfSnowSpinner.adapter = adapterProfile
+        binding.umfSnowSpinner.setSelection(args.testSession.snowType)
 
         //todo dodělat picker atd + třída pro PickerDialog?
-        // todo snowType
     }
 
 
     private fun updateItem() {
-        // todo validace dat
+
+        if(TextUtils.isEmpty(binding.umfTemperature.text)
+            && TextUtils.isEmpty(binding.umfSnowTemperature.text)) {
+            Toast.makeText(context, context?.getString(R.string.errEmptyFormField), Toast.LENGTH_LONG).show()
+            return
+        }
 
         val updateItem = TestSession(
             args.testSession.id,
             datetime,
             binding.umfTemperature.text.toString().toDouble(),
             binding.umfTwDate.text.toString().toDouble(),
-            snowType,
-            null
-        )
+            binding.umfSnowSpinner.selectedItemPosition,
+            args.testSession.testType,
+            args.testSession.humidity,
+            args.testSession.note,
+            generateDateISO8601string()
+        ) //todo dodělat update pole
 
         viewModel.update(updateItem)
 

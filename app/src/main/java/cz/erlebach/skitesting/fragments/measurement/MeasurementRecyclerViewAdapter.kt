@@ -56,7 +56,7 @@ class MeasurementRecyclerViewAdapter(
          val action = MeasurementListFragmentDirections.actionMeasurementFragmentToMeasurementUpdateFragment(
              testSession)
 
-             holder.itemView.findNavController().navigate(action) //todo padá zde
+             holder.itemView.findNavController().navigate(action)
 
             return@setOnLongClickListener true
         }

@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.FragmentMeasurementFormBinding
 import cz.erlebach.skitesting.model.TestSession
+import cz.erlebach.skitesting.utils.generateDateISO8601string
 import cz.erlebach.skitesting.viewModel.TestSessionVM
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -53,20 +54,18 @@ class MeasurementFormFragment : Fragment() {
     }
 
     /**
-     * Naplní nabídku
+     * Naplní volice
      */
     private fun createSpinners() {
         val adapterProfile = ArrayAdapter.createFromResource(requireContext(),R.array.snowType, android.R.layout.simple_spinner_dropdown_item)
         binding.mfSnowSpinner.adapter = adapterProfile
+
+        binding.mfTestTypeSpinner.adapter = ArrayAdapter.createFromResource(requireContext(),R.array.snowType, android.R.layout.simple_spinner_dropdown_item)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //todo smazat
-       // val action = MeasurementFormFragmentDirections.actionMeasurementFormFragmentToAddSkiRideFragment(1)
-       // findNavController().navigate(action)
-
 
         createSpinners()
 
@@ -109,12 +108,14 @@ class MeasurementFormFragment : Fragment() {
 
         val airTemperature = binding.mfTemperature.text.toString().toDouble()
         val snowTemperature = binding.mfSnowTemperature.text.toString().toDouble()
+        val humidity = binding.mfHumidity.text.toString().toDouble()
+
+        val snowType = binding.mfSnowSpinner.selectedItemPosition //text pak .selectedItem.toString()
+        val testType = binding.mfTestTypeSpinner.selectedItemPosition
 
 
 
-        val snowType = binding.mfSnowSpinner.selectedItem.toString() //todo předělat, zatím jen pro testování
-
-        Log.v(  TAG, "Zadano: $airTemperature, $snowTemperature, $snowType")
+        Log.v(  TAG, "Zadano: $airTemperature, $snowTemperature, " + binding.mfSnowSpinner.selectedItem.toString() )
 
         if(!TextUtils.isEmpty(binding.mfTemperature.text)
             && !TextUtils.isEmpty(binding.mfSnowTemperature.text)
@@ -127,7 +128,11 @@ class MeasurementFormFragment : Fragment() {
                 airTemperature,
                 snowTemperature,
                 snowType,
-                null)
+                testType,
+                humidity,
+                binding.mfNote.toString(),
+                generateDateISO8601string()
+            )
 
             CoroutineScope(Dispatchers.IO).launch() {
 

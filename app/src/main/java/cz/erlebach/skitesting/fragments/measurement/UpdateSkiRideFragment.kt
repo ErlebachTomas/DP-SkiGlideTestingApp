@@ -10,14 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
-import cz.erlebach.skitesting.databinding.FragmentMeasurementUpdateBinding
 import cz.erlebach.skitesting.databinding.FragmentMeasurementUpdateSkiRideBinding
-import cz.erlebach.skitesting.fragments.skiProfile.UpdateSkiFragmentArgs
-import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.model.SkiRide
+import cz.erlebach.skitesting.utils.generateDateISO8601string
 import cz.erlebach.skitesting.viewModel.SkiRideVM
-import cz.erlebach.skitesting.viewModel.SkiVM
-import kotlin.properties.Delegates
 
 
 class UpdateSkiRideFragment : Fragment() {
@@ -88,7 +84,8 @@ class UpdateSkiRideFragment : Fragment() {
             selectedSkiID,
             args.skiRide.testSessionID,
             result.toString().toDouble(),
-            note.toString()
+            note.toString(),
+            generateDateISO8601string()
         )
 
         viewModel.update(updateItem)

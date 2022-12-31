@@ -23,5 +23,6 @@ data class SkiRide(
     /** FK [Tessession] */
     val testSessionID: Long,
     val result: Double,
-    val note: String?
+    val note: String?,
+    val updated_at: String?
 ) : Parcelable

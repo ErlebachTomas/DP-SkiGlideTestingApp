@@ -42,7 +42,6 @@
         android:id="@+id/umf_snowTemperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:autofillHints="@string/snow_temperature"
         android:ems="10"
         android:hint="@string/snow_temperature"
@@ -52,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/umf_textView1" />
+        app:layout_constraintTop_toBottomOf="@+id/testType" />
 
     <TextView
         android:id="@+id/umf_textView2"
@@ -117,22 +116,22 @@
         android:id="@+id/umf_twDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="53dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="44dp"
         android:text="datum"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/umf_snowSpinner" />
+
 
     <TextView
         android:id="@+id/umf_twTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="88dp"
         android:text="TextView"
         app:layout_constraintEnd_toStartOf="@+id/umf_btnTimePicker"
         app:layout_constraintStart_toStartOf="@+id/umf_snowSpinner"
         app:layout_constraintTop_toTopOf="@+id/umf_twDate" />
-
 
     <Button
         android:id="@+id/umf_btn_delete"
@@ -143,6 +142,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/umf_btnSave"
         app:layout_constraintStart_toEndOf="@+id/umf_btnBack" />
+
+    <TextView
+        android:id="@+id/testType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/umf_textView1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

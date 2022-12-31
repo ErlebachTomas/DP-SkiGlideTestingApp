@@ -19,7 +19,6 @@
     <string name="logout_succes_message">The user has been logged out</string>
     <string name="btn_ski_profile">manage ski profile</string>
     <string name="btn_recomenndation">Ski recomenndation</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <!-- ski profile activity -->
     <string name="btn_back">Back</string>
@@ -44,7 +43,7 @@
     <string name="snow">Snow: </string>
     <string name="temperature">Temperature °C</string>
     <string name="ski">Ski</string>
-
+    <!--pořadí snowType musí odpovídat hodnotám číselníku  -->
     <string-array name="snowType">
         <item>Freshly attacked powder</item>
         <item>Coarse-grained snow</item>
@@ -55,6 +54,11 @@
         <item>Falling snow</item>
         <item>Dirty snow</item>
         <item>Old (transformed) snow </item>
+    </string-array>
+    <string-array name="testType">
+        <item>Time</item>
+        <item>Distance</item>
+        <item>Speed</item>
     </string-array>
     <!-- MeasurementActivity List -->
     <string name="ma_btn_add">Add</string>
@@ -74,6 +78,9 @@
     <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
     <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
     <string name="select_ski">Select ski</string>
+    <string name="testType">type of test</string>
+    <string name="mfNoteHint">note</string>
+    <string name="humidity">Humidity %</string>
 
 
 </resources>
