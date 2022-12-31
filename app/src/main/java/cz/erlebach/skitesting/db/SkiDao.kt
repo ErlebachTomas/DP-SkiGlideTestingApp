@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import cz.erlebach.skitesting.MyDatabase
 import cz.erlebach.skitesting.model.Ski
-/** Dao = Data Access Object */
+/**
+ * Toto rozhraní definuje standardní operace, které se dají provádět s tabulkou [Ski]
+ * Dao = Data Access Object */
 @Dao
 interface SkiDao {
 

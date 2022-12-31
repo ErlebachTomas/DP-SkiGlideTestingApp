@@ -6,7 +6,6 @@ import cz.erlebach.skitesting.db.BaseDao
  */
 abstract class BaseRepository<T>(private val baseDao: BaseDao<T>) {
 
-
     suspend fun update(entity: T) {
         return  baseDao.update(entity)
     }

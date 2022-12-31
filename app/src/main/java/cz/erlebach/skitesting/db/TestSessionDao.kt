@@ -3,8 +3,10 @@ package cz.erlebach.skitesting.db
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import cz.erlebach.skitesting.MyDatabase
+import cz.erlebach.skitesting.model.SkiRide
 import cz.erlebach.skitesting.model.TestSession
 
+/** Toto rozhraní definuje standardní operace, které se dají provádět s tabulkou [TestSession] */
 @Dao
 interface TestSessionDao : BaseDao<TestSession>{
 

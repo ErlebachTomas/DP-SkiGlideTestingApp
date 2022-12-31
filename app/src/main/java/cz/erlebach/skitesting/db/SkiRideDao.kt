@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import cz.erlebach.skitesting.MyDatabase
 import cz.erlebach.skitesting.model.SkiRide
-
+/** Toto rozhraní definuje standardní operace, které se dají provádět s tabulkou [SkiRide]  */
 @Dao
 interface SkiRideDao : BaseDao<SkiRide> {
 

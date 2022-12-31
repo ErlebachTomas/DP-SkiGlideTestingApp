@@ -26,13 +26,12 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.json.responseJson
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
 import cz.erlebach.skitesting.common.interfaces.IAccountManagement
 import cz.erlebach.skitesting.databinding.ActivityMainBinding
 import cz.erlebach.skitesting.fragments.HomeFragment
 import cz.erlebach.skitesting.fragments.LoginFragment
 import cz.erlebach.skitesting.fragments.NoConnectionFragment
-import cz.erlebach.skitesting.network.ApiService
+import cz.erlebach.skitesting.network.RetrofitApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -44,9 +43,7 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
      * Instance vazební třídy obsahující přímé odkazy (nahrazuje findViewById konstrukci)
      */
     private lateinit var binding: ActivityMainBinding
-    /* Auth0 */
-    private lateinit var account: Auth0
-    private var cachedCredentials: Credentials? = null // todo odstranit, již zbytečné, funkci řeší CredentialsManager
+    private lateinit var account: Auth0  /* Auth0 */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +58,7 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
             changeFragmentTo(NoConnectionFragment()) // undone offline politika
         } else {
             if(checkIfloginInfoAlreadyExist()) {
-                autologin()
+                changeFragmentTo(HomeFragment())
             } else {
                 changeFragmentTo(LoginFragment())
             }
@@ -96,21 +93,8 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
                 }
 
                 override fun onSuccess(result: Credentials) {
-
                     credentialsManager.saveCredentials(result)
-                    cachedCredentials = result // výsledek uložen do shared pref jako json
-
-                    val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
-                    with (sharedPref.edit()) {
-
-                        val gson = Gson()
-                        val json = gson.toJson(result)
-
-                        putString(getString(R.string.cachedCredentials), json)
-                        apply()
-                    }
                     changeFragmentTo(HomeFragment())
-
                 }
             })
     }
@@ -131,35 +115,14 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
                 override fun onSuccess(result: Void?) {
                     toast( getString(R.string.login_success_message)) // undone logout msg
                     changeFragmentTo(LoginFragment())
-                    cachedCredentials = null
                 }
             })
     }
-
-
-    fun autologin() {
-
-        // todo odstranit, již zbytečné, funkci řeší CredentialsManager
-        val sharedPref = getPreferences(Context.MODE_PRIVATE)
-        val myCredentials = sharedPref.getString(getString(R.string.cachedCredentials), null)
-        cachedCredentials = Gson().fromJson(myCredentials, Credentials::class.java)
-        log(cachedCredentials?.expiresAt.toString())  // undone Credentials need to be renewed but no Refresh Token is available to renew them.
-
-
-        // toast(getString(R.string.login_success_message))
-        changeFragmentTo(HomeFragment())
-    }
-
     /**
      * kontrola aktivniho přihlašeni
      */
     private fun checkIfloginInfoAlreadyExist(): Boolean {
-        /*
-        // todo odstranit, již zbytečné, funkci řeší CredentialsManager
-        val sharedPref = getPreferences(Context.MODE_PRIVATE)
-        val value = sharedPref.getString(getString(R.string.cachedCredentials), null)
-        return value != null
-        */
+
         val auth0 = Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain))
         val authAPIClient = AuthenticationAPIClient(auth0)
         val sharedPrefStorage = SharedPreferencesStorage(this)
@@ -267,7 +230,7 @@ class MainActivity : AppCompatActivity(), IAccountManagement {
 
                 lifecycleScope.launch(Dispatchers.IO) {
 
-                    val url = ApiService.BASE_URL + "/api/getAllUsers"
+                    val url = RetrofitApiService.BASE_URL + "/api/getAllUsers"
 
                     Fuel.get(url)
                         .authentication()

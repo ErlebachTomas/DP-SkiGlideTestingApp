@@ -13,7 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.snackbar.Snackbar
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.ActivityRecommendationBinding
-import cz.erlebach.skitesting.network.ApiService
+import cz.erlebach.skitesting.network.RetrofitApiService
 import cz.erlebach.skitesting.network.IWebApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,7 +61,7 @@ class RecommendationActivity : AppCompatActivity() {
      */
     private fun retrofitApiCall(view: View) {
 
-        val BASE_URL = ApiService.BASE_URL
+        val BASE_URL = RetrofitApiService.BASE_URL
 
         Snackbar.make(view, "Call " + BASE_URL, Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
