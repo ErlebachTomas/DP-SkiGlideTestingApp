@@ -40,23 +40,21 @@ import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
-
-    lateinit var PACKAGE_NAME: String
-
     /**
      * Instance vazební třídy obsahující přímé odkazy (nahrazuje findViewById konstrukci)
      */
     private lateinit var binding: ActivityMainBinding
-    private val authManager = SessionManager(this)
+    private lateinit var authManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        PACKAGE_NAME = applicationContext.packageName
+        // val PACKAGE_NAME = applicationContext.packageName
         binding = ActivityMainBinding.inflate(layoutInflater) // metoda generující binding class
 
-        log("s")
+        this.authManager = SessionManager(this)
+
         checkAllpermissions()
 
         if (!this.isDeviceOnline(this)) {
@@ -104,6 +102,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
 
     /**
      * kontrola aktivniho přihlašeni

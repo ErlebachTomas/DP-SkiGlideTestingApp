@@ -32,7 +32,7 @@ class SessionManager(val context: Context)  {
 
     val credentialsManager: CredentialsManager
 
-    private val account: Auth0 = Auth0(
+    val account: Auth0 = Auth0(
         context.resources.getString(R.string.auth0_client_id),
         context.resources.getString(R.string.auth0_domain)
     )  /* Auth0 */

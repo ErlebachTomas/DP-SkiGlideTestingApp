@@ -4,6 +4,9 @@ package cz.erlebach.skitesting.repository
 import androidx.lifecycle.LiveData
 import cz.erlebach.skitesting.db.SkiDao
 import cz.erlebach.skitesting.model.Ski
+import cz.erlebach.skitesting.network.RetrofitApiService
+import cz.erlebach.skitesting.network.TestData
+import retrofit2.Response
 
 class SkiRepository(private val skiDao: SkiDao) {
 

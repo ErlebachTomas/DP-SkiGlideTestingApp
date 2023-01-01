@@ -20,11 +20,10 @@ import cz.erlebach.skitesting.utils.DateConverters
 @TypeConverters(DateConverters::class)
 abstract class MyDatabase : RoomDatabase() {
 
-    // todo ostatni dao
+    // Dao --------------------------------
     abstract fun skiDao(): SkiDao
     abstract fun testSessionDao(): TestSessionDao
     abstract fun skiRideDao(): SkiRideDao
-
 
     companion object {
 

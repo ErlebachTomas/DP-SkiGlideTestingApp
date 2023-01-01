@@ -1,15 +1,31 @@
 package cz.erlebach.skitesting.fragments.recommendation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import cz.erlebach.skitesting.MainActivity
+import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.extensions.authentication
+import com.github.kittinunf.fuel.json.responseJson
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.common.SessionManager
+import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentRecommendationFirstBinding
-
+import cz.erlebach.skitesting.network.RetrofitApiService
+import cz.erlebach.skitesting.network.TestData
+import cz.erlebach.skitesting.repository.RemoteServerRepository
+import cz.erlebach.skitesting.utils.err
+import cz.erlebach.skitesting.utils.log
+import cz.erlebach.skitesting.viewModel.RemoteServerVM
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 /**
@@ -30,12 +46,56 @@ class FirstFragment : Fragment() {
 
         _binding = FragmentRecommendationFirstBinding.inflate(inflater, container, false)
 
-        /*
-       binding.recApiCall.setOnClickListener {
-        // todo api call ?
-       }
-        */
 
+       binding.recApiCall.setOnClickListener {
+           log("recApiCall")
+           lifecycleScope.launch(Dispatchers.IO) {
+               val authManager = SessionManager(requireContext())
+               val token = authManager.fetchAuthToken()
+               log(token)
+
+               val url = RetrofitApiService.BASE_URL + "/api/getAllUsers"
+
+               Fuel.get(url)
+                   .authentication()
+                   .bearer(token)
+                   .responseJson { _, _, result ->
+                       result.fold(success = { json ->
+                           log("Access token work, retrieve:")
+                           log(json.array().toString())
+
+                       }, failure = { error ->
+                           err(error.toString())
+                       })
+                   }
+
+           }
+
+       }
+        binding.recapibtn.setOnClickListener {
+            // TODO api test
+            log("====== TEST =====")
+            val data = TestData("testuju!!!")
+
+            val viewModelFactory = MyViewModelFactory(RemoteServerRepository(requireContext()))
+            val viewModel = ViewModelProvider(this, viewModelFactory)[RemoteServerVM::class.java]
+
+            viewModel.testPost(data)
+
+            viewModel.get2Response()
+            viewModel.res2.observe(viewLifecycleOwner, Observer { response ->
+                if(response.isSuccessful){
+                    log( response.body().toString())
+                    log( response.code().toString())
+                    log(response.headers().toString())
+                } else {
+                    err(response.message())
+                }
+            })
+
+            viewModel.res.value?.data?.let { log(it) }
+
+        }
         return binding.root
 
     }
