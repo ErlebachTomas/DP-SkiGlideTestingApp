@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         // val PACKAGE_NAME = applicationContext.packageName
         binding = ActivityMainBinding.inflate(layoutInflater) // metoda generující binding class
 
-        this.authManager = SessionManager(this)
+        this.authManager = SessionManager(this) // todo applicationContext or this?
 
         checkAllpermissions()
 
@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity() {
             if (authManager.checkIfloginInfoAlreadyExist()) {
                 changeFragmentTo(HomeFragment())
             } else {
+                log("Authent")
                 changeFragmentTo(LoginFragment())
             }
         }

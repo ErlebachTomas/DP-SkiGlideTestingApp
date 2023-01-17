@@ -54,7 +54,9 @@ class FirstFragment : Fragment() {
                val token = authManager.fetchAuthToken()
                log(token)
 
-               val url = RetrofitApiService.BASE_URL + "/api/getAllUsers"
+              // val url = RetrofitApiService.BASE_URL + "/api/getAllUsers"
+               val url = RetrofitApiService.BASE_URL + "/api/private"
+
 
                Fuel.get(url)
                    .authentication()
@@ -72,7 +74,7 @@ class FirstFragment : Fragment() {
            }
 
        }
-        binding.recapibtn.setOnClickListener {
+        binding.recapibtn2.setOnClickListener {
             // TODO api test
             log("====== TEST =====")
             val data = TestData("testuju!!!")
@@ -85,6 +87,7 @@ class FirstFragment : Fragment() {
             viewModel.get2Response()
             viewModel.res2.observe(viewLifecycleOwner, Observer { response ->
                 if(response.isSuccessful){
+                    log("get2 retrieve:")
                     log( response.body().toString())
                     log( response.code().toString())
                     log(response.headers().toString())
@@ -93,7 +96,9 @@ class FirstFragment : Fragment() {
                 }
             })
 
-            viewModel.res.value?.data?.let { log(it) }
+            viewModel.res.value?.data?.let {
+                log("testGet() data:")
+                log(it) }
 
         }
         return binding.root

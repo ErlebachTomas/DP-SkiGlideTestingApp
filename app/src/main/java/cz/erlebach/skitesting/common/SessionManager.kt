@@ -32,10 +32,13 @@ class SessionManager(val context: Context)  {
 
     val credentialsManager: CredentialsManager
 
+
     val account: Auth0 = Auth0(
         context.resources.getString(R.string.auth0_client_id),
         context.resources.getString(R.string.auth0_domain)
-    )  /* Auth0 */
+    )
+     /* Auth0 */
+
 
     init {
         val authAPIClient = AuthenticationAPIClient(account)
@@ -58,10 +61,12 @@ class SessionManager(val context: Context)  {
             }
             override fun onSuccess(result: Credentials) {
                 log("Access token retrieved")
+                log(result.expiresAt.toString())
                 conn.resume(result.accessToken)
             }
         })
     }
+
 
     companion object {
         /**
@@ -91,7 +96,7 @@ class SessionManager(val context: Context)  {
             .login(account)
             .withScheme( getString((R.string.auth0_scheme)) )
             .withScope( getString(R.string.login_scopes) )
-            .withAudience( context.resources.getString(R.string.login_audience, getString(R.string.auth0_domain)) )
+            .withAudience(getString(R.string.api_identifier)) // API_id v auth0 slouží jako audience, jinak nefunguje na serveru token k api
             .start(this.context, object : Callback<Credentials, AuthenticationException> {
 
              /** uloží credentials a vyvolá callback */

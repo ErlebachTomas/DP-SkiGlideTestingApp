@@ -16,7 +16,7 @@ interface IWebApi {
     fun getTestData(): Call<TestData>
 
     @GET("/api/data")
-    fun getTestData2(): Response<TestData>
+    suspend fun getTestData2(): Response<TestData>
 
     @POST("/api/post-test")
     suspend fun testPost(

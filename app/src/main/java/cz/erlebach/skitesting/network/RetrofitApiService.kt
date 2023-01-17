@@ -12,8 +12,8 @@ class RetrofitApiService(context: Context) {
 
     companion object {
       /** URL API */
-      // const val BASE_URL = "http://skitest.nti.tul.cz:3000"
-     const val BASE_URL = "https://1572-2a00-1028-83ca-8026-fda9-f10-c74f-c9e0.eu.ngrok.io"
+     const val BASE_URL = "http://skitest.nti.tul.cz:1337"
+    // const val BASE_URL = "https://0fdd-2a00-1028-83ca-8026-849f-50a0-fbce-e18.eu.ngrok.io"
     }
 
     private val client = OkHttpClient.Builder().apply {

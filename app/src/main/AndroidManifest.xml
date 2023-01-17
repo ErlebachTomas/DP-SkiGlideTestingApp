@@ -15,11 +15,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SkiTesting"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".activity.MeasurementActivity"
             android:exported="true" >
-
+            <!--  android:usesCleartextTraffic="true" enable http -->
 
         </activity>
         <activity

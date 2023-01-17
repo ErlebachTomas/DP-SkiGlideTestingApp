@@ -12,7 +12,7 @@ import retrofit2.awaitResponse
 class RemoteServerVM(private val repository: RemoteServerRepository): ViewModel() {
 
    var res: MutableLiveData<TestData> = MutableLiveData()
-   var res2 : MutableLiveData<Response<TestData>> = MutableLiveData()
+   var res2 : MutableLiveData<Response<TestData>> = MutableLiveData() // TODO this
 
     fun testPost(testData: TestData) {
         viewModelScope.launch {
