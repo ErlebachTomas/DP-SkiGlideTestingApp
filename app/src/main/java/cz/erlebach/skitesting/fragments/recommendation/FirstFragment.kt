@@ -1,11 +1,9 @@
 package cz.erlebach.skitesting.fragments.recommendation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +18,7 @@ import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentRecommendationFirstBinding
 import cz.erlebach.skitesting.network.RetrofitApiService
 import cz.erlebach.skitesting.network.TestData
-import cz.erlebach.skitesting.repository.RemoteServerRepository
+import cz.erlebach.skitesting.repository.remote.RemoteServerRepository
 import cz.erlebach.skitesting.utils.err
 import cz.erlebach.skitesting.utils.log
 import cz.erlebach.skitesting.viewModel.RemoteServerVM
@@ -76,10 +74,10 @@ class FirstFragment : Fragment() {
        }
         binding.recapibtn2.setOnClickListener {
             // TODO api test
-            log("====== TEST =====")
             val data = TestData("testuju!!!")
 
-            val viewModelFactory = MyViewModelFactory(RemoteServerRepository(requireContext()))
+            val repo = RemoteServerRepository(requireContext())
+            val viewModelFactory = MyViewModelFactory(RemoteServerVM(repo))
             val viewModel = ViewModelProvider(this, viewModelFactory)[RemoteServerVM::class.java]
 
             viewModel.testPost(data)
@@ -95,10 +93,6 @@ class FirstFragment : Fragment() {
                     err(response.message())
                 }
             })
-
-            viewModel.res.value?.data?.let {
-                log("testGet() data:")
-                log(it) }
 
         }
         return binding.root

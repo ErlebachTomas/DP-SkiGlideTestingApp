@@ -1,9 +1,9 @@
-package cz.erlebach.skitesting.viewModel
+package cz.erlebach.skitesting.viewModel.local
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import cz.erlebach.skitesting.repository.BaseRepository
+import cz.erlebach.skitesting.repository.local.BaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

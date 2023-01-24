@@ -1,4 +1,4 @@
-package cz.erlebach.skitesting.repository
+package cz.erlebach.skitesting.repository.local
 
 import androidx.lifecycle.LiveData
 import cz.erlebach.skitesting.db.TestSessionDao

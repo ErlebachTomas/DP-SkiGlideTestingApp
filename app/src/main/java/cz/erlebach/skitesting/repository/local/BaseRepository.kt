@@ -1,4 +1,4 @@
-package cz.erlebach.skitesting.repository
+package cz.erlebach.skitesting.repository.local
 import cz.erlebach.skitesting.db.BaseDao
 
 /**

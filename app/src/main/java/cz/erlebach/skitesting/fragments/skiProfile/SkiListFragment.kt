@@ -2,19 +2,26 @@ package cz.erlebach.skitesting.fragments.skiProfile
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.common.template.MyViewModelFactory
+import cz.erlebach.skitesting.repository.remote.RemoteServerRepository
+import cz.erlebach.skitesting.repository.remote.SkiRemoteRepository
+import cz.erlebach.skitesting.utils.err
+import cz.erlebach.skitesting.utils.log
+import cz.erlebach.skitesting.viewModel.RemoteServerVM
 
-import cz.erlebach.skitesting.viewModel.SkiVM
+import cz.erlebach.skitesting.viewModel.local.SkiVM
+import cz.erlebach.skitesting.viewModel.remote.SkiRemoteVM
 
 
 class SkiListFragment : Fragment() {
@@ -56,7 +63,35 @@ class SkiListFragment : Fragment() {
     /** Inicializace vm a adaptéru */
     private fun init(view : View ) {
 
-         skiViewModel = ViewModelProvider(
+
+        // todo check internet connection
+
+        val repository = SkiRemoteRepository(requireContext())
+        val viewModelFactory = MyViewModelFactory(SkiRemoteVM(repository))
+        val viewModel = ViewModelProvider(this, viewModelFactory)[SkiRemoteVM::class.java]
+
+        //viewModel.fetchData()
+
+        val adapter = SkiListAdapter()
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.fsl_recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+
+
+        viewModel.data.observe(viewLifecycleOwner, Observer { response ->
+                if(response.isSuccessful){
+                    response.body()?.let { adapter.setData(it) }
+                } else {
+                    err(response.message())
+                }
+            })
+        }
+
+    /** Načte z ROOM */
+    private fun localStorage(view : View) {
+
+        skiViewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
         ).get(
@@ -71,11 +106,12 @@ class SkiListFragment : Fragment() {
 
 
         skiViewModel.readAllData.observe(viewLifecycleOwner) { ski ->
-                adapter.setData(ski)
+            adapter.setData(ski)
         }
 
-
     }
+
+
     /** vymazat vše */
     private fun deleteAllItems() {
         val builder = AlertDialog.Builder(requireContext())

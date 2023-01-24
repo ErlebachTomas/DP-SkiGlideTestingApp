@@ -11,8 +11,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import cz.erlebach.skitesting.databinding.FragmentMeasurementSkiRideListBinding
-import cz.erlebach.skitesting.viewModel.SkiRideVM
-import cz.erlebach.skitesting.viewModel.TestSessionVM
+import cz.erlebach.skitesting.viewModel.local.SkiRideVM
 
 class SkiRideListFragment : Fragment() {
 

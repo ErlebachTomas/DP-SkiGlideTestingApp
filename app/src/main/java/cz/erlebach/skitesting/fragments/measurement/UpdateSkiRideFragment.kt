@@ -13,7 +13,7 @@ import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.FragmentMeasurementUpdateSkiRideBinding
 import cz.erlebach.skitesting.model.SkiRide
 import cz.erlebach.skitesting.utils.generateDateISO8601string
-import cz.erlebach.skitesting.viewModel.SkiRideVM
+import cz.erlebach.skitesting.viewModel.local.SkiRideVM
 
 
 class UpdateSkiRideFragment : Fragment() {

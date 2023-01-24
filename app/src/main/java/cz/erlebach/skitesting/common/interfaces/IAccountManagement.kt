@@ -1,13 +1,15 @@
 package cz.erlebach.skitesting.common.interfaces
 
+import com.auth0.android.authentication.AuthenticationException
+import com.auth0.android.callback.Callback
+import com.auth0.android.result.Credentials
+
 interface IAccountManagement {
 
     /** Přihlášení k účtu
-     * @return true pokud se přihlášení zdařilo
-     * */
-    fun login() : Boolean
+     */
+    fun login(callback: Callback<Credentials, AuthenticationException>)
 
-    /** Odhlášení z uživatelského účtu
-     * @return true podud se odhlášení zdařilo */
-    fun logout(): Boolean
+    /** Odhlášení z uživatelského účtu */
+    fun logout(callback: Callback<Void?, AuthenticationException>)
 }

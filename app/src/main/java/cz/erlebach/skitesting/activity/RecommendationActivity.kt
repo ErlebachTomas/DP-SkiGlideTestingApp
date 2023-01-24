@@ -66,8 +66,8 @@ class RecommendationActivity : AppCompatActivity() {
         Snackbar.make(view, "Call " + BASE_URL, Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
 
-        // todo pokrocila implementace dle API, trida API client
-        // test https://ski-glide-testing.herokuapp.com/api/data
+        // todo cele odstranit
+
 
         val api = Retrofit.Builder()
             .baseUrl(BASE_URL)

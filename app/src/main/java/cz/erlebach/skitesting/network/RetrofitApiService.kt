@@ -1,6 +1,7 @@
 package cz.erlebach.skitesting.network
 
 import android.content.Context
+import cz.erlebach.skitesting.R
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -11,9 +12,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitApiService(context: Context) {
 
     companion object {
-      /** URL API */
-     const val BASE_URL = "http://skitest.nti.tul.cz:1337"
-    // const val BASE_URL = "https://0fdd-2a00-1028-83ca-8026-849f-50a0-fbce-e18.eu.ngrok.io"
+      /** URL API */ // undone načítat ze settings
+    // const val BASE_URL = "http://skitest.nti.tul.cz:1337"
+
+    const val BASE_URL = "https://2d77-2a00-1028-83ca-8026-b54f-8899-bca1-a30d.eu.ngrok.io"
+
+
+
+      const val URL = "$BASE_URL/api/"
     }
 
     private val client = OkHttpClient.Builder().apply {
@@ -22,8 +28,9 @@ class RetrofitApiService(context: Context) {
 
     /**  Retrofit instance */
     private val retrofit by lazy {
+
         Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

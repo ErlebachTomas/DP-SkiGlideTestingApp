@@ -1,21 +1,16 @@
 package cz.erlebach.skitesting.fragments.measurement
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.FragmentMeasurementListBinding
-import cz.erlebach.skitesting.model.TestSession
-import cz.erlebach.skitesting.viewModel.TestSessionVM
-import java.util.*
+import cz.erlebach.skitesting.viewModel.local.TestSessionVM
 
 class MeasurementListFragment : Fragment() {
 

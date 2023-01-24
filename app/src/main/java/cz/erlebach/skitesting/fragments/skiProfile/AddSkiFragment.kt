@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.utils.generateDateISO8601string
-import cz.erlebach.skitesting.viewModel.SkiVM
+import cz.erlebach.skitesting.viewModel.local.SkiVM
 
 
 /**

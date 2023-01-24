@@ -11,3 +11,7 @@ fun log(text: String, tag: String = TAG) {
 fun err(text: String, tag: String = TAG) {
     Log.e(tag, text)
 }
+/** info log */
+fun info(text: String, tag: String = TAG) {
+    Log.i(tag, text)
+}

@@ -1,4 +1,4 @@
-package cz.erlebach.skitesting.viewModel
+package cz.erlebach.skitesting.viewModel.local
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -8,7 +8,7 @@ import cz.erlebach.skitesting.MyDatabase
 import cz.erlebach.skitesting.model.Ski
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import cz.erlebach.skitesting.repository.SkiRepository
+import cz.erlebach.skitesting.repository.local.SkiRepository
 
 /**
  * ViewModel s využitím Kotlin coroutines

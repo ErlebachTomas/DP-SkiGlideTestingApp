@@ -15,6 +15,7 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.json.responseJson
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.common.interfaces.IAccountManagement
 import cz.erlebach.skitesting.network.RetrofitApiService
 import cz.erlebach.skitesting.utils.err
 import cz.erlebach.skitesting.utils.log
@@ -28,12 +29,12 @@ import kotlin.coroutines.resumeWithException
  * Auth0 klient
  * @author Tomas Erlebach
  */
-class SessionManager(val context: Context)  {
+class SessionManager(val context: Context) : IAccountManagement {
 
     val credentialsManager: CredentialsManager
 
 
-    val account: Auth0 = Auth0(
+    private val account: Auth0 = Auth0(
         context.resources.getString(R.string.auth0_client_id),
         context.resources.getString(R.string.auth0_domain)
     )
@@ -90,7 +91,7 @@ class SessionManager(val context: Context)  {
      * Funkce pro přihlášení uživatele do aplikace
      * @param callback
      */
-     fun login(callback: Callback<Credentials, AuthenticationException>) {
+    override fun login(callback: Callback<Credentials, AuthenticationException>) {
 
         WebAuthProvider
             .login(account)
@@ -116,7 +117,7 @@ class SessionManager(val context: Context)  {
      * Odhlášení uživateslkého účtu z aplikace
      * @param callback
      */
-     fun logout(callback: Callback<Void?, AuthenticationException>) {
+    override fun logout(callback: Callback<Void?, AuthenticationException>) {
          WebAuthProvider
              .logout(account) // Auth0 tenant account
              .withScheme(getString(R.string.auth0_scheme)) // The callback scheme

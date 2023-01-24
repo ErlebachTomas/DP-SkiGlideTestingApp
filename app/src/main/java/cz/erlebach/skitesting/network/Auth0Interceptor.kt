@@ -8,7 +8,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 
 /**
- * Interceptor slouží pro přidání Auth0 tokenu do každého requestu
+ * Interceptor slouží pro přidání Auth0 tokenu do hlavičky každého requestu
  */
 class Auth0Interceptor(context: Context) : Interceptor {
 
