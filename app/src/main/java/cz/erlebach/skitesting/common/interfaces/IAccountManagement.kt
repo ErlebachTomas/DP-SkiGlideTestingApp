@@ -12,4 +12,5 @@ interface IAccountManagement {
 
     /** Odhlášení z uživatelského účtu */
     fun logout(callback: Callback<Void?, AuthenticationException>)
+
 }

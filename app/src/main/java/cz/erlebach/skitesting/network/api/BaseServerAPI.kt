@@ -1,10 +1,8 @@
-package cz.erlebach.skitesting.common.interfaces
+package cz.erlebach.skitesting.network.api
 
 import retrofit2.Response
 
-/** šablona pro vzdálený repozitář */
-interface IRemoteServerRepository<T> {
-
+interface BaseServerAPI<T> {
     /**
      * @param [userID] jednoznačné id uživatele
      * @return [T] data object from remote server

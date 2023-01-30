@@ -40,6 +40,7 @@ open class GenericRemoteServerVM<T>(private val repository: IRemoteServerReposit
 
 
 
+
     // todo ostatni crud a LiveData<Response<List<T>> ?
 
 }
