@@ -81,6 +81,7 @@
     <string name="testType">type of test</string>
     <string name="mfNoteHint">note</string>
     <string name="humidity">Humidity %</string>
+    <string name="title_activity_user_profile">UserProfileActivity</string>
 
 
 </resources>

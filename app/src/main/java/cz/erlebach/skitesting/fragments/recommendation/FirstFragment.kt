@@ -20,7 +20,7 @@ import cz.erlebach.skitesting.network.RetrofitApiService
 import cz.erlebach.skitesting.network.TestData
 import cz.erlebach.skitesting.repository.remote.RemoteServerRepository
 import cz.erlebach.skitesting.utils.err
-import cz.erlebach.skitesting.utils.log
+import cz.erlebach.skitesting.utils.lg
 import cz.erlebach.skitesting.viewModel.RemoteServerVM
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -46,11 +46,11 @@ class FirstFragment : Fragment() {
 
 
        binding.recApiCall.setOnClickListener {
-           log("recApiCall")
+           lg("recApiCall")
            lifecycleScope.launch(Dispatchers.IO) {
                val authManager = SessionManager(requireContext())
                val token = authManager.fetchAuthToken()
-               log(token)
+               lg(token)
 
               // val url = RetrofitApiService.BASE_URL + "/api/getAllUsers"
                val url = RetrofitApiService.BASE_URL + "/api/private"
@@ -61,8 +61,8 @@ class FirstFragment : Fragment() {
                    .bearer(token)
                    .responseJson { _, _, result ->
                        result.fold(success = { json ->
-                           log("Access token work, retrieve:")
-                           log(json.array().toString())
+                           lg("Access token work, retrieve:")
+                           lg(json.array().toString())
 
                        }, failure = { error ->
                            err(error.toString())
@@ -85,10 +85,10 @@ class FirstFragment : Fragment() {
             viewModel.get2Response()
             viewModel.res2.observe(viewLifecycleOwner, Observer { response ->
                 if(response.isSuccessful){
-                    log("get2 retrieve:")
-                    log( response.body().toString())
-                    log( response.code().toString())
-                    log(response.headers().toString())
+                    lg("get2 retrieve:")
+                    lg( response.body().toString())
+                    lg( response.code().toString())
+                    lg(response.headers().toString())
                 } else {
                     err(response.message())
                 }

@@ -8,6 +8,6 @@ interface IRemoteServerRepository<T> {
     /**
      * @return [T] data object from remote server
      */
-    suspend fun getAllData() : Response<T>
+    suspend fun getAllData(userID: String) : Response<List<T>>
 
 }

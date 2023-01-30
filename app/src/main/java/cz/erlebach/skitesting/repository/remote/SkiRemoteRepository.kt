@@ -11,13 +11,13 @@ import retrofit2.Call
 import retrofit2.Response
 
 class SkiRemoteRepository(val context: Context)
-    : IRemoteServerRepository<List<Ski>>
+    : IRemoteServerRepository<Ski>
     {
     private val api = RetrofitApiService(this.context).skiTestingServerAPI
 
 
-    override suspend fun getAllData(): Response<List<Ski>> {
-        return api.getAllUsersSki()
+    override suspend fun getAllData(userID: String): Response<List<Ski>> {
+        return api.getAllUsersSki(userID)
     }
 
 

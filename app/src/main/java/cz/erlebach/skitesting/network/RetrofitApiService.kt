@@ -15,7 +15,7 @@ class RetrofitApiService(context: Context) {
       /** URL API */ // undone načítat ze settings
     // const val BASE_URL = "http://skitest.nti.tul.cz:1337"
 
-    const val BASE_URL = "https://2d77-2a00-1028-83ca-8026-b54f-8899-bca1-a30d.eu.ngrok.io"
+    const val BASE_URL = "https://5f6c-2001-718-1c01-152-4143-7712-b3ff-ef26.eu.ngrok.io"
 
 
 

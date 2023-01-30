@@ -26,8 +26,8 @@ interface IWebApi {
     ): Response<TestData>
 
 
-    @GET("getAllUsersSki?user=auth0|62c3317067fdea356d289028")
-    suspend fun getAllUsersSki(): Response<List<Ski>> //todo query
+    @GET("getAllUsersSki")
+    suspend fun getAllUsersSki( @Query("user") userID: String): Response<List<Ski>> //todo query ?user=auth0|62c3317067fdea356d289028
 
 
 }

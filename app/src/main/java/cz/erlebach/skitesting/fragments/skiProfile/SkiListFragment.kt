@@ -14,11 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.template.MyViewModelFactory
-import cz.erlebach.skitesting.repository.remote.RemoteServerRepository
 import cz.erlebach.skitesting.repository.remote.SkiRemoteRepository
 import cz.erlebach.skitesting.utils.err
-import cz.erlebach.skitesting.utils.log
-import cz.erlebach.skitesting.viewModel.RemoteServerVM
 
 import cz.erlebach.skitesting.viewModel.local.SkiVM
 import cz.erlebach.skitesting.viewModel.remote.SkiRemoteVM
@@ -63,11 +60,11 @@ class SkiListFragment : Fragment() {
     /** Inicializace vm a adaptéru */
     private fun init(view : View ) {
 
-
+        val userID = "auth0|62c3317067fdea356d289028" // todo get UserID
         // todo check internet connection
 
         val repository = SkiRemoteRepository(requireContext())
-        val viewModelFactory = MyViewModelFactory(SkiRemoteVM(repository))
+        val viewModelFactory = MyViewModelFactory(SkiRemoteVM(repository,userID))
         val viewModel = ViewModelProvider(this, viewModelFactory)[SkiRemoteVM::class.java]
 
         //viewModel.fetchData()
@@ -78,10 +75,10 @@ class SkiListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
-
         viewModel.data.observe(viewLifecycleOwner, Observer { response ->
-                if(response.isSuccessful){
-                    response.body()?.let { adapter.setData(it) }
+
+            if(response.isSuccessful){
+                response.body()?.let { adapter.setData(it) }
                 } else {
                     err(response.message())
                 }

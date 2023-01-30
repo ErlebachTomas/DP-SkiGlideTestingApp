@@ -12,6 +12,7 @@ import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.activity.MeasurementActivity
 import cz.erlebach.skitesting.activity.RecommendationActivity
 import cz.erlebach.skitesting.activity.SkiProfileActivity
+import cz.erlebach.skitesting.activity.UserProfileActivity
 
 /**
 Domovská obrazovka
@@ -30,10 +31,6 @@ class HomeFragment : Fragment() {
         val myView = inflater.inflate(R.layout.fragment_main_home, container, false)
 
         myView.findViewById<Button>(R.id.btn_sign_out).setOnClickListener { _ ->
-            (activity as MainActivity?)!!.logout()
-        }
-
-        myView.findViewById<Button>(R.id.btn_ski_profile).setOnClickListener { _ ->
             (activity as MainActivity?)!!.logout()
         }
 
@@ -58,6 +55,11 @@ class HomeFragment : Fragment() {
             (activity as MainActivity?)!!.apiCall()
         }
 
+        myView.findViewById<Button>(R.id.btn_userProfile).setOnClickListener { _ ->
+
+            val intent = Intent(activity, UserProfileActivity::class.java)
+            startActivity(intent)
+        }
 
         return myView
 

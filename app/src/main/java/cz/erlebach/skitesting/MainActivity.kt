@@ -20,7 +20,6 @@ import com.auth0.android.authentication.storage.CredentialsManager
 import com.auth0.android.authentication.storage.CredentialsManagerException
 import com.auth0.android.authentication.storage.SharedPreferencesStorage
 import com.auth0.android.callback.Callback
-import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.extensions.authentication
@@ -33,7 +32,7 @@ import cz.erlebach.skitesting.fragments.LoginFragment
 import cz.erlebach.skitesting.fragments.NoConnectionFragment
 import cz.erlebach.skitesting.network.RetrofitApiService
 import cz.erlebach.skitesting.utils.err
-import cz.erlebach.skitesting.utils.log
+import cz.erlebach.skitesting.utils.lg
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -60,10 +59,10 @@ class MainActivity : AppCompatActivity() {
         if (!this.isDeviceOnline(this)) {
             changeFragmentTo(NoConnectionFragment()) // undone offline politika
         } else {
-            if (authManager.checkIfloginInfoAlreadyExist()) {
+            if (authManager.checkIfloginIsValid()) {
                 changeFragmentTo(HomeFragment())
             } else {
-                log("Authent")
+                lg("Authent")
                 changeFragmentTo(LoginFragment())
             }
         }
@@ -129,7 +128,7 @@ class MainActivity : AppCompatActivity() {
             != PackageManager.PERMISSION_GRANTED
         // || ...
         ) {
-            log("vyzadovano udeleni opravneni ")
+            lg("vyzadovano udeleni opravneni ")
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(
@@ -140,7 +139,7 @@ class MainActivity : AppCompatActivity() {
                 requestCode
             )
         } else {
-            log("opravneni udeleno")
+            lg("opravneni udeleno")
         }
 
     }
@@ -163,7 +162,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Zobrazí toast */
     private fun toast(text: String, length: Int = Toast.LENGTH_SHORT) {
-        log(text)
+        lg(text)
         Toast.makeText(applicationContext, text, length).show()
     }
 
@@ -213,7 +212,7 @@ class MainActivity : AppCompatActivity() {
             override fun onSuccess(result: Credentials) {
 
                 token = result.accessToken
-                log("Access token retrieved")
+                lg("Access token retrieved")
 
                 lifecycleScope.launch(Dispatchers.IO) {
 
@@ -224,8 +223,8 @@ class MainActivity : AppCompatActivity() {
                         .bearer(token)
                         .responseJson { _, _, result ->
                             result.fold(success = { json ->
-                                log("Access token work, retrieve:")
-                                log(json.array().toString())
+                                lg("Access token work, retrieve:")
+                                lg(json.array().toString())
 
                             }, failure = { error ->
                                 err(error.toString())
@@ -250,8 +249,8 @@ class MainActivity : AppCompatActivity() {
                 .bearer(authManager.fetchAuthToken())
                 .responseJson { _, _, result ->
                     result.fold(success = { json ->
-                        log("Access token work, retrieve:")
-                        log(json.array().toString())
+                        lg("Access token work, retrieve:")
+                        lg(json.array().toString())
 
                     }, failure = { error ->
                         err(error.toString())

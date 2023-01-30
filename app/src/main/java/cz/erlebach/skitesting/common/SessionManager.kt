@@ -1,7 +1,6 @@
 package cz.erlebach.skitesting.common
 
 import android.content.Context
-import androidx.lifecycle.lifecycleScope
 import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationAPIClient
 import com.auth0.android.authentication.AuthenticationException
@@ -11,16 +10,10 @@ import com.auth0.android.authentication.storage.SharedPreferencesStorage
 import com.auth0.android.callback.Callback
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
-import com.github.kittinunf.fuel.Fuel
-import com.github.kittinunf.fuel.core.extensions.authentication
-import com.github.kittinunf.fuel.json.responseJson
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.interfaces.IAccountManagement
-import cz.erlebach.skitesting.network.RetrofitApiService
 import cz.erlebach.skitesting.utils.err
-import cz.erlebach.skitesting.utils.log
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import cz.erlebach.skitesting.utils.lg
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -40,6 +33,7 @@ class SessionManager(val context: Context) : IAccountManagement {
     )
      /* Auth0 */
 
+    val accountAuth0 get() = account
 
     init {
         val authAPIClient = AuthenticationAPIClient(account)
@@ -61,8 +55,8 @@ class SessionManager(val context: Context) : IAccountManagement {
                 conn.resumeWithException(error)
             }
             override fun onSuccess(result: Credentials) {
-                log("Access token retrieved")
-                log(result.expiresAt.toString())
+                lg("Access token retrieved")
+                lg(result.expiresAt.toString())
                 conn.resume(result.accessToken)
             }
         })
@@ -74,7 +68,7 @@ class SessionManager(val context: Context) : IAccountManagement {
          * kontrola aktivniho přihlašeni
          * @param context
          */
-        fun checkIfloginInfoAlreadyExist(context: Context): Boolean {
+        fun checkIfloginIsValid(context: Context): Boolean {
 
             val auth0 = Auth0(
                 context.resources.getString(R.string.auth0_client_id),
@@ -130,9 +124,10 @@ class SessionManager(val context: Context) : IAccountManagement {
     }
     /**
     * kontrola aktivniho přihlašeni */
-    fun checkIfloginInfoAlreadyExist(): Boolean {
+    fun checkIfloginIsValid(): Boolean {
         return credentialsManager.hasValidCredentials()
     }
 
 
+    //todo userInfo
 }
