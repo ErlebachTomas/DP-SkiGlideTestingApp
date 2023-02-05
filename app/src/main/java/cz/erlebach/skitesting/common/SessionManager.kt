@@ -1,7 +1,6 @@
 package cz.erlebach.skitesting.common
 
 import android.content.Context
-import androidx.lifecycle.lifecycleScope
 import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationAPIClient
 import com.auth0.android.authentication.AuthenticationException
@@ -14,19 +13,25 @@ import com.auth0.android.result.Credentials
 import com.auth0.android.result.UserProfile
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.interfaces.IAccountManagement
+import cz.erlebach.skitesting.common.template.SingletonHolder
 import cz.erlebach.skitesting.utils.err
 import cz.erlebach.skitesting.utils.lg
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 /**
- * Auth0 manager, klient pro obsluhu Auth0 služeb
+ * Singleton
+ * Auth0 manager, klient pro obsluhu Auth0 služeb a dále spravuje identitu uživatele v aplikaci
  * @author Tomas Erlebach
  */
-class SessionManager(val context: Context) : IAccountManagement {
+class SessionManager private constructor(val context: Context) : IAccountManagement {
+
+    /**
+     * Poskytuje instanci třídy
+     * Použití: SessionManager.getInstance(context)
+     */
+    companion object: SingletonHolder<SessionManager, Context>(::SessionManager)
 
     val credentialsManager: CredentialsManager
 
@@ -36,8 +41,6 @@ class SessionManager(val context: Context) : IAccountManagement {
         context.resources.getString(R.string.auth0_client_id),
         context.resources.getString(R.string.auth0_domain)
     )
-    /* Auth0 */
-    val accountAuth0 get() = account
 
     init {
         val authAPIClient = AuthenticationAPIClient(account)
@@ -61,33 +64,12 @@ class SessionManager(val context: Context) : IAccountManagement {
             }
 
             override fun onSuccess(result: Credentials) {
-                lg("Access token retrieved")
-                lg(result.expiresAt.toString())
+                //lg("Access token retrieved")
+                //lg(result.expiresAt.toString())
                 conn.resume(result.accessToken)
             }
         })
     }
-
-
-    companion object {
-        /**
-         * kontrola aktivniho přihlašeni
-         * @param context
-         */
-        fun checkIfloginIsValid(context: Context): Boolean {
-
-            val auth0 = Auth0(
-                context.resources.getString(R.string.auth0_client_id),
-                context.resources.getString(R.string.auth0_domain)
-            )
-            val authAPIClient = AuthenticationAPIClient(auth0)
-            val sharedPrefStorage = SharedPreferencesStorage(context)
-            val credentialsManager = CredentialsManager(authAPIClient, sharedPrefStorage)
-
-            return credentialsManager.hasValidCredentials()
-        }
-    }
-
     /**
      * Funkce pro přihlášení uživatele do aplikace
      * @param callback
@@ -137,7 +119,7 @@ class SessionManager(val context: Context) : IAccountManagement {
         return credentialsManager.hasValidCredentials()
     }
     /** získa uživatelské metadata z Auth0 serveru */
-    public suspend fun getUserProfile(callback: Callback<UserProfile, AuthenticationException>) {
+    suspend fun getUserProfile(callback: Callback<UserProfile, AuthenticationException>) {
         val client = AuthenticationAPIClient(account)
         client.userInfo(this.fetchAuthToken())
             .start(object : Callback<UserProfile, AuthenticationException> {
@@ -145,16 +127,16 @@ class SessionManager(val context: Context) : IAccountManagement {
                     callback.onFailure(error)
                 }
 
-                override fun onSuccess(profile: UserProfile) {
-                    cachedUserID = profile.getId()
-                    callback.onSuccess(profile)
+                override fun onSuccess(result: UserProfile) {
+                    cachedUserID = result.getId()
+                    callback.onSuccess(result)
                 }
             })
     }
     /** Vrátí userId
      * @return String userID
      * */
-    public suspend fun getUserID(): String {
+    override suspend fun getUserID(): String {
         if (cachedUserID != null) {
             return cachedUserID!!
         } else {
@@ -168,8 +150,8 @@ class SessionManager(val context: Context) : IAccountManagement {
                             conn.resumeWithException(error)
 
                         }
-                        override fun onSuccess(profile: UserProfile) {
-                            cachedUserID = profile.getId()
+                        override fun onSuccess(result: UserProfile) {
+                            cachedUserID = result.getId()
                             if (cachedUserID != null) {
                                 conn.resume(cachedUserID!!)
                             } else {

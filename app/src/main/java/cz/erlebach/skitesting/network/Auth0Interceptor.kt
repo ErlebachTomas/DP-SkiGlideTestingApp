@@ -12,7 +12,7 @@ import okhttp3.Response
  */
 class Auth0Interceptor(context: Context) : Interceptor {
 
-    private val sessionManager = SessionManager(context)
+    private val sessionManager = SessionManager.getInstance(context)
 
     /** Přidá Bearer token do hlavičky requestu,
      * implementace ověřování tokenu a obnovení tokenu v retrofitu pomocí [sessionManager] a coroutine */

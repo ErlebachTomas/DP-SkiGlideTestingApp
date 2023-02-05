@@ -9,21 +9,27 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.common.SessionManager
 import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.repository.remote.SkiRemoteRepository
 import cz.erlebach.skitesting.utils.err
+import cz.erlebach.skitesting.utils.toast
 
 import cz.erlebach.skitesting.viewModel.local.SkiVM
 import cz.erlebach.skitesting.viewModel.remote.SkiRemoteVM
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class SkiListFragment : Fragment() {
 
-    private lateinit var skiViewModel: SkiVM
+   // private lateinit var skiViewModel: SkiVM
+    private lateinit var skiRemoteViewModel: SkiRemoteVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,14 +66,19 @@ class SkiListFragment : Fragment() {
     /** Inicializace vm a adaptéru */
     private fun init(view : View ) {
 
-        val userID = "auth0|62c3317067fdea356d289028" // todo get UserID
         // todo check internet connection
 
-        val repository = SkiRemoteRepository(requireContext())
-        val viewModelFactory = MyViewModelFactory(SkiRemoteVM(repository,userID))
-        val viewModel = ViewModelProvider(this, viewModelFactory)[SkiRemoteVM::class.java]
+        val account = SessionManager.getInstance(requireContext())
 
-        //viewModel.fetchData()
+        val repository = SkiRemoteRepository(requireContext())
+        val viewModelFactory = MyViewModelFactory(SkiRemoteVM(repository,account))
+
+        try {
+            skiRemoteViewModel = ViewModelProvider(this, viewModelFactory)[SkiRemoteVM::class.java]
+        } catch (err: IllegalStateException) {
+            toast(requireContext(), err.message.toString())
+        }
+
 
         val adapter = SkiListAdapter()
 
@@ -75,7 +86,7 @@ class SkiListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
-        viewModel.data.observe(viewLifecycleOwner, Observer { response ->
+        skiRemoteViewModel.data.observe(viewLifecycleOwner, Observer { response ->
 
             if(response.isSuccessful){
                 response.body()?.let { adapter.setData(it) }
@@ -86,6 +97,7 @@ class SkiListFragment : Fragment() {
         }
 
     /** Načte z ROOM */
+    /*
     private fun localStorage(view : View) {
 
         skiViewModel = ViewModelProvider(
@@ -107,14 +119,15 @@ class SkiListFragment : Fragment() {
         }
 
     }
-
+    */
 
     /** vymazat vše */
     private fun deleteAllItems() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton(getString(R.string.Yes)) { _, _ ->
 
-            skiViewModel.deleteAll()
+           // todo  skiViewModel.deleteAll()
+            skiRemoteViewModel.deleteAll() //todo reload??
 
             Toast.makeText(requireContext(), getString(R.string.delete_success_message), Toast.LENGTH_SHORT).show()
 

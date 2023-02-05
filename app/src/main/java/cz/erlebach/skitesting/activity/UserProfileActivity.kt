@@ -27,7 +27,7 @@ class UserProfileActivity : AppCompatActivity() {
 
         binding.upUsername.text = "Profil" // undone R string
 
-        manager = SessionManager(this)
+        manager = SessionManager.getInstance(this)
 
         binding.upUsername.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch() {

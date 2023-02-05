@@ -17,7 +17,7 @@ import cz.erlebach.skitesting.common.SessionManager
 import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentRecommendationFirstBinding
 import cz.erlebach.skitesting.network.RetrofitApiService
-import cz.erlebach.skitesting.network.TestData
+import cz.erlebach.skitesting.network.model.TestDataBody
 import cz.erlebach.skitesting.repository.remote.RemoteServerRepository
 import cz.erlebach.skitesting.utils.err
 import cz.erlebach.skitesting.utils.lg
@@ -48,7 +48,7 @@ class FirstFragment : Fragment() {
        binding.recApiCall.setOnClickListener {
            lg("recApiCall")
            lifecycleScope.launch(Dispatchers.IO) {
-               val authManager = SessionManager(requireContext())
+               val authManager = SessionManager.getInstance(requireContext())
                val token = authManager.fetchAuthToken()
                lg(token)
 
@@ -74,7 +74,7 @@ class FirstFragment : Fragment() {
        }
         binding.recapibtn2.setOnClickListener {
             // TODO api test
-            val data = TestData("testuju!!!")
+            val data = TestDataBody("testuju!!!")
 
             val repo = RemoteServerRepository(requireContext())
             val viewModelFactory = MyViewModelFactory(RemoteServerVM(repo))

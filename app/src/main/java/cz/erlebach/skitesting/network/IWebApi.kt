@@ -1,6 +1,7 @@
 package cz.erlebach.skitesting.network
 
 import cz.erlebach.skitesting.model.Ski
+import cz.erlebach.skitesting.network.model.TestDataBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -15,15 +16,15 @@ import retrofit2.http.Query
 interface IWebApi {
 
     @GET("data")
-    fun getTestData(): Call<TestData>
+    fun getTestData(): Call<TestDataBody>
 
     @GET("data")
-    suspend fun getTestData2(): Response<TestData>
+    suspend fun getTestData2(): Response<TestDataBody>
 
     @POST("post-test")
     suspend fun testPost(
-        @Body post: TestData
-    ): Response<TestData>
+        @Body post: TestDataBody
+    ): Response<TestDataBody>
 
     @GET("getAllUsersSki")
     suspend fun getAllData( @Query("user") userID: String): Response<List<Ski>> //todo query ?user=auth0|62c3317067fdea356d289028

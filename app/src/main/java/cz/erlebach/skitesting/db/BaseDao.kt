@@ -2,6 +2,7 @@ package cz.erlebach.skitesting.db
 
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Update
 
 /**
@@ -14,7 +15,7 @@ interface BaseDao<T> {
      * Vložení objektu do databáze
      * @param obj, který má být vložen do databáze
      */
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(obj: T)
 
     /**

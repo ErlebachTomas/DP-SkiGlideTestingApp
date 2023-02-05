@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         // val PACKAGE_NAME = applicationContext.packageName
         binding = ActivityMainBinding.inflate(layoutInflater) // metoda generující binding class
 
-        this.authManager = SessionManager(this) // todo applicationContext or this?
+        this.authManager = SessionManager.getInstance(this)
 
         checkAllpermissions()
 

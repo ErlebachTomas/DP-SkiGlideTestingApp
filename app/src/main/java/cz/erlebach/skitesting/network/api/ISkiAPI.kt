@@ -1,19 +1,24 @@
 package cz.erlebach.skitesting.network.api
 
 import cz.erlebach.skitesting.model.Ski
+import cz.erlebach.skitesting.network.model.SkiDataBody
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
-interface ISkiAPI: BaseServerAPI<Ski> {
+interface ISkiAPI {
 
     @GET("getAllUsersSki")
-    override suspend fun getAllData( @Query("user") userID: String): Response<List<Ski>> //todo query ?user=auth0|62c3317067fdea356d289028
+    suspend fun getAllData( @Query("user") userID: String): Response<List<Ski>>
 
-   override suspend fun delete(userID: String, obj: Ski)
+    @POST("deleteSki")
+   suspend fun delete(@Body body: SkiDataBody)
 
-   override suspend fun update(userID: String, obj: Ski)
+    @POST("updateSki")
+   suspend fun update(@Body body: SkiDataBody)
 
-   override suspend fun insert(userID: String, obj: Ski)
+    @POST("addSki")
+    suspend fun insert(@Body body: SkiDataBody)
+    @GET("deleteAllUsersSkis")
+    suspend fun deleteAll(@Query("user") userID: String)
 
 }

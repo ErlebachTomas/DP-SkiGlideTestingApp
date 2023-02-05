@@ -13,4 +13,8 @@ interface IAccountManagement {
     /** Odhlášení z uživatelského účtu */
     fun logout(callback: Callback<Void?, AuthenticationException>)
 
+    /**
+     * ID přihlášeného uživatele
+     * @return jednoznačný identifikátor uživatele */
+    suspend fun getUserID(): String
 }

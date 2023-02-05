@@ -3,14 +3,46 @@ info:
   title: DP
   version: 1.0.0
 servers:
-  - url: http://localhost:1337/
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/ErlebachTomas/DP-API/1.0.0
+  - url: http://localhost:1337/api/
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
+  schemas:
+    User:
+      type: object
+      properties:
+        user_id:
+          type: string
+          description: Unique ID of the user
+        email:
+          type: string
+          description: Email address of the user
+        name:
+          type: string
+          description: Name of the user
+        updated_at:
+          type: string
+          description: Timestamp of when the user was last updated
+    Ski:
+      description: Ski profile
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        updated_at:
+          type: string
+# Popis API
 paths:
-  /api/getAllUsersSki:
+  /getAllUsers:
     get:
       tags:
         - default
@@ -25,17 +57,21 @@ paths:
           in: query
           schema:
             type: string
-          example: '{{userID}}'
+          example: 'auth0|62c3317067fdea356d289028'
       responses:
-        '200':
+        200:
           description: Successful response
           content:
-            application/json: {}
-  /api/:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /:
     get:
       tags:
         - default
-      summary: Test GET
+      summary: test API pomocí GET
       responses:
         '200':
           description: Successful response
@@ -58,11 +94,12 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /api/private:
+  /private:
     get:
       tags:
         - default
       summary: /private (Auth0)
+      description: test Auth0 tokenu
       security:
         - bearerAuth: []
       responses:
@@ -70,3 +107,80 @@ paths:
           description: Successful response
           content:
             application/json: {}
+  /getAllUsersSki:
+    get:
+      operationId: getAllData
+      summary: Get all ski data
+      parameters:
+        - name: userID
+          in: query
+          description: User identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ski'
+  /deleteSki:
+    post:
+      description: Delete a ski object for a specific user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  description: ID of the user
+                ski:
+                  $ref: '#/components/schemas/Ski'
+                  description: The ski object to be deleted
+                  required: true
+      responses:
+        200:
+          description: The ski object has been deleted
+  /updateSki:
+    post:
+      description: Update a ski object for a specific user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  description: ID of the user
+                ski:
+                  $ref: '#/components/schemas/Ski'
+                  description: The ski object to be updated
+                  required: true
+      responses:
+        200:
+          description: The ski object has been updated
+  /addSki:
+    post:
+      description: Add a ski object for a specific user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  description: ID of the user
+                ski:
+                  $ref: '#/components/schemas/Ski'
+                  description: The ski object to be added
+                  required: true
+      responses:
+        200:
+          description: The ski object has been added
