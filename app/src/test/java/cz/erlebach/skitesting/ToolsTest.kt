@@ -1,6 +1,6 @@
 package cz.erlebach.skitesting
-import cz.erlebach.skitesting.utils.getDateFromISO8601
-import cz.erlebach.skitesting.utils.generateDateISO8601string
+import cz.erlebach.skitesting.common.utils.getDateFromISO8601
+import cz.erlebach.skitesting.common.utils.generateDateISO8601string
 
 import org.junit.Assert
 import org.junit.Test

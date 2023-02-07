@@ -17,7 +17,7 @@ import androidx.navigation.fragment.findNavController
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.FragmentMeasurementFormBinding
 import cz.erlebach.skitesting.model.TestSession
-import cz.erlebach.skitesting.utils.generateDateISO8601string
+import cz.erlebach.skitesting.common.utils.generateDateISO8601string
 import cz.erlebach.skitesting.viewModel.local.TestSessionVM
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

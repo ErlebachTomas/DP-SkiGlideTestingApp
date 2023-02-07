@@ -12,7 +12,7 @@ import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.FragmentMeasurementUpdateSkiRideBinding
 import cz.erlebach.skitesting.model.SkiRide
-import cz.erlebach.skitesting.utils.generateDateISO8601string
+import cz.erlebach.skitesting.common.utils.generateDateISO8601string
 import cz.erlebach.skitesting.viewModel.local.SkiRideVM
 
 

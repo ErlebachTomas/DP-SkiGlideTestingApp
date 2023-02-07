@@ -1,4 +1,4 @@
-package cz.erlebach.skitesting.utils
+package cz.erlebach.skitesting.common.utils
 
 import java.text.SimpleDateFormat
 import java.time.Instant

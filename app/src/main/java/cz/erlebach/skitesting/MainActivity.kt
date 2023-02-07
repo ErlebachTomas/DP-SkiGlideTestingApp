@@ -13,6 +13,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationAPIClient
 import com.auth0.android.authentication.AuthenticationException
@@ -25,14 +27,17 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.json.responseJson
 import com.google.android.material.snackbar.Snackbar
+import cz.erlebach.skitesting.common.MyWorker
 import cz.erlebach.skitesting.common.SessionManager
 import cz.erlebach.skitesting.databinding.ActivityMainBinding
 import cz.erlebach.skitesting.fragments.HomeFragment
 import cz.erlebach.skitesting.fragments.LoginFragment
 import cz.erlebach.skitesting.fragments.NoConnectionFragment
 import cz.erlebach.skitesting.network.RetrofitApiService
-import cz.erlebach.skitesting.utils.err
-import cz.erlebach.skitesting.utils.lg
+import cz.erlebach.skitesting.common.utils.err
+import cz.erlebach.skitesting.common.utils.isDeviceOnline
+import cz.erlebach.skitesting.common.utils.lg
+import cz.erlebach.skitesting.network.SyncWorker
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
         checkAllpermissions()
 
-        if (!this.isDeviceOnline(this)) {
+        if (!isDeviceOnline(this)) {
             changeFragmentTo(NoConnectionFragment()) // undone offline politika
         } else {
             if (authManager.checkIfloginIsValid()) {
@@ -166,28 +171,6 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, text, length).show()
     }
 
-    /** kontroluje zda je zařízení připojeno k internetu */
-    private fun isDeviceOnline(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-
-        if (capabilities != null) {
-            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
-                return true
-            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
-                return true
-            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
-                return true
-            }
-        }
-        return false
-    }
-
     /**
      * Jedinná funkční metoda na získání API tokenu
      */
@@ -256,8 +239,23 @@ class MainActivity : AppCompatActivity() {
                         err(error.toString())
                     })
                 }
-
         }
+
+    }
+
+    /** Synchronizace dat */
+    fun testButtonFunction() {
+
+        lg("Test button function")
+        val workManager = WorkManager.getInstance(this)
+
+        /*
+        val wr = OneTimeWorkRequestBuilder<MyWorker>().build()
+        workManager.enqueue(wr)
+        */
+
+        val syncWorkRequest = OneTimeWorkRequestBuilder<SyncWorker>().build()
+        workManager.enqueue(syncWorkRequest)
 
     }
 }

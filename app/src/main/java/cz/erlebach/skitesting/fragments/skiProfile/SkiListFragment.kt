@@ -17,8 +17,8 @@ import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.SessionManager
 import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.repository.remote.SkiRemoteRepository
-import cz.erlebach.skitesting.utils.err
-import cz.erlebach.skitesting.utils.toast
+import cz.erlebach.skitesting.common.utils.err
+import cz.erlebach.skitesting.common.utils.toast
 
 import cz.erlebach.skitesting.viewModel.local.SkiVM
 import cz.erlebach.skitesting.viewModel.remote.SkiRemoteVM

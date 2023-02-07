@@ -1,4 +1,4 @@
-package cz.erlebach.skitesting.network
+package cz.erlebach.skitesting.network.api
 
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.network.model.TestDataBody

@@ -11,13 +11,14 @@ import cz.erlebach.skitesting.db.TestSessionDao
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.model.SkiRide
 import cz.erlebach.skitesting.model.TestSession
-import cz.erlebach.skitesting.utils.DateConverters
+import cz.erlebach.skitesting.common.utils.date.DateConverters
+import cz.erlebach.skitesting.common.utils.dataStatus.DataStatusConverter
 
 /**
  * ORM ROOM lokální databáze
  */
-@Database(entities = [Ski::class, TestSession::class, SkiRide::class], version = 6, exportSchema = false)
-@TypeConverters(DateConverters::class)
+@Database(entities = [Ski::class, TestSession::class, SkiRide::class], version = 7, exportSchema = false)
+@TypeConverters(DataStatusConverter::class, DateConverters::class)
 abstract class MyDatabase : RoomDatabase() {
 
     // Dao --------------------------------

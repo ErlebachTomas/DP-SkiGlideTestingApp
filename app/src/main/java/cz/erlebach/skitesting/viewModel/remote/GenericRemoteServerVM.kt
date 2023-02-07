@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.erlebach.skitesting.common.interfaces.IAccountManagement
 import cz.erlebach.skitesting.common.interfaces.IRemoteServerRepository
-import cz.erlebach.skitesting.utils.err
-import cz.erlebach.skitesting.utils.lg
+import cz.erlebach.skitesting.common.utils.err
+import cz.erlebach.skitesting.common.utils.lg
 import kotlinx.coroutines.launch
 import retrofit2.Response
 

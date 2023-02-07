@@ -61,13 +61,17 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_measurement" />
 
     <Button
-        android:id="@+id/btnApi"
+        android:id="@+id/btnTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="call Api"
+
+        android:backgroundTint="@color/design_default_color_primary_dark"
+        android:text="Testovací tlacitko"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/mf_textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btn_userProfile"
@@ -75,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:text="@string/title_activity_user_profile"
-        app:layout_constraintBottom_toTopOf="@+id/btnApi"
+        app:layout_constraintBottom_toTopOf="@+id/btnTest"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

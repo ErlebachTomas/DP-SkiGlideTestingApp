@@ -1,4 +1,4 @@
-package cz.erlebach.skitesting.utils
+package cz.erlebach.skitesting.common.utils.date
 
 import androidx.room.TypeConverter
 import java.util.*
@@ -11,7 +11,7 @@ class DateConverters {
 
     @TypeConverter
     fun dateToTimestamp(date: Date?): Long? {
-        return date?.time?.toLong()
+        return date?.time
     }
 
 }

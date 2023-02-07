@@ -14,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.ActivityRecommendationBinding
 import cz.erlebach.skitesting.network.RetrofitApiService
-import cz.erlebach.skitesting.network.IWebApi
+import cz.erlebach.skitesting.network.api.IWebApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

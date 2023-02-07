@@ -14,8 +14,8 @@ import com.auth0.android.result.UserProfile
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.interfaces.IAccountManagement
 import cz.erlebach.skitesting.common.template.SingletonHolder
-import cz.erlebach.skitesting.utils.err
-import cz.erlebach.skitesting.utils.lg
+import cz.erlebach.skitesting.common.utils.err
+import cz.erlebach.skitesting.common.utils.lg
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException

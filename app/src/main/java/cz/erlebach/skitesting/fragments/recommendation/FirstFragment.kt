@@ -19,8 +19,8 @@ import cz.erlebach.skitesting.databinding.FragmentRecommendationFirstBinding
 import cz.erlebach.skitesting.network.RetrofitApiService
 import cz.erlebach.skitesting.network.model.TestDataBody
 import cz.erlebach.skitesting.repository.remote.RemoteServerRepository
-import cz.erlebach.skitesting.utils.err
-import cz.erlebach.skitesting.utils.lg
+import cz.erlebach.skitesting.common.utils.err
+import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.viewModel.RemoteServerVM
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

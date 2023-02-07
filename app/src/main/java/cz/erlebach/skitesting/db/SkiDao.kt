@@ -3,6 +3,7 @@ package cz.erlebach.skitesting.db
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import cz.erlebach.skitesting.MyDatabase
+import cz.erlebach.skitesting.common.utils.dataStatus.DataStatus
 import cz.erlebach.skitesting.model.Ski
 /**
  * Toto rozhraní definuje standardní operace, které se dají provádět s tabulkou [Ski]
@@ -25,4 +26,9 @@ interface SkiDao {
 
     @Query("DELETE FROM ${MyDatabase.skiTableName}")
     suspend fun deleteAllSkis()
+
+    @Query("SELECT * FROM ${MyDatabase.skiTableName} WHERE status = :status") //todo where
+    suspend fun getDataByStatus(status: DataStatus = DataStatus.OFFLINE): List<Ski>
+
+
 }

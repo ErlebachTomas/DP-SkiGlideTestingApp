@@ -1,4 +1,4 @@
-package cz.erlebach.skitesting.utils
+package cz.erlebach.skitesting.common.utils
 import android.content.Context
 import android.util.Log
 import android.view.View

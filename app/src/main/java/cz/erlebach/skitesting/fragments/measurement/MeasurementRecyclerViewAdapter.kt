@@ -14,7 +14,7 @@ import cz.erlebach.skitesting.activity.MeasurementActivity
 import cz.erlebach.skitesting.databinding.AdapterFragmentMeasurementListContentBinding
 
 import cz.erlebach.skitesting.model.TestSession
-import cz.erlebach.skitesting.utils.getDateFormatString
+import cz.erlebach.skitesting.common.utils.getDateFormatString
 
 
 /**

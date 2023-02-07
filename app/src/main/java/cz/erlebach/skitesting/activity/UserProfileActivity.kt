@@ -7,8 +7,8 @@ import com.auth0.android.callback.Callback
 import com.auth0.android.result.UserProfile
 import cz.erlebach.skitesting.common.SessionManager
 import cz.erlebach.skitesting.databinding.ActivityUserProfileBinding
-import cz.erlebach.skitesting.utils.lg
-import cz.erlebach.skitesting.utils.showSnackBar
+import cz.erlebach.skitesting.common.utils.lg
+import cz.erlebach.skitesting.common.utils.showSnackBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

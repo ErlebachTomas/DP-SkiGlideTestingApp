@@ -20,5 +20,6 @@ interface ISkiAPI {
     suspend fun insert(@Body body: SkiDataBody)
     @GET("deleteAllUsersSkis")
     suspend fun deleteAll(@Query("user") userID: String)
-
+    @POST("syncSki")
+    suspend fun syncData(@Body body: SkiDataBody): Response<Ski>
 }

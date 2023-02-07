@@ -1,8 +1,8 @@
 package cz.erlebach.skitesting.network
 
 import android.content.Context
-import cz.erlebach.skitesting.common.SessionManager
 import cz.erlebach.skitesting.network.api.ISkiAPI
+import cz.erlebach.skitesting.network.api.IWebApi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
