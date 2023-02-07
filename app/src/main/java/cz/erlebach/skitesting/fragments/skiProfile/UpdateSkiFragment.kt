@@ -35,8 +35,8 @@ class UpdateSkiFragment : Fragment() {
     /**
      * viewModel lyží
      */
-    // todo private lateinit var viewModel: SkiVM
-    private lateinit var remoteVM : SkiRemoteVM
+     private lateinit var viewModel: SkiVM
+    // // todo private lateinit var remoteVM : SkiRemoteVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,12 +45,9 @@ class UpdateSkiFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_ski_update_ski, container, false)
 
-      //todo  viewModel = ViewModelProvider(this)[SkiVM::class.java]
+        viewModel = ViewModelProvider(this)[SkiVM::class.java]
 
-        initVM()
-
-
-
+        //todo initVM()
 
         showItems(view)
 
@@ -89,8 +86,8 @@ class UpdateSkiFragment : Fragment() {
         } else {
             val updatedSki = Ski(args.currentSki.id, newName, null, generateDateISO8601string())
 
-            // todo viewModel.updateSki(updatedSki)
-            remoteVM.update(updatedSki)
+            viewModel.updateSki(updatedSki)
+            // todo remoteVM.update(updatedSki)
 
             Toast.makeText(requireContext(), getString(R.string.update_success_message), Toast.LENGTH_SHORT).show()
 
@@ -103,8 +100,8 @@ class UpdateSkiFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton(getString(R.string.Yes)) { _, _ ->
 
-            //todo viewModel.deleteSki(args.currentSki)
-            remoteVM.delete(args.currentSki)
+            viewModel.deleteSki(args.currentSki)
+            //todo remoteVM.delete(args.currentSki)
 
             Toast.makeText(requireContext(), getString(R.string.delete_success_message), Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_updateSkiFragment_to_skiListFragment)
@@ -115,7 +112,7 @@ class UpdateSkiFragment : Fragment() {
         builder.setMessage(getString(R.string.delete_message,args.currentSki.name))
         builder.create().show()
     }
-
+    /* todo
     private fun initVM() {
 
         val account = SessionManager.getInstance(requireContext())
@@ -125,5 +122,5 @@ class UpdateSkiFragment : Fragment() {
         remoteVM = ViewModelProvider(this, viewModelFactory)[SkiRemoteVM::class.java]
 
     }
-
+    */
 }

@@ -8,8 +8,9 @@ class TestSessionRepository(private val testSessionDao: TestSessionDao) : BaseRe
 
     val readAllData: LiveData<List<TestSession>> = testSessionDao.getLiveData()
 
-    suspend fun add(testSession:TestSession): Long{
-        return testSessionDao.add(testSession)
+    suspend fun add(testSession:TestSession): String {
+        testSessionDao.add(testSession) // pro autogenerate long jen return
+        return testSession.id
     }
 
     suspend fun deleteAll(){

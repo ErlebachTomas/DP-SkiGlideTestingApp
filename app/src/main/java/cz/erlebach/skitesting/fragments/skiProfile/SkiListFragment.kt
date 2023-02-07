@@ -28,8 +28,8 @@ import kotlinx.coroutines.launch
 
 class SkiListFragment : Fragment() {
 
-   // private lateinit var skiViewModel: SkiVM
-    private lateinit var skiRemoteViewModel: SkiRemoteVM
+    private lateinit var skiViewModel: SkiVM
+   // private lateinit var skiRemoteViewModel: SkiRemoteVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,9 @@ class SkiListFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_ski_list, container, false)
 
-        init(view) // nastaví adaptér
+       //todo init(view) // nastaví adaptér
+        localStorage(view)
+
 
         view.findViewById<View>(R.id.fsl_btnAddSki).setOnClickListener {
             // přepnutí fragmentu na vkládání přes nav
@@ -64,6 +66,7 @@ class SkiListFragment : Fragment() {
     }
 
     /** Inicializace vm a adaptéru */
+    /* todo
     private fun init(view : View ) {
 
         // todo check internet connection
@@ -95,9 +98,9 @@ class SkiListFragment : Fragment() {
                 }
             })
         }
-
+    */
     /** Načte z ROOM */
-    /*
+
     private fun localStorage(view : View) {
 
         skiViewModel = ViewModelProvider(
@@ -119,15 +122,15 @@ class SkiListFragment : Fragment() {
         }
 
     }
-    */
+
 
     /** vymazat vše */
     private fun deleteAllItems() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton(getString(R.string.Yes)) { _, _ ->
 
-           // todo  skiViewModel.deleteAll()
-            skiRemoteViewModel.deleteAll() //todo reload??
+            skiViewModel.deleteAll()
+            // todo  skiRemoteViewModel.deleteAll() //todo reload??
 
             Toast.makeText(requireContext(), getString(R.string.delete_success_message), Toast.LENGTH_SHORT).show()
 

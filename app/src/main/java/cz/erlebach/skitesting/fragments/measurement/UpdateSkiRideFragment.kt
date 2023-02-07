@@ -22,7 +22,7 @@ class UpdateSkiRideFragment : Fragment() {
     private val binding get()= _binding!!
 
     private val args by navArgs<UpdateSkiRideFragmentArgs>()
-    private var selectedSkiID: Int = 0
+    private lateinit var selectedSkiID: String
 
     private lateinit var viewModel: SkiRideVM
     override fun onCreateView(
@@ -67,7 +67,7 @@ class UpdateSkiRideFragment : Fragment() {
      */
     private fun fillForm(skiRide: SkiRide) {
 
-        //todo spinery? maybe we should function this
+        //todo spinery?
 
 
         binding.usrResult.setText(skiRide.result.toString())

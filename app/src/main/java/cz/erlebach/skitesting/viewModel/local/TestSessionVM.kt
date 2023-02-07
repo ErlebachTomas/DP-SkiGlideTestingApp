@@ -28,7 +28,7 @@ class TestSessionVM (application: Application): AndroidViewModel(application)  {
     }
 
 
-    suspend fun add(TestSession: TestSession): Long {
+    suspend fun add(TestSession: TestSession): String {
         return repository.add(TestSession)
     }
 

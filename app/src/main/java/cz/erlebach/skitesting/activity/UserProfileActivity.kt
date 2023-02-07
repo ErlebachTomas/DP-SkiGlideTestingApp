@@ -55,16 +55,16 @@ class UserProfileActivity : AppCompatActivity() {
                 binding.upUserInfo.text = error.message
             }
 
-            override fun onSuccess(userProfile: UserProfile) {
+            override fun onSuccess(result: UserProfile) {
 
-                binding.upUsername.text = "Přihlášen jako: ${userProfile.nickname}"
+                binding.upUsername.text = "Přihlášen jako: ${result.nickname}"
 
-                val userName = userProfile.name.toString()
-                val extraInfo = userProfile.getExtraInfo().toString()
-                val createdAt = userProfile.createdAt.toString()
-                val pictureURL = userProfile.pictureURL.toString()
-                val email = userProfile.email.toString()
-                val nickname = userProfile.nickname.toString()
+                val userName = result.name.toString()
+                val extraInfo = result.getExtraInfo().toString()
+                val createdAt = result.createdAt.toString()
+                val pictureURL = result.pictureURL.toString()
+                val email = result.email.toString()
+                val nickname = result.nickname.toString()
 
                 binding.upUserInfo.text = "userName:$userName\n extraInfo:$extraInfo\n createdAt:$createdAt\n picture:$pictureURL\n email:$email\n nickname:$nickname"
             }

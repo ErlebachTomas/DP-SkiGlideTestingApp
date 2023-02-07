@@ -42,10 +42,10 @@ class SkiRideVM(application: Application) : BaseVM<SkiRide>(application) {
 
     /**
      * Načte všechny provedené jízdy z testu
-     * @param testID [Long] id testu
+     * @param testID [String] id testu
      * @return [LiveData] jízdy testu
      */
-    fun loadTestSessionRideByID(testID: Long) : LiveData<List<SkiRide>> {
+    fun loadTestSessionRideByID(testID: String) : LiveData<List<SkiRide>> {
         return _repository.loadTestSessionRideByID(testID)
     }
 

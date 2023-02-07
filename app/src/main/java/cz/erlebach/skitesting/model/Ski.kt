@@ -14,9 +14,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = MyDatabase.skiTableName)
 data class Ski(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: String,
     val name: String,
     val description: String?,
     val updated_at: String?

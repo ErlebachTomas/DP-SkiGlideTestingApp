@@ -123,7 +123,7 @@ class MeasurementFormFragment : Fragment() {
         )  {
             // kontrola vyplnění
 
-            val testSession = TestSession(0,
+            val testSession = TestSession(UUID.randomUUID().toString(),
                 datetime.time,
                 airTemperature,
                 snowTemperature,
@@ -136,7 +136,7 @@ class MeasurementFormFragment : Fragment() {
 
             CoroutineScope(Dispatchers.IO).launch() {
 
-                val id: Long = testSessionVM.add(testSession) //uloží do db
+                val id: String = testSessionVM.add(testSession) //uloží do db
                 Log.v(TAG, "Měření uložono jako $id")
 
                 withContext(Dispatchers.Main) {

@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_measurement_add_ski_ride" >
         <argument
             android:name="idTestSession"
-            app:argType="long" />
+            app:argType="string" />
         <action
             android:id="@+id/action_addSkiRideFragment_to_skiRideListFragment"
             app:destination="@id/skiRideListFragment" />
@@ -51,7 +51,7 @@
             app:destination="@id/addSkiRideFragment" />
         <argument
             android:name="idTestSession"
-            app:argType="long" />
+            app:argType="string" />
         <action
             android:id="@+id/action_skiRideListFragment_to_updateSkiRideFragment"
             app:destination="@id/updateSkiRideFragment" />

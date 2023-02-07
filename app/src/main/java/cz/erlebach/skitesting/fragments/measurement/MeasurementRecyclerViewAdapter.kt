@@ -40,7 +40,7 @@ class MeasurementRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val testSession = values[position]
 
-        holder.idView.text = testSession.id.toString()
+        holder.idView.text = testSession.id
         holder.contentView.text = getDateFormatString(testSession.datetime)
 
         holder.itemView.findViewById<View>(R.id.adap_layout_measurement_row).setOnClickListener {

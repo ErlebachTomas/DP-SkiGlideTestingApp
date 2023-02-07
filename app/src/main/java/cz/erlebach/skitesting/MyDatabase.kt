@@ -16,7 +16,7 @@ import cz.erlebach.skitesting.utils.DateConverters
 /**
  * ORM ROOM lokální databáze
  */
-@Database(entities = [Ski::class, TestSession::class, SkiRide::class], version = 5, exportSchema = false)
+@Database(entities = [Ski::class, TestSession::class, SkiRide::class], version = 6, exportSchema = false)
 @TypeConverters(DateConverters::class)
 abstract class MyDatabase : RoomDatabase() {
 

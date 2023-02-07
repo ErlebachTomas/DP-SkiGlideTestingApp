@@ -14,8 +14,8 @@ import java.util.*
 @Parcelize
 @Entity(tableName = MyDatabase.testSessionsTableName)
 data class TestSession(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    @PrimaryKey
+    val id: String,
     val datetime: Date,
     val airTemperature: Double,
     val snowTemperature: Double,

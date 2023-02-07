@@ -13,7 +13,7 @@ class SkiRideRepository(private val skiRideDao: SkiRideDao) : BaseRepository<Ski
         skiRideDao.deleteAllSkiRides()
     }
 
-     fun loadTestSessionRideByID(testID: Long): LiveData<List<SkiRide>> {
+     fun loadTestSessionRideByID(testID: String): LiveData<List<SkiRide>> {
         return skiRideDao.loadTestSessionRideByID(testID)
     }
 

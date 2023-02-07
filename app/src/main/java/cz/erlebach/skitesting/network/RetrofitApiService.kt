@@ -14,15 +14,16 @@ class RetrofitApiService(context: Context) {
 
     companion object {
       /** URL API */ // undone načítat ze settings
-    // const val BASE_URL = "http://skitest.nti.tul.cz:1337"
+   // const val BASE_URL = "http://skitest.nti.tul.cz:1337"
 
-    const val BASE_URL = "https://0c42-2a00-1028-83ca-8026-845b-5475-37a-239b.eu.ngrok.io"
+    const val BASE_URL = "https://0d2b-2001-718-1c01-152-44e3-6925-1f5-acfb.eu.ngrok.io"
     const val URL = "$BASE_URL/api/"
 
     }
 
     private val client = OkHttpClient.Builder().apply {
-        addInterceptor(Auth0Interceptor(context)) //undone optimalizace??
+        addInterceptor(Auth0Interceptor(context))
+        retryOnConnectionFailure(true) // pravděpodobné řešení IOException: unexpected end of stream on
     }.build()
 
     /**  Retrofit instance */

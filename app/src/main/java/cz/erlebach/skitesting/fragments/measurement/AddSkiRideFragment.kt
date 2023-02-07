@@ -23,6 +23,7 @@ import cz.erlebach.skitesting.viewModel.local.SkiVM
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 
 class AddSkiRideFragment : Fragment() {
@@ -78,7 +79,8 @@ class AddSkiRideFragment : Fragment() {
         val note = binding.mfNote.text
 
         if (!TextUtils.isEmpty(result)) {
-            val ride = SkiRide(0,
+            val ride = SkiRide(
+                UUID.randomUUID().toString(),
                 selectedSki.id,
                 args.idTestSession,
                 result.toString().toDouble(),

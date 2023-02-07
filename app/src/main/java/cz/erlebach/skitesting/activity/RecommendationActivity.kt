@@ -39,7 +39,7 @@ class RecommendationActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.fab.setOnClickListener { view ->
-            retrofitApiCall(view)
+            retrofitApiCall(view) //todo smazat
         }
 
 

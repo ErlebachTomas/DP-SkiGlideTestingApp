@@ -13,15 +13,15 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = MyDatabase.skiRideTableName)
 data class SkiRide(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "id")
     /** id [SkiRide] */
-    val id: Int,
+    val id: String,
     //todo FK https://stackoverflow.com/a/65754091
     /** FK [Ski] */
-    val skiID: Int,
+    val skiID: String,
     /** FK [Tessession] */
-    val testSessionID: Long,
+    val testSessionID: String,
     val result: Double,
     val note: String?,
     val updated_at: String?

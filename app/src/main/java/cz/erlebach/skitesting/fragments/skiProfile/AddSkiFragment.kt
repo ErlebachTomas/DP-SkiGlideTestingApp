@@ -2,12 +2,12 @@ package cz.erlebach.skitesting.fragments.skiProfile
 
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import cz.erlebach.skitesting.R
@@ -18,7 +18,7 @@ import cz.erlebach.skitesting.repository.remote.SkiRemoteRepository
 import cz.erlebach.skitesting.utils.generateDateISO8601string
 import cz.erlebach.skitesting.viewModel.local.SkiVM
 import cz.erlebach.skitesting.viewModel.remote.SkiRemoteVM
-import kotlin.random.Random
+import java.util.*
 
 
 /**
@@ -26,12 +26,12 @@ Fragment obsahujuící formulář pro přidání profilu Lyže
  */
 class AddSkiFragment : Fragment() {
 
-    //todo private lateinit var skiViewModel: SkiVM // ViewModel pro práci s db
-    private lateinit var skiRemoteViewModel: SkiRemoteVM
+    private lateinit var skiViewModel: SkiVM // ViewModel pro práci s db
+   //todo  private lateinit var skiRemoteViewModel: SkiRemoteVM
 
     lateinit var myView: View
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
@@ -41,8 +41,8 @@ class AddSkiFragment : Fragment() {
     ): View {
         myView = inflater.inflate(R.layout.fragment_ski_add_ski, container, false)
 
-        //todo skiViewModel = ViewModelProvider(this).get(SkiVM::class.java)
-        initVM()
+        skiViewModel = ViewModelProvider(this)[SkiVM::class.java]
+        //todo  initVM()
 
 
         myView.findViewById<View>(R.id.fas_btnSave).setOnClickListener {
@@ -63,11 +63,11 @@ class AddSkiFragment : Fragment() {
         //kontrola správného vyplnění polí
         if(!TextUtils.isEmpty(name))  {
 
-            val id = Random.nextInt(0, Int.MAX_VALUE) // todo vyřešit jinak, zatím pro test
+            val id =  UUID.randomUUID().toString()
             val ski = Ski(id,name, null, generateDateISO8601string()) //todo description
 
-            // todo skiViewModel.addSki(ski)
-            skiRemoteViewModel.insert(ski)
+             skiViewModel.addSki(ski)
+            // todo skiRemoteViewModel.insert(ski)
 
             Toast.makeText(context, context.getString(R.string.success), Toast.LENGTH_LONG).show()
 
@@ -78,7 +78,7 @@ class AddSkiFragment : Fragment() {
         }
 
     }
-
+/* todo
     private fun initVM() {
 
         val account = SessionManager.getInstance(requireContext())
@@ -88,6 +88,6 @@ class AddSkiFragment : Fragment() {
         skiRemoteViewModel = ViewModelProvider(this, viewModelFactory)[SkiRemoteVM::class.java]
 
     }
-
+*/
 
 }
