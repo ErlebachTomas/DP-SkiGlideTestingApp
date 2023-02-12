@@ -7,28 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cz.erlebach.skitesting.MyDatabase
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.SessionManager
 import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.repository.remote.SkiRemoteRepository
-import cz.erlebach.skitesting.common.utils.err
+import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.common.utils.toast
-
-import cz.erlebach.skitesting.viewModel.local.SkiVM
-import cz.erlebach.skitesting.viewModel.remote.SkiRemoteVM
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import cz.erlebach.skitesting.repository.SkiRepository
+import cz.erlebach.skitesting.repository.local.SkiLocalRepository
+import cz.erlebach.skitesting.viewModel.VM
 
 
 class SkiListFragment : Fragment() {
 
-    private lateinit var skiViewModel: SkiVM
+   //todo  private lateinit var skiViewModel: SkiVM
    // private lateinit var skiRemoteViewModel: SkiRemoteVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +41,8 @@ class SkiListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_ski_list, container, false)
 
        //todo init(view) // nastaví adaptér
-        localStorage(view)
-
+       // localStorage(view)
+        initVM(view)
 
         view.findViewById<View>(R.id.fsl_btnAddSki).setOnClickListener {
             // přepnutí fragmentu na vkládání přes nav
@@ -63,6 +60,43 @@ class SkiListFragment : Fragment() {
 
 
         return view
+    }
+
+    private fun initVM(view: View) {
+
+        val adapter = SkiListAdapter()
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.fsl_recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+
+        val account = SessionManager.getInstance(requireContext())
+
+        val skiRemoteRepository = SkiRemoteRepository(requireContext())
+        val skiLocalRepository = SkiLocalRepository(
+            MyDatabase.getDatabase(
+                this.requireActivity().application
+                ).skiDao())
+
+        val viewModelFactory = MyViewModelFactory(VM(repository = SkiRepository(
+            skiLocalRepository,
+            skiRemoteRepository,
+            account
+        )))
+        try {
+           val viewModel = ViewModelProvider(this, viewModelFactory)[VM::class.java]
+            viewModel.ski.observe(viewLifecycleOwner) { ski ->
+                lg(ski.data?.size.toString())
+                ski.data?.let { adapter.setData(it) }
+            }
+
+        } catch (err: IllegalStateException) {
+                toast(requireContext(), err.message.toString())
+       } catch (E: Exception) {
+           toast(requireContext(), E.message.toString())
+        }
+
+
     }
 
     /** Inicializace vm a adaptéru */
@@ -100,7 +134,7 @@ class SkiListFragment : Fragment() {
         }
     */
     /** Načte z ROOM */
-
+/*
     private fun localStorage(view : View) {
 
         skiViewModel = ViewModelProvider(
@@ -122,6 +156,9 @@ class SkiListFragment : Fragment() {
         }
 
     }
+*/
+
+
 
 
     /** vymazat vše */
@@ -129,7 +166,7 @@ class SkiListFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton(getString(R.string.Yes)) { _, _ ->
 
-            skiViewModel.deleteAll()
+            // skiViewModel.deleteAll()
             // todo  skiRemoteViewModel.deleteAll() //todo reload??
 
             Toast.makeText(requireContext(), getString(R.string.delete_success_message), Toast.LENGTH_SHORT).show()

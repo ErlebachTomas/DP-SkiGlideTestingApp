@@ -4,10 +4,12 @@ package cz.erlebach.skitesting.repository.local
 import androidx.lifecycle.LiveData
 import cz.erlebach.skitesting.db.SkiDao
 import cz.erlebach.skitesting.model.Ski
+import kotlinx.coroutines.flow.Flow
 
-class SkiRepository(private val skiDao: SkiDao) {
+class SkiLocalRepository(private val skiDao: SkiDao) {
 
     val readAllData: LiveData<List<Ski>> = skiDao.getLiveData()
+    val getDataFlow: Flow<List<Ski>> = skiDao.getFlow()
 
     suspend fun addSki(ski:Ski){
         skiDao.addSki(ski)

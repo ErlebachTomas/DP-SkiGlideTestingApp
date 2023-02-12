@@ -8,14 +8,14 @@ import cz.erlebach.skitesting.MyDatabase
 import cz.erlebach.skitesting.model.Ski
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import cz.erlebach.skitesting.repository.local.SkiRepository
+import cz.erlebach.skitesting.repository.local.SkiLocalRepository
 
 /**
  * ViewModel s využitím Kotlin coroutines
  */
 class SkiVM(application: Application): AndroidViewModel(application)  {
 
-    private val repository: SkiRepository
+    private val repository: SkiLocalRepository
 
     val readAllData: LiveData<List<Ski>>
 
@@ -25,7 +25,7 @@ class SkiVM(application: Application): AndroidViewModel(application)  {
             application
         ).skiDao()
 
-        repository = SkiRepository(skiDao)
+        repository = SkiLocalRepository(skiDao)
 
         readAllData = repository.readAllData
     }

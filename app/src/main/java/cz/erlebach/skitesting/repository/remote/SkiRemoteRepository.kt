@@ -14,6 +14,15 @@ class SkiRemoteRepository(val context: Context) : IRemoteServerRepository<Ski> {
         return api.getAllData(userID)
     }
 
+    suspend fun getList(userID: String): List<Ski> {
+        val response = api.getAllData(userID)
+        if (!response.isSuccessful) {
+            throw Exception(response.message())
+        } else {
+            return response.body()!!
+        }
+    }
+
     override suspend fun delete(userID: String, obj: Ski) {
         return api.delete(SkiDataBody(userID,obj))
     }
