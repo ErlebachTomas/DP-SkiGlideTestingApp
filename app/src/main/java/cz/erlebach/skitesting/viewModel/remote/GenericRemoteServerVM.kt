@@ -23,7 +23,6 @@ open class GenericRemoteServerVM<T>(private val repository: IRemoteServerReposit
     val data: LiveData<Response<List<T>>>
         get() = responseData
 
-
     /**
      * Načte data ze serveru
      * @throws IllegalStateException když se načtení nezdaří

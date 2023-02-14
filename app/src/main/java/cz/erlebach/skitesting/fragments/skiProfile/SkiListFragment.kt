@@ -74,14 +74,13 @@ class SkiListFragment : Fragment() {
 
         val skiRemoteRepository = SkiRemoteRepository(requireContext())
         val skiLocalRepository = SkiLocalRepository(
-            MyDatabase.getDatabase(
-                this.requireActivity().application
-                ).skiDao())
+            MyDatabase.getDatabase(this.requireActivity().application).skiDao())
 
         val viewModelFactory = MyViewModelFactory(VM(repository = SkiRepository(
             skiLocalRepository,
             skiRemoteRepository,
-            account
+            account,
+            MyDatabase.getDatabase(this.requireActivity().application)
         )))
         try {
            val viewModel = ViewModelProvider(this, viewModelFactory)[VM::class.java]

@@ -1,4 +1,4 @@
-package cz.erlebach.skitesting.repository
+package cz.erlebach.skitesting.repository.resource
 
 sealed class Resource<T>(
     val data: T? = null,

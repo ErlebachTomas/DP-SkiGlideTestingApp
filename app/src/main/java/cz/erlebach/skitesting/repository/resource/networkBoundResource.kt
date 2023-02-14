@@ -1,4 +1,4 @@
-package cz.erlebach.skitesting.repository
+package cz.erlebach.skitesting.repository.resource
 
 import kotlinx.coroutines.flow.*
 

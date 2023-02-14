@@ -38,6 +38,7 @@ import cz.erlebach.skitesting.common.utils.err
 import cz.erlebach.skitesting.common.utils.isDeviceOnline
 import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.network.SyncWorker
+import kotlinx.coroutines.CoroutineScope
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

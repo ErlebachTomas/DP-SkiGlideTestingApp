@@ -14,14 +14,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
-import cz.erlebach.skitesting.common.SessionManager
-import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.common.utils.dataStatus.DataStatus
 import cz.erlebach.skitesting.model.Ski
-import cz.erlebach.skitesting.repository.remote.SkiRemoteRepository
 import cz.erlebach.skitesting.common.utils.generateDateISO8601string
 import cz.erlebach.skitesting.viewModel.local.SkiVM
-import cz.erlebach.skitesting.viewModel.remote.SkiRemoteVM
 
 /**
  * Fragment editace profilu lyže
@@ -85,8 +81,12 @@ class UpdateSkiFragment : Fragment() {
         // špatně vyplněno
             Toast.makeText(requireContext(),getString(R.string.update_failure_message) , Toast.LENGTH_SHORT).show()
         } else {
-            val updatedSki = Ski(args.currentSki.id, newName, null, generateDateISO8601string(),
-                DataStatus.UNKNOWN)
+            val updatedSki = Ski(
+                id=args.currentSki.id,
+                name=newName,
+                null,
+                updated_at = generateDateISO8601string()
+            )
 
             viewModel.updateSki(updatedSki)
             // todo remoteVM.update(updatedSki)

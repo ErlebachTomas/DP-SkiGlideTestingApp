@@ -33,8 +33,10 @@ interface SkiDao {
     @Query("DELETE FROM ${MyDatabase.skiTableName}")
     suspend fun deleteAllSkis()
 
-    @Query("SELECT * FROM ${MyDatabase.skiTableName} WHERE status = :status") //todo where
+    @Query("SELECT * FROM ${MyDatabase.skiTableName} WHERE status = :status") //todo where status
     suspend fun getDataByStatus(status: DataStatus = DataStatus.OFFLINE): List<Ski>
 
+    @Query("SELECT * FROM ${MyDatabase.skiTableName} WHERE id = :id LIMIT 1")
+    suspend fun getSki(id: String): Ski?
 
 }

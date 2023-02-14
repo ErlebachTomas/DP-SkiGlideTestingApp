@@ -11,14 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import cz.erlebach.skitesting.R
-import cz.erlebach.skitesting.common.SessionManager
-import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.common.utils.dataStatus.DataStatus
 import cz.erlebach.skitesting.model.Ski
-import cz.erlebach.skitesting.repository.remote.SkiRemoteRepository
 import cz.erlebach.skitesting.common.utils.generateDateISO8601string
 import cz.erlebach.skitesting.viewModel.local.SkiVM
-import cz.erlebach.skitesting.viewModel.remote.SkiRemoteVM
 import java.util.*
 
 
@@ -64,8 +60,8 @@ class AddSkiFragment : Fragment() {
         //kontrola správného vyplnění polí
         if(!TextUtils.isEmpty(name))  {
 
-            val id =  UUID.randomUUID().toString()
-            val ski = Ski(id,name, null, generateDateISO8601string(),DataStatus.UNKNOWN) //todo description
+
+            val ski = Ski(name= name)
 
              skiViewModel.addSki(ski)
             // todo skiRemoteViewModel.insert(ski)

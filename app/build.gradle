@@ -10,15 +10,15 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
     namespace 'cz.erlebach.skitesting'
     defaultConfig {
         applicationId "cz.erlebach.skitesting"
         minSdk 28
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         manifestPlaceholders = [auth0Domain: "@string/auth0_domain", auth0Scheme: "@string/auth0_scheme"]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

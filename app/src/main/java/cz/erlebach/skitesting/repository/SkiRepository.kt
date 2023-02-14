@@ -1,19 +1,23 @@
 package cz.erlebach.skitesting.repository
 
+import androidx.room.withTransaction
 import cz.erlebach.skitesting.MyDatabase
 import cz.erlebach.skitesting.common.interfaces.IAccountManagement
 import cz.erlebach.skitesting.common.utils.info
 import cz.erlebach.skitesting.common.utils.lg
+import cz.erlebach.skitesting.model.BaseModel
+import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.repository.local.SkiLocalRepository
 import cz.erlebach.skitesting.repository.remote.SkiRemoteRepository
+import cz.erlebach.skitesting.repository.resource.networkBoundResource
 import kotlinx.coroutines.delay
 
 class SkiRepository (
     private val skiLocalRepository: SkiLocalRepository,
     private val skiRemoteRepository: SkiRemoteRepository,
     private val account: IAccountManagement,
-   // todo private val db: MyDatabase
-    ){
+    private val db: MyDatabase
+    ) {
 
     fun getData() = networkBoundResource(
         localFlow = {
@@ -26,22 +30,27 @@ class SkiRepository (
             skiRemoteRepository.getList(account.getUserID())
         },
         sync = { listResponse ->
-                lg("sync ")
-                info("=== listResponse ===")
-                for (i in listResponse) {
-                   info(i.toString())
+            for (onlineSki: Ski in listResponse) {
+                info(onlineSki.toString())
+                // if novější tak update, pokud není vložit jako novou
 
+                val offlineSki = db.skiDao().getSki(onlineSki.id)
+
+                if (offlineSki != null) {
+
+                    if (onlineSki.isNewer(offlineSki)) {
+                        info("aktualizuji ${onlineSki.toString()}")
+                        db.skiDao().updateSki(onlineSki)
+                    }
+
+                } else {
+                    info("stahuji a vkládám ${onlineSki.toString()}")
+                    db.skiDao().addSki(onlineSki)
                 }
 
-                info("synchronized ${listResponse.count()}")
 
-
-
-                /* todo implementace synchronizace
-                db.withTransaction {
-                // if novější tak update, pokud není vložit
-                }
-                */
+            }
+            info("synchronized ${listResponse.count()}")
         }
     )
 }
