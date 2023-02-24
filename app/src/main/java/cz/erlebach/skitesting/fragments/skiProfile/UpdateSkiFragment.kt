@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
-import cz.erlebach.skitesting.common.utils.dataStatus.DataStatus
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.common.utils.generateDateISO8601string
 import cz.erlebach.skitesting.viewModel.local.SkiVM
@@ -85,7 +84,7 @@ class UpdateSkiFragment : Fragment() {
                 id=args.currentSki.id,
                 name=newName,
                 null,
-                updated_at = generateDateISO8601string()
+                updatedAt = generateDateISO8601string()
             )
 
             viewModel.updateSki(updatedSki)

@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import cz.erlebach.skitesting.MyDatabase
 import kotlinx.parcelize.Parcelize
 import java.util.*
@@ -20,20 +21,24 @@ import java.util.*
 data class Ski (
     @PrimaryKey
     @ColumnInfo(name = "id")
-    val id: String = generateID(),
+    @SerializedName("UUID")
+    override val id: String = generateID(),
+    @SerializedName("name")
     val name: String,
+    @SerializedName("description")
     val description: String? = null,
+    @SerializedName("icon")
     val icon: String? = null,
-    override val updated_at : String = generateDate()
+    @SerializedName("updated_at")
+    override val updatedAt: String = generateDate()
 ) : BaseModel(), Parcelable {
-
     override fun toString(): String {
 
         return if(description == null) {
-            "[$id] $name"
+            "[$updatedAt] $name |$id|"
         } else {
-            "[$id] $name ($description)"
+            "[$updatedAt] $name ($description) |$id|"
         }
     }
 
-} // parcelable nutné pro možnost přidání jako argument k fragmentu
+}

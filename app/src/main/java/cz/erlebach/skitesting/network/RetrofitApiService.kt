@@ -1,6 +1,7 @@
 package cz.erlebach.skitesting.network
 
 import android.content.Context
+import cz.erlebach.skitesting.BuildConfig
 import cz.erlebach.skitesting.network.api.ISkiAPI
 import cz.erlebach.skitesting.network.api.IWebApi
 import okhttp3.OkHttpClient
@@ -13,11 +14,24 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitApiService(context: Context) {
 
     companion object {
-      /** URL API */ // undone načítat ze settings
-   // const val BASE_URL = "http://skitest.nti.tul.cz:1337"
 
-    const val BASE_URL = "https://73ce-2001-718-1c01-152-2c96-5ee0-8de5-1be2.eu.ngrok.io"
-    const val URL = "$BASE_URL/api/"
+      /** URL API
+       * @see gradle.properties
+       * */
+
+      val URL: String get() {
+          return if(!BuildConfig.TEST_MODE_ENABLED) {
+              "${BuildConfig.SERVER_URL}${BuildConfig.API_VERSION}"
+          } else {
+              val baseUrl = "https://7c03-2001-718-1c01-152-3923-7a3d-bcf3-d0fa.eu.ngrok.io"
+              "$baseUrl/api/"
+          }
+      }
+
+      /*
+      const val BASE_URL = "https://73ce-2001-718-1c01-152-2c96-5ee0-8de5-1be2.eu.ngrok.io"
+      const val URL = "$BASE_URL/api/"
+      */
 
     }
 
@@ -43,6 +57,11 @@ class RetrofitApiService(context: Context) {
     /** Poskytuje [ISkiAPI] API interface  */
     val skiAPI: ISkiAPI by lazy {
         retrofit.create(ISkiAPI::class.java)
+    }
+    /** továrna */
+    fun <T> apiFactory(clas: Class<T>): T {
+        return retrofit.create(clas)
+
     }
 
 

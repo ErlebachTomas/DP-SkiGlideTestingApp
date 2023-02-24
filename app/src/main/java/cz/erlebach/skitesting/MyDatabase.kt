@@ -17,7 +17,7 @@ import cz.erlebach.skitesting.common.utils.dataStatus.DataStatusConverter
 /**
  * ORM ROOM lokální databáze
  */
-@Database(entities = [Ski::class, TestSession::class, SkiRide::class], version = 8, exportSchema = false)
+@Database(entities = [Ski::class, TestSession::class, SkiRide::class], version = 9, exportSchema = false)
 @TypeConverters(DataStatusConverter::class, DateConverters::class)
 abstract class MyDatabase : RoomDatabase() {
 

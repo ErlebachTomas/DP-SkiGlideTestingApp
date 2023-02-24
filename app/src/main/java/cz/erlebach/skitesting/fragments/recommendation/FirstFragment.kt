@@ -53,7 +53,7 @@ class FirstFragment : Fragment() {
                lg(token)
 
               // val url = RetrofitApiService.BASE_URL + "/api/getAllUsers"
-               val url = RetrofitApiService.BASE_URL + "/api/private"
+               val url = RetrofitApiService.URL + "private"
 
 
                Fuel.get(url)

@@ -19,15 +19,15 @@ class SyncWorker(
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
 
+    // todo generic, předávat ISkiAPI::class.java ?
+
     private var api = RetrofitApiService(this.context).skiAPI
     private var database = MyDatabase.getDatabase(applicationContext).skiDao()
     private val account: IAccountManagement = SessionManager.getInstance(this.context)
-
     override suspend fun doWork(): Result {
         lg("worker pracuje")
 
         val dataList = unsynchronizedData()
-
         if (dataList.isNotEmpty()) {
             for (data in dataList) {
 
@@ -35,37 +35,37 @@ class SyncWorker(
                     try {
                         val response = api.syncData(SkiDataBody(account.getUserID(), data)) // provést volání API pro synchronizaci dat
                         if (response.isSuccessful) {
-
                             data.status = DataStatus.ONLINE
                             database.updateSki(data)
                             lg("nahrávám offline záznam ${data.name} na server")
-                            return Result.success()
 
                         } else {
                             err(response.errorBody().toString())
                             return Result.failure()
                         }
                     } catch (e: Exception) {
-
                         err(e.message.toString())
                         return Result.failure()
                     }
                 } else {
                     lg("zařízení je offline")
-                    data.status = DataStatus.ONLINE
-                    database.updateSki(data)
-                    return Result.success()
+                    break
                 }
             }
         }
+
+        // todo mazání
 
         return Result.success()
     }
 
 
     private suspend fun unsynchronizedData(): List<Ski> {
-
-        return database.getDataByStatus(DataStatus.UNKNOWN) // TODO offline
+        return database.getDataByStatus(DataStatus.UNKNOWN) +
+                   database.getDataByStatus(DataStatus.OFFLINE)
+    }
+    private suspend fun loadDataForRemoval(): List<Ski> {
+        return database.getDataByStatus(DataStatus.REMOVED) // todo sync remove
     }
 
 }

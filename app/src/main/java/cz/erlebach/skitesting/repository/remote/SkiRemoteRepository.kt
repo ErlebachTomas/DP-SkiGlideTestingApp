@@ -2,6 +2,7 @@ package cz.erlebach.skitesting.repository.remote
 
 import android.content.Context
 import cz.erlebach.skitesting.common.interfaces.IRemoteServerRepository
+import cz.erlebach.skitesting.common.utils.debug
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.network.RetrofitApiService
 import cz.erlebach.skitesting.network.model.SkiDataBody
@@ -15,7 +16,12 @@ class SkiRemoteRepository(val context: Context) : IRemoteServerRepository<Ski> {
     }
 
     suspend fun getList(userID: String): List<Ski> {
+
         val response = api.getAllData(userID)
+        debug("getList response")
+        debug(response.code().toString())
+        debug(response.message().toString())
+        debug(response.raw().toString())
         if (!response.isSuccessful) {
             throw Exception(response.message())
         } else {

@@ -27,6 +27,7 @@ inline fun <T_RESULT, R_REQUEST> networkBoundResource(
             sync(fetchFromRemote()) // zpracování online dat, synchronizace s ROOM databází
             localFlow().map { Resource.Success(it) }
         } catch (throwable: Throwable) {
+            cz.erlebach.skitesting.common.utils.wtf("networkBoundResource",throwable)
             localFlow().map { Resource.Error(throwable, it) } //chyba
         }
     } else {

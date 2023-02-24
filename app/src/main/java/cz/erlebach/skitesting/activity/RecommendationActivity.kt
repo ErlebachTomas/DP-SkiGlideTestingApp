@@ -61,7 +61,7 @@ class RecommendationActivity : AppCompatActivity() {
      */
     private fun retrofitApiCall(view: View) {
 
-        val BASE_URL = RetrofitApiService.BASE_URL
+        val BASE_URL = RetrofitApiService.URL
 
         Snackbar.make(view, "Call " + BASE_URL, Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()

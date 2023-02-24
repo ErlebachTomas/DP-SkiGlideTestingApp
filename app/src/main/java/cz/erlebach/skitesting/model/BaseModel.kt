@@ -1,5 +1,6 @@
 package cz.erlebach.skitesting.model
 
+import com.google.gson.annotations.SerializedName
 import cz.erlebach.skitesting.common.utils.dataStatus.DataStatus
 import cz.erlebach.skitesting.common.utils.generateDateISO8601string
 import cz.erlebach.skitesting.common.utils.getDateFromISO8601
@@ -11,16 +12,25 @@ import java.util.*
  * @param status stav synchronizace
  */
 abstract class BaseModel (
-    open val updated_at: String = generateDate(),
+    @SerializedName("status")
     var status: DataStatus = DataStatus.UNKNOWN
 ) {
+    /**
+     * Jednoznačný identifikátor [id]
+     */
+    abstract val id :String
+
+    /**
+     * Čas poslední modifikace (slouží pro porovnání aktuálnosti záznamu)
+     */
+    abstract val updatedAt: String
     companion object {
         /**
          * Vygeneruje timestemp
          * @see generateDateISO8601string
          */
         @JvmStatic
-        protected fun generateDate(): String {
+        fun generateDate(): String {
             return generateDateISO8601string()
         }
 
@@ -29,26 +39,26 @@ abstract class BaseModel (
          * @see UUID
          */
         @JvmStatic
-        protected fun generateID(): String {
+        fun generateID(): String {
             return UUID.randomUUID().toString()
         }
 
     }
     /**
-     * Porovná [updated_at]
+     * Porovná [updatedAt]
      * @param model třída pro porovnání
      * @return true pokud je tato třída starší než vložená třída [model]
      */
     fun isOlder(model: BaseModel): Boolean {
-        return getDateFromISO8601(this.updated_at).before(getDateFromISO8601(model.updated_at))
+        return getDateFromISO8601(this.updatedAt).before(getDateFromISO8601(model.updatedAt))
     }
 
     /**
-     * Porovná [updated_at]
+     * Porovná [updatedAt]
      * @see isOlder opak
      */
     fun isNewer(model: BaseModel): Boolean {
-        return getDateFromISO8601(this.updated_at).after(getDateFromISO8601(model.updated_at))
+        return getDateFromISO8601(this.updatedAt).after(getDateFromISO8601(model.updatedAt))
     }
 
 }

@@ -3,6 +3,7 @@ package cz.erlebach.skitesting.common
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import cz.erlebach.skitesting.common.exceptions.RetrofitError
 import cz.erlebach.skitesting.common.utils.info
 import cz.erlebach.skitesting.common.utils.lg
 
@@ -19,11 +20,11 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) : CoroutineW
                 doTask()
 
                 Result.success()
-            } catch (e: Exception) {
+            } catch (e: RetrofitError) {
                 lg("MyWorker", "exception in doWork ${e.message}")
                 Result.failure()
             }
-        } catch (e: Exception) {
+        } catch (e: RetrofitError) {
             lg("MyWorker", "exception in doWork ${e.message}")
             Result.failure()
         }

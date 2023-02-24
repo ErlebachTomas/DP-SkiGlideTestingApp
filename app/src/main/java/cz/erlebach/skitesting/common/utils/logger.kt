@@ -7,17 +7,31 @@ import com.google.android.material.snackbar.Snackbar
 
 val TAG = "myapp"
 
-/** Zjednodušená verbose logovací funkce pro debug */
+/** Zjednodušená verbose logovací funkce */
 fun lg(text: String, tag: String = TAG) {
     Log.v(tag, text)
 }
-/** Zjednodušená err logovací funkce pro debug */
+/** Zjednodušená err logovací funkce  */
 fun err(text: String, tag: String = TAG) {
     Log.e(tag, text)
 }
 /** info log */
 fun info(text: String, tag: String = TAG) {
     Log.i(tag, text)
+}
+/** Funkce pro indikaci neočekávaného chování */
+fun warning(text: String, tag: String = TAG) {
+    Log.w(tag, text)
+}
+/** debug log */
+fun debug(text: String, tag: String = TAG) {
+    Log.d(tag, text)
+}
+fun wtf(text: String, exception: Throwable, tag: String = TAG) {
+    Log.wtf(tag, text, exception)
+}
+fun wtf(text: String, tag: String = TAG) {
+    Log.wtf(tag, text)
 }
 
 /** info výpis na obrazovku */

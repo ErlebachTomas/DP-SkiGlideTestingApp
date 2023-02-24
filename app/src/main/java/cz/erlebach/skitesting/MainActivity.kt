@@ -1,12 +1,8 @@
 package cz.erlebach.skitesting
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -27,21 +23,22 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.json.responseJson
 import com.google.android.material.snackbar.Snackbar
-import cz.erlebach.skitesting.common.MyWorker
+import com.google.gson.Gson
 import cz.erlebach.skitesting.common.SessionManager
+import cz.erlebach.skitesting.common.utils.debug
+import cz.erlebach.skitesting.common.utils.err
+import cz.erlebach.skitesting.common.utils.isDeviceOnline
+import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.databinding.ActivityMainBinding
 import cz.erlebach.skitesting.fragments.HomeFragment
 import cz.erlebach.skitesting.fragments.LoginFragment
 import cz.erlebach.skitesting.fragments.NoConnectionFragment
+import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.network.RetrofitApiService
-import cz.erlebach.skitesting.common.utils.err
-import cz.erlebach.skitesting.common.utils.isDeviceOnline
-import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.network.SyncWorker
-import kotlinx.coroutines.CoroutineScope
-
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity() {
@@ -200,7 +197,7 @@ class MainActivity : AppCompatActivity() {
 
                 lifecycleScope.launch(Dispatchers.IO) {
 
-                    val url = RetrofitApiService.BASE_URL + "/api/getAllUsers"
+                    val url = RetrofitApiService.URL + "getAllUsers"
 
                     Fuel.get(url)
                         .authentication()
@@ -226,7 +223,7 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
 
-            val url = RetrofitApiService.BASE_URL + "/api/getAllUsers"
+            val url = RetrofitApiService.URL + "getAllUsers"
 
             Fuel.get(url)
                 .authentication()
@@ -246,17 +243,42 @@ class MainActivity : AppCompatActivity() {
 
     /** Synchronizace dat */
     fun testButtonFunction() {
+        testuju()
 
-        lg("Test button function")
-        val workManager = WorkManager.getInstance(this)
+
+        //lg("Test button function")
+        //val workManager = WorkManager.getInstance(this)
 
         /*
         val wr = OneTimeWorkRequestBuilder<MyWorker>().build()
         workManager.enqueue(wr)
         */
 
-        val syncWorkRequest = OneTimeWorkRequestBuilder<SyncWorker>().build()
-        workManager.enqueue(syncWorkRequest)
+        //val syncWorkRequest = OneTimeWorkRequestBuilder<SyncWorker>().build()
+        //workManager.enqueue(syncWorkRequest)
 
+    }
+
+    fun testuju() {
+        val gson = Gson()
+        val ski = Ski(name="test")
+        val json = gson.toJson(ski)
+        lg(json.toString())
+
+        val context = this.applicationContext
+        lifecycleScope.launch(Dispatchers.IO) {
+            val id = SessionManager.getInstance(context).getUserID()
+            val api = RetrofitApiService(context).skiAPI
+            val response = api.getAllData(id)
+            debug("getList response")
+            debug(response.code().toString())
+            debug(response.message().toString())
+            debug(response.raw().toString())
+            if (!response.isSuccessful) {
+                err(response.message())
+            } else {
+              lg(response.body()!!.toString())
+            }
+        }
     }
 }
