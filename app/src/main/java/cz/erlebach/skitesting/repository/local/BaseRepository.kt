@@ -1,9 +1,8 @@
 package cz.erlebach.skitesting.repository.local
 import cz.erlebach.skitesting.db.BaseDao
+import cz.erlebach.skitesting.model.BaseModel
 
-/**
- * @param T model class
- */
+
 abstract class BaseRepository<T>(private val baseDao: BaseDao<T>) {
 
     suspend fun update(entity: T) {

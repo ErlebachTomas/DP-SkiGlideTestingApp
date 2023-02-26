@@ -23,7 +23,7 @@ class RetrofitApiService(context: Context) {
           return if(!BuildConfig.TEST_MODE_ENABLED) {
               "${BuildConfig.SERVER_URL}${BuildConfig.API_VERSION}"
           } else {
-              val baseUrl = "https://7c03-2001-718-1c01-152-3923-7a3d-bcf3-d0fa.eu.ngrok.io"
+              val baseUrl = "https://471f-2a00-1028-83ca-8026-29bb-cf2f-ae-a8a8.eu.ngrok.io"
               "$baseUrl/api/"
           }
       }

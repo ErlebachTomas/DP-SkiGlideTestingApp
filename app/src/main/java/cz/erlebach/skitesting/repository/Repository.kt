@@ -10,6 +10,7 @@ import cz.erlebach.skitesting.common.utils.dataStatus.DataStatus
 import cz.erlebach.skitesting.common.utils.info
 import cz.erlebach.skitesting.common.utils.isDeviceOnline
 import cz.erlebach.skitesting.common.utils.lg
+import cz.erlebach.skitesting.common.utils.wtf
 import cz.erlebach.skitesting.model.BaseModel
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.network.RetrofitApiService
@@ -24,13 +25,10 @@ abstract class Repository (
     private val context: Context,
     ) {
     protected val db = MyDatabase.getDatabase(context)
-    protected abstract val localRepository: BaseRepository<BaseModel>
     protected val account: IAccountManagement = SessionManager.getInstance(context)
-
 
     /**
      * Načtení dat z lokální ROOM databáze pomocí Dao
-     *
      */
     protected abstract fun getLocalDataFlow(): Flow<List<BaseModel>>
     /**
@@ -125,18 +123,14 @@ abstract class Repository (
 
 
     /**
-     * Získá list z api response
-     * @param getAllRemoteData suspend lambda funkce, bere jeden parametr id typu String a vrací odpověď typu Response<List<BaseModel>>
-     * Tento parametr slouží k získání dat z vzdáleného zdroje pomocí asynchronního volání.
+     * Získá list z api Response<List<BaseModel>>     *
      *  @throws RetrofitError error pokud response nebyla úspěšná
      */
-    protected suspend fun getListFromResponse (
-        getAllRemoteData: suspend (id: String) -> Response<List<BaseModel>>): List<BaseModel> {
-
-        val response = getAllRemoteData(account.getUserID())
-
+    protected fun <T> getListFromResponse(response: Response<List<T>>):List<T>  {
         if (!response.isSuccessful) {
-            throw RetrofitError(response.code(),response.message(),response.errorBody())
+            val err = RetrofitError(response.code(),response.message(),response.errorBody())
+            wtf("getListFromResponse failed", err)
+            throw err
         } else {
             return response.body()!!
         }
@@ -190,23 +184,16 @@ abstract class Repository (
     /**
      * Provede lokální editaci záznamu v databázi
      */
-    private suspend fun updateLocalModel(obj: BaseModel) {
-        localRepository.update(obj)
-    }
+    protected abstract suspend fun updateLocalModel(obj: BaseModel)
     /**
      * Vloží lokálně nový záznam do databáze
      */
-    private suspend fun insertLocalModel(obj: BaseModel) {
-        localRepository.insert(obj)
-    }
+    protected abstract suspend fun insertLocalModel(obj: BaseModel)
 
     /**
      * Smaže záznam z lokální databáze
      */
-    private suspend fun deleteLocalModel(obj: BaseModel) {
-        localRepository.delete(obj)
-    }
-
+    protected abstract suspend fun deleteLocalModel(obj: BaseModel)
 
 
 

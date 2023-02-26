@@ -18,9 +18,12 @@ import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.repository.remote.SkiRemoteRepository
 import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.common.utils.toast
+import cz.erlebach.skitesting.model.Ski
+import cz.erlebach.skitesting.repository.MyRepository
 import cz.erlebach.skitesting.repository.SkiRepository
 import cz.erlebach.skitesting.repository.local.SkiLocalRepository
-import cz.erlebach.skitesting.viewModel.VM
+import cz.erlebach.skitesting.viewModel.MyVM
+import cz.erlebach.skitesting.viewModel.SkiVM
 
 
 class SkiListFragment : Fragment() {
@@ -70,24 +73,17 @@ class SkiListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
-        val account = SessionManager.getInstance(requireContext())
 
-        val skiRemoteRepository = SkiRemoteRepository(requireContext())
-        val skiLocalRepository = SkiLocalRepository(
-            MyDatabase.getDatabase(this.requireActivity().application).skiDao())
+        val viewModelFactory = MyViewModelFactory(MyVM(MyRepository(requireContext())))
 
-        val viewModelFactory = MyViewModelFactory(VM(repository = SkiRepository(
-            skiLocalRepository,
-            skiRemoteRepository,
-            account,
-            MyDatabase.getDatabase(this.requireActivity().application)
-        )))
+
         try {
-           val viewModel = ViewModelProvider(this, viewModelFactory)[VM::class.java]
-            viewModel.ski.observe(viewLifecycleOwner) { ski ->
-                lg(ski.data?.size.toString())
-                ski.data?.let { adapter.setData(it) }
-            }
+           val viewModel = ViewModelProvider(this, viewModelFactory)[MyVM::class.java]
+            viewModel.data.observe(viewLifecycleOwner) { resource ->
+                resource.data?.let {
+                    val skis = it as List<Ski>
+                    adapter.setData(skis) }
+                }
 
         } catch (err: IllegalStateException) {
                 toast(requireContext(), err.message.toString())

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import cz.erlebach.skitesting.MyDatabase
 import cz.erlebach.skitesting.common.utils.dataStatus.DataStatus
+import cz.erlebach.skitesting.model.BaseModel
 import cz.erlebach.skitesting.model.Ski
 import kotlinx.coroutines.flow.Flow
 
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
  * Toto rozhraní definuje standardní operace, které se dají provádět s tabulkou [Ski]
  * Dao = Data Access Object */
 @Dao
-interface SkiDao {
+interface SkiDao : BaseDao<Ski>  {
 
     @Query("SELECT * FROM ${MyDatabase.skiTableName}")
     fun getLiveData(): LiveData<List<Ski>>

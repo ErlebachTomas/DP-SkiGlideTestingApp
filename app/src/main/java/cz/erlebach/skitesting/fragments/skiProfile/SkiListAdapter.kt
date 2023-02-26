@@ -1,5 +1,6 @@
 package cz.erlebach.skitesting.fragments.skiProfile
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.model.BaseModel
 
 import cz.erlebach.skitesting.model.Ski
 
@@ -67,9 +69,8 @@ class SkiListAdapter(): RecyclerView.Adapter<SkiListAdapter.MyViewHolder>(){
         return myList.size
     }
 
-
-    fun setData(list: List<Ski>){
-        this.myList = list
+    fun setData(list: List<BaseModel>) {
+        this.myList = list.filterIsInstance<Ski>()
         notifyDataSetChanged()
     }
 }
