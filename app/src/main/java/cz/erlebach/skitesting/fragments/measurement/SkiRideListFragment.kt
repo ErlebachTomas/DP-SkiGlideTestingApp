@@ -7,17 +7,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import cz.erlebach.skitesting.common.template.MyViewModelFactory
 
 import cz.erlebach.skitesting.databinding.FragmentMeasurementSkiRideListBinding
-import cz.erlebach.skitesting.viewModel.local.SkiRideVM
+import cz.erlebach.skitesting.repository.SkiRideRepository
+import cz.erlebach.skitesting.viewModel.SkiRideVM
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class SkiRideListFragment : Fragment() {
 
     private var _binding: FragmentMeasurementSkiRideListBinding? = null
     private val binding get() = _binding!!
 
+    lateinit var viewModel : SkiRideVM
     private val args by navArgs<SkiRideListFragmentArgs>()
 
 
@@ -34,6 +40,12 @@ class SkiRideListFragment : Fragment() {
             Log.e("ViewModel",e.printStackTrace().toString())
         }
 
+        binding.srlBtnAddNew.setOnClickListener {
+
+                val action = SkiRideListFragmentDirections.actionSkiRideListFragmentToAddSkiRideFragment(args.idTestSession)
+                findNavController().navigate(action)
+
+        }
 
         return binding.root
     }
@@ -43,11 +55,12 @@ class SkiRideListFragment : Fragment() {
      */
     private fun initviewModel() {
 
-        val viewModel = ViewModelProvider(
+        viewModel = ViewModelProvider(
             this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))[SkiRideVM::class.java]
+            MyViewModelFactory(SkiRideVM(SkiRideRepository(requireContext())))
+        )[SkiRideVM::class.java]
 
-        val adapter = SkiRideListAdapter()
+        val adapter = SkiRideListAdapter(viewModel)
 
         binding.srlRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.srlRecyclerView.adapter = adapter
@@ -57,6 +70,8 @@ class SkiRideListFragment : Fragment() {
         liveData.observe(viewLifecycleOwner) { item ->
             adapter.setData(item)
         }
+
+
 
         /*
         viewModel.readAllData.observe(viewLifecycleOwner) { item ->

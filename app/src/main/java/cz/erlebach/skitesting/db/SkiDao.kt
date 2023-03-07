@@ -18,8 +18,8 @@ interface SkiDao : BaseDao<Ski>  {
     @Query("SELECT * FROM ${MyDatabase.skiTableName}")
     fun getLiveData(): LiveData<List<Ski>>
 
-    @Query("SELECT * FROM ${MyDatabase.skiTableName}")
-    fun getFlow(): Flow<List<Ski>>
+    @Query("SELECT * FROM ${MyDatabase.skiTableName} WHERE status != :filterStatus")
+    fun getFlow(filterStatus: DataStatus = DataStatus.REMOVED): Flow<List<Ski>>
 
     // todo Strategy
     @Insert(onConflict = OnConflictStrategy.IGNORE)

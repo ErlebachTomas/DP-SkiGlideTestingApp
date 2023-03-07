@@ -143,7 +143,7 @@
         android:id="@+id/mf_twDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="32dp"
         android:text="datum"
         app:layout_constraintStart_toStartOf="parent"
@@ -153,7 +153,7 @@
         android:id="@+id/mf_twTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="64dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/mf_btnTimePicker"
         app:layout_constraintTop_toTopOf="@+id/mf_twDate" />

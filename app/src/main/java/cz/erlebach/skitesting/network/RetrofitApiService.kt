@@ -2,8 +2,11 @@ package cz.erlebach.skitesting.network
 
 import android.content.Context
 import cz.erlebach.skitesting.BuildConfig
-import cz.erlebach.skitesting.network.api.ISkiAPI
-import cz.erlebach.skitesting.network.api.IWebApi
+import cz.erlebach.skitesting.model.SkiRide
+import cz.erlebach.skitesting.network.api.SkiAPI
+import cz.erlebach.skitesting.network.api.SkiRideAPI
+import cz.erlebach.skitesting.network.api.TestSessionAPI
+import cz.erlebach.skitesting.network.api.WebAPI
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -23,7 +26,7 @@ class RetrofitApiService(context: Context) {
           return if(!BuildConfig.TEST_MODE_ENABLED) {
               "${BuildConfig.SERVER_URL}${BuildConfig.API_VERSION}"
           } else {
-              val baseUrl = "https://471f-2a00-1028-83ca-8026-29bb-cf2f-ae-a8a8.eu.ngrok.io"
+              val baseUrl = "https://4493-2001-718-1c01-152-b03e-4589-4cd6-adf1.eu.ngrok.io"
               "$baseUrl/api/"
           }
       }
@@ -49,14 +52,23 @@ class RetrofitApiService(context: Context) {
             .build()
     }
 
-    /** Poskytuje [IWebApi] API interface  */
-    val skiTestingServerAPI: IWebApi by lazy {
-        retrofit.create(IWebApi::class.java)
+    /** Poskytuje [WebAPI] API interface  */
+    val skiTestingServerAPI: WebAPI by lazy {
+        retrofit.create(WebAPI::class.java)
     }
 
-    /** Poskytuje [ISkiAPI] API interface  */
-    val skiAPI: ISkiAPI by lazy {
-        retrofit.create(ISkiAPI::class.java)
+    /** Poskytuje [SkiAPI] API interface  */
+    val skiAPI: SkiAPI by lazy {
+        retrofit.create(SkiAPI::class.java)
+    }
+
+    /** Poskytuje [SkiAPI] API interface  */
+    val testSessionAPI: TestSessionAPI by lazy {
+        retrofit.create(TestSessionAPI::class.java)
+    }
+    /** Poskytuje [SkiAPI] API interface  */
+    val skiRideAPI: SkiRideAPI by lazy {
+        retrofit.create(SkiRideAPI::class.java)
     }
     /** továrna */
     fun <T> apiFactory(clas: Class<T>): T {

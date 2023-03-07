@@ -15,15 +15,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.activity.SkiProfileActivity
+import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentMeasurementAddSkiRideBinding
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.model.SkiRide
-import cz.erlebach.skitesting.viewModel.local.SkiRideVM
-import cz.erlebach.skitesting.viewModel.local.SkiVM
+import cz.erlebach.skitesting.repository.SkiRepository
+import cz.erlebach.skitesting.repository.SkiRideRepository
+import cz.erlebach.skitesting.viewModel.SkiRideVM
+import cz.erlebach.skitesting.viewModel.SkiVM
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.UUID
 
 
 class AddSkiRideFragment : Fragment() {
@@ -49,7 +51,10 @@ class AddSkiRideFragment : Fragment() {
 
         _binding = FragmentMeasurementAddSkiRideBinding.inflate(inflater, container, false)
 
-        skiRideVM = ViewModelProvider(this)[SkiRideVM::class.java]
+        skiRideVM = ViewModelProvider(
+            this,
+            factory= MyViewModelFactory(SkiRideVM(SkiRideRepository(requireContext())))
+        )[SkiRideVM::class.java]
 
         binding.srBtnSave.setOnClickListener {
             Log.v(TAG,"save")
@@ -80,13 +85,11 @@ class AddSkiRideFragment : Fragment() {
 
         if (!TextUtils.isEmpty(result)) {
             val ride = SkiRide(
-                UUID.randomUUID().toString(),
-                selectedSki.id,
-                args.idTestSession,
-                result.toString().toDouble(),
-                note.toString(),
-                null,
-                ) //todo update
+                skiID = selectedSki.id,
+                testSessionID = args.idTestSession,
+                result = result.toString().toDouble(),
+                note = note.toString(),
+                )
 
             CoroutineScope(Dispatchers.IO).launch() {
                 skiRideVM.insert(ride)
@@ -115,17 +118,14 @@ class AddSkiRideFragment : Fragment() {
 
     private fun initSpinnerData() {
 
-       val  skiViewModel = ViewModelProvider(
-           this,
-           ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))[SkiVM::class.java]
-
+      val skiViewModel = ViewModelProvider(this,
+          factory = MyViewModelFactory(SkiVM(SkiRepository(requireContext()))))[SkiVM::class.java]
 
        val allSkis = context?.let {
                 ArrayAdapter<Ski>(it, R.layout.adapter_spinner_measurement_ski_row,R.id.mf_twSpinnerRow)
        }
 
-
-        skiViewModel.readAllData
+        skiViewModel.userSkis
                 .observe(viewLifecycleOwner) { skis ->
 
                     if (skis.isNotEmpty()) {
@@ -133,7 +133,7 @@ class AddSkiRideFragment : Fragment() {
                             allSkis?.add(ski)
                         }
                     } else {
-                        Toast.makeText(requireContext(), "No skis",Toast.LENGTH_LONG)
+                        Toast.makeText(requireContext(), "No skis",Toast.LENGTH_LONG).show()
                         //todo ošetření žádná lyže
                     }
           }

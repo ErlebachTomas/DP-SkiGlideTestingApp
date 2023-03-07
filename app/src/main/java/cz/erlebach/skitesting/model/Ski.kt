@@ -35,9 +35,9 @@ data class Ski (
     override fun toString(): String {
 
         return if(description == null) {
-            "[$updatedAt] $name |$id|"
+            "$name "
         } else {
-            "[$updatedAt] $name ($description) |$id|"
+            "$name ($description)"
         }
     }
 

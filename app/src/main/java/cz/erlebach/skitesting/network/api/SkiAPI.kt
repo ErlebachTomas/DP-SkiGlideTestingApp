@@ -5,7 +5,7 @@ import cz.erlebach.skitesting.network.model.SkiDataBody
 import retrofit2.Response
 import retrofit2.http.*
 
-interface ISkiAPI {
+interface SkiAPI {
 
     @GET("getAllUsersSki")
     suspend fun getAllData( @Query("user") userID: String): Response<List<Ski>>

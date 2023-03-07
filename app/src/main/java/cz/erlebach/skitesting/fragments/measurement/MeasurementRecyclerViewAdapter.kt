@@ -15,6 +15,8 @@ import cz.erlebach.skitesting.databinding.AdapterFragmentMeasurementListContentB
 
 import cz.erlebach.skitesting.model.TestSession
 import cz.erlebach.skitesting.common.utils.getDateFormatString
+import cz.erlebach.skitesting.model.BaseModel
+import cz.erlebach.skitesting.model.Ski
 
 
 /**
@@ -40,7 +42,7 @@ class MeasurementRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val testSession = values[position]
 
-        holder.idView.text = testSession.id
+        holder.idView.text = testSession.testType.toString()
         holder.contentView.text = getDateFormatString(testSession.datetime)
 
         holder.itemView.findViewById<View>(R.id.adap_layout_measurement_row).setOnClickListener {
@@ -56,7 +58,7 @@ class MeasurementRecyclerViewAdapter(
          val action = MeasurementListFragmentDirections.actionMeasurementFragmentToMeasurementUpdateFragment(
              testSession)
 
-             holder.itemView.findNavController().navigate(action)
+         holder.itemView.findNavController().navigate(action)
 
             return@setOnLongClickListener true
         }
@@ -75,8 +77,11 @@ class MeasurementRecyclerViewAdapter(
         }
     }
 
-    fun setData(list: List<TestSession>){
-        this.values = list
+    /**
+     * Vloží data do adaptéru
+     */
+    fun setData(list: List<BaseModel>){
+        this.values = list.filterIsInstance<TestSession>()
         notifyDataSetChanged()
     }
 

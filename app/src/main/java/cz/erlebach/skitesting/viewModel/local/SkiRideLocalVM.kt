@@ -6,16 +6,16 @@ import androidx.lifecycle.viewModelScope
 import cz.erlebach.skitesting.MyDatabase
 import cz.erlebach.skitesting.model.SkiRide
 import cz.erlebach.skitesting.repository.local.BaseRepository
-import cz.erlebach.skitesting.repository.local.SkiRideRepository
+import cz.erlebach.skitesting.repository.local.SkiRideLocalRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
  * Repozitář pro testovací jízdy
  */
-class SkiRideVM(application: Application) : BaseVM<SkiRide>(application) {
+class SkiRideLocalVM(application: Application) : BaseLocalVM<SkiRide>(application) {
 
-    private val _repository: SkiRideRepository
+    private val _repository: SkiRideLocalRepository
     val readAllData: LiveData<List<SkiRide>>
 
     init {
@@ -24,7 +24,7 @@ class SkiRideVM(application: Application) : BaseVM<SkiRide>(application) {
             application
         ).skiRideDao()
 
-        _repository = SkiRideRepository(skiRideDao)
+        _repository = SkiRideLocalRepository(skiRideDao)
         readAllData = _repository.readAllData
     }
 

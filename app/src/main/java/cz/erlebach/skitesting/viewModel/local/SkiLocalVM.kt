@@ -13,7 +13,7 @@ import cz.erlebach.skitesting.repository.local.SkiLocalRepository
 /**
  * ViewModel s využitím Kotlin coroutines
  */
-class SkiVM(application: Application): AndroidViewModel(application)  {
+class SkiLocalVM(application: Application): AndroidViewModel(application)  {
 
     private val repository: SkiLocalRepository
 

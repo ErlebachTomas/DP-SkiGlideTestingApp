@@ -6,13 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import cz.erlebach.skitesting.MyDatabase
 import cz.erlebach.skitesting.model.TestSession
-import cz.erlebach.skitesting.repository.local.TestSessionRepository
+import cz.erlebach.skitesting.repository.local.TestSessionLocalRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class TestSessionVM (application: Application): AndroidViewModel(application)  {
+class TestSessionLocalVM (application: Application): AndroidViewModel(application)  {
 
-    private val repository: TestSessionRepository
+    private val repository: TestSessionLocalRepository
 
     val readAllData: LiveData<List<TestSession>>
 
@@ -22,7 +22,7 @@ class TestSessionVM (application: Application): AndroidViewModel(application)  {
             application
         ).testSessionDao()
 
-        repository = TestSessionRepository(dao)
+        repository = TestSessionLocalRepository(dao)
 
         readAllData = repository.readAllData
     }

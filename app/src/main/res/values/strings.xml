@@ -82,6 +82,8 @@
     <string name="mfNoteHint">note</string>
     <string name="humidity">Humidity %</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
+    <string name="new_api_version_tittle">A new version of the application has been released</string>
+    <string name="btn_close">Close</string>
 
 
 </resources>

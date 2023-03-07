@@ -14,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.ActivityRecommendationBinding
 import cz.erlebach.skitesting.network.RetrofitApiService
-import cz.erlebach.skitesting.network.api.IWebApi
+import cz.erlebach.skitesting.network.api.WebAPI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -73,7 +73,7 @@ class RecommendationActivity : AppCompatActivity() {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(IWebApi::class.java)
+            .create(WebAPI::class.java)
 
         // Corutines scope na aktivitu
         lifecycleScope.launch(Dispatchers.IO) {

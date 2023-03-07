@@ -9,15 +9,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.common.template.MyViewModelFactory
+import cz.erlebach.skitesting.common.utils.toast
 import cz.erlebach.skitesting.databinding.FragmentMeasurementListBinding
-import cz.erlebach.skitesting.viewModel.local.TestSessionVM
+import cz.erlebach.skitesting.repository.TestSessionRepository
+import cz.erlebach.skitesting.viewModel.SkiVM
+import cz.erlebach.skitesting.viewModel.TestSessionVM
+import cz.erlebach.skitesting.viewModel.local.TestSessionLocalVM
 
 class MeasurementListFragment : Fragment() {
 
     private var _binding: FragmentMeasurementListBinding? = null
     private val binding get() = _binding!!
-
-    //todo https://thecommonwise.com/blogs/60f6ea9bea3d10001503eac3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,17 +46,21 @@ class MeasurementListFragment : Fragment() {
     }
     private fun init() {
 
-        val viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))[TestSessionVM::class.java]
-
         val adapter = MeasurementRecyclerViewAdapter()
-
         binding.mlRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.mlRecyclerView.adapter = adapter
 
-        viewModel.readAllData.observe(viewLifecycleOwner) { item ->
-            adapter.setData(item)
+        try {
+            val viewModel = ViewModelProvider(this,
+                MyViewModelFactory(TestSessionVM(TestSessionRepository(requireContext()))))[TestSessionVM::class.java]
+
+            viewModel.data.observe(viewLifecycleOwner) { resource ->
+                resource.data?.let {
+                    adapter.setData(it) }
+            }
+
+        } catch (E: Exception) {
+            toast(requireContext(), E.message.toString())
         }
 
     }

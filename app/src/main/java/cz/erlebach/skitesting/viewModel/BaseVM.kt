@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-open class VM (val repository: Repository): ViewModel() {
+open class BaseVM (val repository: Repository): ViewModel() {
 
     val data get() = repository.readAllData.asLiveData()
 

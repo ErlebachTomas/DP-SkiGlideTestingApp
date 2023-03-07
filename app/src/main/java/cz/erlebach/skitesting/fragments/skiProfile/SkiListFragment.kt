@@ -11,18 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import cz.erlebach.skitesting.MyDatabase
 import cz.erlebach.skitesting.R
-import cz.erlebach.skitesting.common.SessionManager
 import cz.erlebach.skitesting.common.template.MyViewModelFactory
-import cz.erlebach.skitesting.repository.remote.SkiRemoteRepository
 import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.common.utils.toast
-import cz.erlebach.skitesting.model.Ski
-import cz.erlebach.skitesting.repository.MyRepository
 import cz.erlebach.skitesting.repository.SkiRepository
-import cz.erlebach.skitesting.repository.local.SkiLocalRepository
-import cz.erlebach.skitesting.viewModel.MyVM
 import cz.erlebach.skitesting.viewModel.SkiVM
 
 
@@ -74,15 +67,14 @@ class SkiListFragment : Fragment() {
         recyclerView.adapter = adapter
 
 
-        val viewModelFactory = MyViewModelFactory(MyVM(MyRepository(requireContext())))
+        val viewModelFactory = MyViewModelFactory(SkiVM(SkiRepository(requireContext())))
 
 
         try {
-           val viewModel = ViewModelProvider(this, viewModelFactory)[MyVM::class.java]
+           val viewModel = ViewModelProvider(this, viewModelFactory)[SkiVM::class.java]
             viewModel.data.observe(viewLifecycleOwner) { resource ->
-                resource.data?.let {
-                    val skis = it as List<Ski>
-                    adapter.setData(skis) }
+              resource.data?.let {
+                    adapter.setData(it) }
                 }
 
         } catch (err: IllegalStateException) {

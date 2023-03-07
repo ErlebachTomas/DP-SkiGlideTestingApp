@@ -21,7 +21,7 @@ import cz.erlebach.skitesting.network.model.TestDataBody
 import cz.erlebach.skitesting.repository.remote.RemoteServerRepository
 import cz.erlebach.skitesting.common.utils.err
 import cz.erlebach.skitesting.common.utils.lg
-import cz.erlebach.skitesting.viewModel.RemoteServerVM
+import cz.erlebach.skitesting.viewModel.remote.RemoteServerVM
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

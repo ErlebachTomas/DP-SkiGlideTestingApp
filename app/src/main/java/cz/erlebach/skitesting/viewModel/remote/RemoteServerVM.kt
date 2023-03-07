@@ -1,4 +1,4 @@
-package cz.erlebach.skitesting.viewModel
+package cz.erlebach.skitesting.viewModel.remote
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

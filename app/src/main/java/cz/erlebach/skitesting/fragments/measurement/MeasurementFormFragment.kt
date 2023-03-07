@@ -1,5 +1,6 @@
 package cz.erlebach.skitesting.fragments.measurement
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -15,15 +16,19 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentMeasurementFormBinding
 import cz.erlebach.skitesting.model.TestSession
 import cz.erlebach.skitesting.common.utils.generateDateISO8601string
-import cz.erlebach.skitesting.viewModel.local.TestSessionVM
+import cz.erlebach.skitesting.repository.TestSessionRepository
+import cz.erlebach.skitesting.viewModel.TestSessionVM
+import cz.erlebach.skitesting.viewModel.local.TestSessionLocalVM
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -40,6 +45,9 @@ class MeasurementFormFragment : Fragment() {
     private var datetime: Calendar = GregorianCalendar(TimeZone.getDefault())
     private lateinit var testSessionVM: TestSessionVM
 
+    val dateFormat = SimpleDateFormat("dd.MM-yyyy", Locale.getDefault())
+    val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,7 +55,9 @@ class MeasurementFormFragment : Fragment() {
 
         _binding = FragmentMeasurementFormBinding.inflate(inflater, container, false)
 
-        testSessionVM = ViewModelProvider(this)[TestSessionVM::class.java]
+        testSessionVM = ViewModelProvider(this,
+            factory= MyViewModelFactory(TestSessionVM(TestSessionRepository(requireContext())))
+        )[TestSessionVM::class.java]
 
         return binding.root
 
@@ -60,7 +70,7 @@ class MeasurementFormFragment : Fragment() {
         val adapterProfile = ArrayAdapter.createFromResource(requireContext(),R.array.snowType, android.R.layout.simple_spinner_dropdown_item)
         binding.mfSnowSpinner.adapter = adapterProfile
 
-        binding.mfTestTypeSpinner.adapter = ArrayAdapter.createFromResource(requireContext(),R.array.snowType, android.R.layout.simple_spinner_dropdown_item)
+        binding.mfTestTypeSpinner.adapter = ArrayAdapter.createFromResource(requireContext(),R.array.testType, android.R.layout.simple_spinner_dropdown_item)
 
     }
 
@@ -92,6 +102,11 @@ class MeasurementFormFragment : Fragment() {
      * Nastavení výběru data a času
      */
     private fun setPickers() {
+
+        datetime = Calendar.getInstance() // get current time
+        binding.mfTwDate.text = dateFormat.format(datetime.time)
+        binding.mfTwTime.text = timeFormat.format(datetime.time)
+
         binding.mfBtnDatePicker.setOnClickListener {
             showDatePickerDialog(binding.mfTwDate)
         }
@@ -123,25 +138,24 @@ class MeasurementFormFragment : Fragment() {
         )  {
             // kontrola vyplnění
 
-            val testSession = TestSession(UUID.randomUUID().toString(),
-                datetime.time,
-                airTemperature,
-                snowTemperature,
-                snowType,
-                testType,
-                humidity,
-                binding.mfNote.toString(),
-                generateDateISO8601string()
+            val testSession = TestSession(
+                datetime = datetime.time,
+                airTemperature = airTemperature,
+                snowTemperature = snowTemperature,
+                snowType = snowType,
+                testType = testType,
+                humidity = humidity,
+                note = binding.mfNote.text.toString(),
             )
 
             CoroutineScope(Dispatchers.IO).launch() {
 
-                val id: String = testSessionVM.add(testSession) //uloží do db
-                Log.v(TAG, "Měření uložono jako $id")
+                testSessionVM.insert(testSession) //uloží do db
+                Log.v(TAG, "Měření uložono jako ${testSession.id}")
 
                 withContext(Dispatchers.Main) {
                     // musi udělat main thread až po uloženi
-                    val action = MeasurementFormFragmentDirections.actionMeasurementFormFragmentToAddSkiRideFragment(id)
+                    val action = MeasurementFormFragmentDirections.actionMeasurementFormFragmentToAddSkiRideFragment(testSession.id)
                     findNavController().navigate(action)
                 }
 
@@ -171,10 +185,7 @@ class MeasurementFormFragment : Fragment() {
 
             datetime.set(myear,mmonth,mday)
 
-            val format = SimpleDateFormat("MMMM d, yyyy h:mm")
-            format.format(datetime.time)
-
-            tw.text = format.format(datetime.time)
+            tw.text = dateFormat.format(datetime.time)
 
         }, year, month, day)
 
@@ -184,6 +195,7 @@ class MeasurementFormFragment : Fragment() {
     /**
      * Výběr času
      */
+
     private fun showTimePickerDialog(tw:TextView) {
         val c = Calendar.getInstance()
         val hour = c.get(Calendar.HOUR_OF_DAY)
@@ -195,9 +207,7 @@ class MeasurementFormFragment : Fragment() {
             datetime.set(Calendar.HOUR, hh)
 
             Log.v(TAG,"set time $hh:$mm")
-
-            val format = SimpleDateFormat("MMMM d, yyyy h:mm")
-            tw.text =  format.format(datetime.time)
+            tw.text =  timeFormat.format(datetime.time)
 
         }, hour, minute, true)
 

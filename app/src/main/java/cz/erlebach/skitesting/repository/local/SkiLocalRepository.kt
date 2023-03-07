@@ -12,6 +12,7 @@ class SkiLocalRepository(private val skiDao: SkiDao): BaseRepository<Ski>(skiDao
     val readAllData: LiveData<List<Ski>> = skiDao.getLiveData()
     val getDataFlow: Flow<List<Ski>> = skiDao.getFlow()
 
+
     suspend fun addSki(ski:Ski){
         skiDao.addSki(ski)
     }

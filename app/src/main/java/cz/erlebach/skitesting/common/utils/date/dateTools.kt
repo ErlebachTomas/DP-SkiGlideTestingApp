@@ -14,7 +14,7 @@ import java.util.*
      * @return [String] Naformátovaný text odpovídající datu
      */
     fun getDateFormatString(date: Date, pattern: String = "MMMM d yyyy h:mm"): String {
-        val format = SimpleDateFormat(pattern)
+        val format = SimpleDateFormat(pattern, Locale.getDefault())
         return format.format(date.time)
     }
 

@@ -1,19 +1,17 @@
 package cz.erlebach.skitesting.network.api
 
-import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.network.model.TestDataBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 /**
  * DP-SkiGlideTestingServer provides web API for mobile application
  * @author Tomas Erlebach
  */
-interface IWebApi {
+interface WebAPI {
 
     @GET("data")
     fun getTestData(): Call<TestDataBody>

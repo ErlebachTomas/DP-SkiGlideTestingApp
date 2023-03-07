@@ -8,13 +8,18 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.databinding.AdapterFragmentMeasurementSkiRideListBinding
+import cz.erlebach.skitesting.model.BaseModel
 import cz.erlebach.skitesting.model.SkiRide
+import cz.erlebach.skitesting.viewModel.SkiRideVM
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 /**
  * [RecyclerView.Adapter] který zobrazuje [SkiRide] pro [SkiRideListFragment].
  */
-class SkiRideListAdapter(
+class SkiRideListAdapter(val viewModel: SkiRideVM
 ):RecyclerView.Adapter<SkiRideListAdapter.ViewHolder>() {
 
     private var values: List<SkiRide> = emptyList<SkiRide>()
@@ -36,10 +41,14 @@ class SkiRideListAdapter(
 
         val temp = currentSkiRide.skiID//todo holder ski name misto id
 
-        holder.content.text = "[ID lyže:" + temp + "] " + currentSkiRide.result.toString()
-
-
-        holder.itemView.findViewById<View>(R.id.adap_layout_skiRide_row).setOnClickListener {
+        /*
+        CoroutineScope(Dispatchers.IO).launch {
+            val ski = viewModel.getSki(currentSkiRide)
+            holder.content.text = "${ski.toString()} : ${currentSkiRide.result.toString()}"
+        }
+        */
+        holder.content.text = "$temp\n ${currentSkiRide.result.toString()}"
+            holder.itemView.findViewById<View>(R.id.adap_layout_skiRide_row).setOnClickListener {
 
             val action = SkiRideListFragmentDirections.actionSkiRideListFragmentToUpdateSkiRideFragment(
                 currentSkiRide
@@ -63,8 +72,8 @@ class SkiRideListAdapter(
         }
     }
 
-    fun setData(list: List<SkiRide>){
-        this.values = list
+    fun setData(list: List<BaseModel>){
+        this.values = list.filterIsInstance<SkiRide>()
         notifyDataSetChanged()
     }
 

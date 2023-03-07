@@ -32,13 +32,13 @@ import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.databinding.ActivityMainBinding
 import cz.erlebach.skitesting.fragments.HomeFragment
 import cz.erlebach.skitesting.fragments.LoginFragment
+import cz.erlebach.skitesting.fragments.NewAppVersionFragment
 import cz.erlebach.skitesting.fragments.NoConnectionFragment
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.network.RetrofitApiService
 import cz.erlebach.skitesting.network.SyncWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity() {
@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         if (!isDeviceOnline(this)) {
             changeFragmentTo(NoConnectionFragment()) // undone offline politika
         } else {
+            versionCheck()
             if (authManager.checkIfloginIsValid()) {
                 changeFragmentTo(HomeFragment())
             } else {
@@ -218,6 +219,37 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
+    fun versionCheck() {
+
+        lifecycleScope.launch(Dispatchers.IO) {
+
+            val url = RetrofitApiService.URL + "version"
+
+            Fuel.get(url)
+                .responseJson { _, _, result ->
+                    result.fold(success = { json ->
+
+                       val serverVersion = json.obj().getString("version").toDouble()
+                       val appVersion = BuildConfig.VERSION_NAME.toDouble()
+                       lg("server: $serverVersion  app:${appVersion}")
+
+                       if (serverVersion > appVersion) {
+                           val bundle = Bundle()
+                           bundle.putString("info", json.obj().getString("info"))
+                           val fragment = NewAppVersionFragment()
+                           fragment.arguments = bundle
+                           changeFragmentTo(fragment)
+                       }
+
+                    }, failure = { error ->
+                        err(error.toString())
+                    })
+                }
+        }
+
+    }
+
+
 
     fun apiCall() {
 
@@ -243,19 +275,20 @@ class MainActivity : AppCompatActivity() {
 
     /** Synchronizace dat */
     fun testButtonFunction() {
-        testuju()
+        //testuju()
 
 
         //lg("Test button function")
-        //val workManager = WorkManager.getInstance(this)
+        val workManager = WorkManager.getInstance(this)
 
         /*
         val wr = OneTimeWorkRequestBuilder<MyWorker>().build()
         workManager.enqueue(wr)
         */
 
-        //val syncWorkRequest = OneTimeWorkRequestBuilder<SyncWorker>().build()
-        //workManager.enqueue(syncWorkRequest)
+        toast("Synchronizace zahájena")
+        val syncWorkRequest = OneTimeWorkRequestBuilder<SyncWorker>().build()
+        workManager.enqueue(syncWorkRequest)
 
     }
 

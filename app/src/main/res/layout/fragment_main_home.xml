@@ -54,6 +54,7 @@
         android:id="@+id/btn_recommendation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:enabled="false"
         android:text="@string/btn_recomenndation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +67,7 @@
         android:layout_height="wrap_content"
 
         android:backgroundTint="@color/design_default_color_primary_dark"
-        android:text="Testovací tlacitko"
+        android:text="Synchronizace"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/mf_textView2"
         app:layout_constraintEnd_toEndOf="parent"

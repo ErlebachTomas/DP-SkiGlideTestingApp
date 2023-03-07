@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
  * ViewModel je třída, která je zodpovědná za přípravu a správu dat pro Activity.
  * @param T model
  */
-abstract class BaseVM<T>(application: Application): AndroidViewModel(application)  {
+abstract class BaseLocalVM<T>(application: Application): AndroidViewModel(application)  {
 
     abstract val repository: BaseRepository<T>
 

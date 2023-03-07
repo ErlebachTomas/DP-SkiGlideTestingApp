@@ -14,9 +14,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.common.utils.generateDateISO8601string
-import cz.erlebach.skitesting.viewModel.local.SkiVM
+import cz.erlebach.skitesting.repository.SkiRepository
+import cz.erlebach.skitesting.viewModel.SkiVM
 
 /**
  * Fragment editace profilu lyže
@@ -32,7 +34,7 @@ class UpdateSkiFragment : Fragment() {
      * viewModel lyží
      */
      private lateinit var viewModel: SkiVM
-    // // todo private lateinit var remoteVM : SkiRemoteVM
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,9 +43,9 @@ class UpdateSkiFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_ski_update_ski, container, false)
 
-        viewModel = ViewModelProvider(this)[SkiVM::class.java]
+        val viewModelFactory = MyViewModelFactory(SkiVM(SkiRepository(requireContext())))
+       viewModel = ViewModelProvider(this, viewModelFactory)[SkiVM::class.java]
 
-        //todo initVM()
 
         showItems(view)
 
@@ -87,8 +89,8 @@ class UpdateSkiFragment : Fragment() {
                 updatedAt = generateDateISO8601string()
             )
 
-            viewModel.updateSki(updatedSki)
-            // todo remoteVM.update(updatedSki)
+            viewModel.update(updatedSki)
+
 
             Toast.makeText(requireContext(), getString(R.string.update_success_message), Toast.LENGTH_SHORT).show()
 
@@ -101,8 +103,7 @@ class UpdateSkiFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton(getString(R.string.Yes)) { _, _ ->
 
-            viewModel.deleteSki(args.currentSki)
-            //todo remoteVM.delete(args.currentSki)
+            viewModel.delete(args.currentSki)
 
             Toast.makeText(requireContext(), getString(R.string.delete_success_message), Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_updateSkiFragment_to_skiListFragment)
@@ -113,15 +114,5 @@ class UpdateSkiFragment : Fragment() {
         builder.setMessage(getString(R.string.delete_message,args.currentSki.name))
         builder.create().show()
     }
-    /* todo
-    private fun initVM() {
 
-        val account = SessionManager.getInstance(requireContext())
-
-        val repository = SkiRemoteRepository(requireContext())
-        val viewModelFactory = MyViewModelFactory(SkiRemoteVM(repository,account))
-        remoteVM = ViewModelProvider(this, viewModelFactory)[SkiRemoteVM::class.java]
-
-    }
-    */
 }

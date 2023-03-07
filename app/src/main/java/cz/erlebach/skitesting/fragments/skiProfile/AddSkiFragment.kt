@@ -11,11 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import cz.erlebach.skitesting.R
-import cz.erlebach.skitesting.common.utils.dataStatus.DataStatus
+import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.model.Ski
-import cz.erlebach.skitesting.common.utils.generateDateISO8601string
-import cz.erlebach.skitesting.viewModel.local.SkiVM
-import java.util.*
+import cz.erlebach.skitesting.repository.SkiRepository
+import cz.erlebach.skitesting.viewModel.SkiVM
 
 
 /**
@@ -23,10 +22,8 @@ Fragment obsahujuící formulář pro přidání profilu Lyže
  */
 class AddSkiFragment : Fragment() {
 
-    private lateinit var skiViewModel: SkiVM // ViewModel pro práci s db
-   //todo  private lateinit var skiRemoteViewModel: SkiRemoteVM
-
     lateinit var myView: View
+    lateinit var viewModel : SkiVM
 
      override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +35,9 @@ class AddSkiFragment : Fragment() {
     ): View {
         myView = inflater.inflate(R.layout.fragment_ski_add_ski, container, false)
 
-        skiViewModel = ViewModelProvider(this)[SkiVM::class.java]
-        //todo  initVM()
+
+        val viewModelFactory = MyViewModelFactory(SkiVM(SkiRepository(requireContext())))
+        viewModel = ViewModelProvider(this, viewModelFactory)[SkiVM::class.java]
 
 
         myView.findViewById<View>(R.id.fas_btnSave).setOnClickListener {
@@ -60,11 +58,8 @@ class AddSkiFragment : Fragment() {
         //kontrola správného vyplnění polí
         if(!TextUtils.isEmpty(name))  {
 
-
             val ski = Ski(name= name)
-
-             skiViewModel.addSki(ski)
-            // todo skiRemoteViewModel.insert(ski)
+             viewModel.insert(ski)
 
             Toast.makeText(context, context.getString(R.string.success), Toast.LENGTH_LONG).show()
 
@@ -75,16 +70,4 @@ class AddSkiFragment : Fragment() {
         }
 
     }
-/* todo
-    private fun initVM() {
-
-        val account = SessionManager.getInstance(requireContext())
-
-        val repository = SkiRemoteRepository(requireContext())
-        val viewModelFactory = MyViewModelFactory(SkiRemoteVM(repository,account))
-        skiRemoteViewModel = ViewModelProvider(this, viewModelFactory)[SkiRemoteVM::class.java]
-
-    }
-*/
-
 }

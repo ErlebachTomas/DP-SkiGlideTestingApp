@@ -10,10 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentMeasurementUpdateSkiRideBinding
 import cz.erlebach.skitesting.model.SkiRide
 import cz.erlebach.skitesting.common.utils.generateDateISO8601string
-import cz.erlebach.skitesting.viewModel.local.SkiRideVM
+import cz.erlebach.skitesting.repository.SkiRideRepository
+import cz.erlebach.skitesting.viewModel.SkiRideVM
+import cz.erlebach.skitesting.viewModel.local.SkiRideLocalVM
 
 
 class UpdateSkiRideFragment : Fragment() {
@@ -34,7 +37,10 @@ class UpdateSkiRideFragment : Fragment() {
 
         selectedSkiID =  args.skiRide.skiID
 
-        viewModel = ViewModelProvider(this)[SkiRideVM::class.java]
+        viewModel = ViewModelProvider(
+            this,
+            factory=MyViewModelFactory(SkiRideVM(SkiRideRepository(requireContext())))
+        )[SkiRideVM::class.java]
 
 
         fillForm(args.skiRide)
@@ -44,7 +50,10 @@ class UpdateSkiRideFragment : Fragment() {
         }
 
         binding.usrBtnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_updateSkiRideFragment_to_skiRideListFragment)
+
+            val action = UpdateSkiRideFragmentDirections.actionUpdateSkiRideFragmentToSkiRideListFragment(args.skiRide.testSessionID)
+            findNavController().navigate(action)
+
         }
 
         binding.usrBtnDelete.setOnClickListener {
