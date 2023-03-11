@@ -1,4 +1,4 @@
-package cz.erlebach.skitesting.network
+package cz.erlebach.skitesting.network.SyncWorker
 
 import android.content.Context
 import androidx.work.CoroutineWorker
@@ -11,15 +11,16 @@ import cz.erlebach.skitesting.common.utils.err
 import cz.erlebach.skitesting.common.utils.isDeviceOnline
 import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.model.Ski
+import cz.erlebach.skitesting.network.RetrofitApiService
 import cz.erlebach.skitesting.network.model.SkiDataBody
 
 
-class SyncWorker(
+class SyncWorkerSkiOld(
     val context: Context,
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
 
-    // todo generic, předávat ISkiAPI::class.java ?
+    // todo generic přes abstract? předávat ISkiAPI::class.java ?
 
     private var api = RetrofitApiService(this.context).skiAPI
     private var database = MyDatabase.getDatabase(applicationContext).skiDao()
@@ -54,7 +55,6 @@ class SyncWorker(
             }
         }
 
-        // todo mazání
 
         return Result.success()
     }

@@ -30,4 +30,7 @@ interface TestSessionDao : BaseDao<TestSession>{
 
     @Query("SELECT * FROM ${MyDatabase.testSessionsTableName} WHERE id = :id LIMIT 1")
     suspend fun getTest(id: String): TestSession?
+    @Query("SELECT * FROM ${MyDatabase.testSessionsTableName} WHERE status = :status")
+    suspend fun getDataByStatus(status: DataStatus = DataStatus.OFFLINE): List<TestSession>
+
 }

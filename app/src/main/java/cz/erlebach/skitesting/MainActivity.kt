@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.auth0.android.Auth0
@@ -36,7 +37,9 @@ import cz.erlebach.skitesting.fragments.NewAppVersionFragment
 import cz.erlebach.skitesting.fragments.NoConnectionFragment
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.network.RetrofitApiService
-import cz.erlebach.skitesting.network.SyncWorker
+import cz.erlebach.skitesting.network.SyncWorker.SyncWorkerSki
+import cz.erlebach.skitesting.network.SyncWorker.SyncWorkerSkiRide
+import cz.erlebach.skitesting.network.SyncWorker.SyncWorkerTestSession
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -170,6 +173,7 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, text, length).show()
     }
 
+    /*
     /**
      * Jedinná funkční metoda na získání API tokenu
      */
@@ -219,6 +223,8 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
+    */
+
     fun versionCheck() {
 
         lifecycleScope.launch(Dispatchers.IO) {
@@ -249,8 +255,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-
+/*
     fun apiCall() {
 
         lifecycleScope.launch(Dispatchers.IO) {
@@ -272,24 +277,22 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+*/
 
     /** Synchronizace dat */
     fun testButtonFunction() {
-        //testuju()
-
-
-        //lg("Test button function")
-        val workManager = WorkManager.getInstance(this)
-
-        /*
-        val wr = OneTimeWorkRequestBuilder<MyWorker>().build()
-        workManager.enqueue(wr)
-        */
-
         toast("Synchronizace zahájena")
-        val syncWorkRequest = OneTimeWorkRequestBuilder<SyncWorker>().build()
-        workManager.enqueue(syncWorkRequest)
 
+        val workManager = WorkManager.getInstance(this)
+        val listOfWorkers = listOf(
+            OneTimeWorkRequestBuilder<SyncWorkerSki>().build(),
+            OneTimeWorkRequestBuilder<SyncWorkerSkiRide>().build(),
+            OneTimeWorkRequestBuilder<SyncWorkerTestSession>().build()
+        )
+
+        for (worker in listOfWorkers) {
+            workManager.enqueue(worker)
+        }
     }
 
     fun testuju() {

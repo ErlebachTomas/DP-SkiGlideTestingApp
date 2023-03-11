@@ -52,7 +52,7 @@ abstract class Repository (
             this.getLocalDataFlow()
         },
         fetchFromRemote = {
-            delay(2000)
+            delay(10000) // jinak se při mazání zase stáhne a nic se nesmaže
             this.getRemoteData()
         },
         sync = { listResponse ->
