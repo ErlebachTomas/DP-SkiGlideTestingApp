@@ -10,6 +10,7 @@ plugins {
 }
 
 android {
+
     compileSdk 33
     namespace 'cz.erlebach.skitesting'
     defaultConfig {

@@ -62,8 +62,7 @@ class AddSkiFragment : Fragment() {
     private fun sendForm() {
         val context = requireContext()
 
-        val name = binding.fasBtnSave.text.toString()
-
+        val name = binding.fasTxName.text.toString()
 
         //kontrola správného vyplnění polí
         if(!TextUtils.isEmpty(name))  {
@@ -77,7 +76,7 @@ class AddSkiFragment : Fragment() {
 
         } else {
             val borderDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.my_btn_border)
-            binding.fasBtnSave.background = borderDrawable
+            binding.fasTxName.background = borderDrawable
             Toast.makeText(context, context.getString(R.string.errEmptyFormField), Toast.LENGTH_LONG).show()
         }
 
