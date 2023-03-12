@@ -84,6 +84,6 @@
     <string name="title_activity_user_profile">UserProfileActivity</string>
     <string name="new_api_version_tittle">A new version of the application has been released</string>
     <string name="btn_close">Close</string>
-
+    <string name="logout_err_offline">the device is offline, connect to the Internet and try again</string>
 
 </resources>

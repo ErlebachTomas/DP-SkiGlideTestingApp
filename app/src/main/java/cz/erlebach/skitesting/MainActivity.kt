@@ -9,19 +9,16 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationAPIClient
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.authentication.storage.CredentialsManager
-import com.auth0.android.authentication.storage.CredentialsManagerException
 import com.auth0.android.authentication.storage.SharedPreferencesStorage
 import com.auth0.android.callback.Callback
 import com.auth0.android.result.Credentials
 import com.github.kittinunf.fuel.Fuel
-import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.json.responseJson
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
@@ -40,6 +37,9 @@ import cz.erlebach.skitesting.network.RetrofitApiService
 import cz.erlebach.skitesting.network.SyncWorker.SyncWorkerSki
 import cz.erlebach.skitesting.network.SyncWorker.SyncWorkerSkiRide
 import cz.erlebach.skitesting.network.SyncWorker.SyncWorkerTestSession
+import cz.erlebach.skitesting.repository.SkiRepository
+import cz.erlebach.skitesting.repository.SkiRideRepository
+import cz.erlebach.skitesting.repository.TestSessionRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -97,17 +97,34 @@ class MainActivity : AppCompatActivity() {
      * Odhlášení
      */
     fun logout() {
-        authManager.logout(object : Callback<Void?, AuthenticationException> {
+        val ski = SkiRepository(this)
+        val test = TestSessionRepository(this)
+        val ride = SkiRideRepository(this)
 
-            override fun onFailure(error: AuthenticationException) {
-                toast(getString(R.string.logout_err_message) + error.getCode())
-            }
+        if (isDeviceOnline(this)) {
+            authManager.logout(object : Callback<Void?, AuthenticationException> {
 
-            override fun onSuccess(result: Void?) {
-                toast(getString(R.string.login_success_message)) // undone logout msg
-                changeFragmentTo(LoginFragment())
-            }
-        })
+                override fun onFailure(error: AuthenticationException) {
+                    toast(getString(R.string.logout_err_message) + error.getCode())
+                }
+
+                override fun onSuccess(result: Void?) {
+
+                    syncWithServer()
+
+                    lifecycleScope.launch(Dispatchers.Default) {
+                        ski.deleteLocalCache()
+                        test.deleteLocalCache()
+                        ride.deleteLocalCache()
+                    }
+                    toast(getString(R.string.login_success_message)) // undone logout msg
+                    changeFragmentTo(LoginFragment())
+                }
+            })
+        } else {
+            toast(getString(R.string.logout_err_message))
+        }
+
     }
 
 
@@ -279,8 +296,8 @@ class MainActivity : AppCompatActivity() {
     }
 */
 
-    /** Synchronizace dat */
-    fun testButtonFunction() {
+    /** Synchronizace dat (nahrávání dat na server z offline modu)*/
+    fun syncWithServer() {
         toast("Synchronizace zahájena")
 
         val workManager = WorkManager.getInstance(this)

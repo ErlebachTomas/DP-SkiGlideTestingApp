@@ -12,14 +12,17 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.template.MyViewModelFactory
+import cz.erlebach.skitesting.common.utils.debug
 import cz.erlebach.skitesting.databinding.FragmentMeasurementFormBinding
 import cz.erlebach.skitesting.model.TestSession
 import cz.erlebach.skitesting.common.utils.generateDateISO8601string
+import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.repository.TestSessionRepository
 import cz.erlebach.skitesting.viewModel.TestSessionVM
 import cz.erlebach.skitesting.viewModel.local.TestSessionLocalVM
@@ -81,7 +84,7 @@ class MeasurementFormFragment : Fragment() {
 
         binding.mfBtnSave.setOnClickListener {
 
-            Log.d(TAG, "mfBtnSave")
+            lg( "mfBtnSave")
 
             try {
                 saveForm()
@@ -90,6 +93,7 @@ class MeasurementFormFragment : Fragment() {
             }
 
         }
+
         setPickers()
 
         binding.mfBtnBack.setOnClickListener {
@@ -121,16 +125,14 @@ class MeasurementFormFragment : Fragment() {
      */
     private fun saveForm() {
 
-        val airTemperature = binding.mfTemperature.text.toString().toDouble()
-        val snowTemperature = binding.mfSnowTemperature.text.toString().toDouble()
-        val humidity = binding.mfHumidity.text.toString().toDouble()
+        val airTemperature = binding.mfTemperature.text.toString()
+        val snowTemperature = binding.mfSnowTemperature.text.toString()
+        val humidity = binding.mfHumidity.text.toString()
 
         val snowType = binding.mfSnowSpinner.selectedItemPosition //text pak .selectedItem.toString()
         val testType = binding.mfTestTypeSpinner.selectedItemPosition
 
-
-
-        Log.v(  TAG, "Zadano: $airTemperature, $snowTemperature, " + binding.mfSnowSpinner.selectedItem.toString() )
+        lg(  "Zadano: $airTemperature, $snowTemperature, " + binding.mfSnowSpinner.selectedItem.toString() )
 
         if(!TextUtils.isEmpty(binding.mfTemperature.text)
             && !TextUtils.isEmpty(binding.mfSnowTemperature.text)
@@ -138,20 +140,21 @@ class MeasurementFormFragment : Fragment() {
         )  {
             // kontrola vyplnění
 
+
             val testSession = TestSession(
                 datetime = datetime.time,
-                airTemperature = airTemperature,
-                snowTemperature = snowTemperature,
+                airTemperature = airTemperature.toDouble(),
+                snowTemperature = snowTemperature.toDouble(),
                 snowType = snowType,
                 testType = testType,
-                humidity = humidity,
+                humidity= humidity.toDoubleOrNull(),
                 note = binding.mfNote.text.toString(),
             )
 
             CoroutineScope(Dispatchers.IO).launch() {
 
                 testSessionVM.insert(testSession) //uloží do db
-                Log.v(TAG, "Měření uložono jako ${testSession.id}")
+                lg( "Měření uložono jako ${testSession.id}")
 
                 withContext(Dispatchers.Main) {
                     // musi udělat main thread až po uloženi
@@ -161,8 +164,16 @@ class MeasurementFormFragment : Fragment() {
 
             }
 
-        } else
+        } else {
+            lg("nejsou vyplněne všechny pole")
+
+            val borderDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.my_btn_border)
+            binding.mfTemperature.background = borderDrawable
+            binding.mfSnowTemperature.background  = borderDrawable
+
             Toast.makeText(context, context?.getString(R.string.errEmptyFormField), Toast.LENGTH_LONG).show()
+        }
+
 
     }
 

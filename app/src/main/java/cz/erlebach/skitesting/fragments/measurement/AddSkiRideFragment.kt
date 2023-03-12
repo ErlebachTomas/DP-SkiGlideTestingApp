@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -102,6 +103,9 @@ class AddSkiRideFragment : Fragment() {
             // todo next fragment?
 
         } else {
+            val borderDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.my_btn_border)
+            binding.mfResult.background = borderDrawable
+
             Toast.makeText(context, context?.getString(R.string.errEmptyFormField), Toast.LENGTH_LONG).show()
         }
 

@@ -16,6 +16,9 @@ class TestSessionRepository(val context: Context) : Repository(context) {
     private val dao = super.db.testSessionDao()
     val localRepository get() = TestSessionLocalRepository(dao)
 
+    /** Smaže vše pouze z room databáze */
+    suspend fun deleteLocalCache() = dao.deleteAllTestSessions()
+
     /**
      * Načtení dat z lokální ROOM databáze pomocí Dao
      */

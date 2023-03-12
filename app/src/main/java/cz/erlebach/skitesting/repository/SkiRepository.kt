@@ -3,6 +3,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.withTransaction
 import cz.erlebach.skitesting.common.utils.debug
+import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.model.BaseModel
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.network.RetrofitApiService
@@ -87,10 +88,13 @@ class SkiRepository(val context: Context): Repository(context) {
      * Vymaže všechny [Ski] uživatele
      */
     suspend fun deleteAll() {
+        lg("mažu")
         db.withTransaction {
             localRepository.deleteAll()
             api.deleteAll(account.getUserID())
         }
     }
+    /** smaže lokální data */
+    suspend fun deleteLocalCache() = localRepository.deleteAll()
 
 }

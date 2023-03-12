@@ -73,5 +73,6 @@
     <string name="humidity">vlhkost</string>
     <string name="new_api_version_tittle">Byla vydána nová verze aplikace</string>
     <string name="btn_close">Zavřít</string>
-
+    <string name="title_activity_user_profile">Profil uživatele</string>
+    <string name="logout_err_offline">Zařízení je offline, připojte se k internetu a akci opakujte</string>
 </resources>

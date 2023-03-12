@@ -52,7 +52,7 @@ class HomeFragment : Fragment() {
         }
 
         myView.findViewById<Button>(R.id.btnTest).setOnClickListener { _ ->
-            (activity as MainActivity?)!!.testButtonFunction()
+            (activity as MainActivity?)!!.syncWithServer()
         }
 
         myView.findViewById<Button>(R.id.btn_userProfile).setOnClickListener { _ ->

@@ -16,6 +16,7 @@ class SkiRideRepository (val context: Context) : Repository(context) {
     private val dao = super.db.skiRideDao()
     val localRepository get() = SkiRideLocalRepository(dao)
 
+    suspend fun deleteLocalCache()  = dao.deleteAllSkiRides()
 
     suspend fun getSki(skiRide: SkiRide): Ski? {
         return db.skiDao().getSki(skiRide.skiID)
