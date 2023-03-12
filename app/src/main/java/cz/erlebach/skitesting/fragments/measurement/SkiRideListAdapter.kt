@@ -19,8 +19,9 @@ import kotlinx.coroutines.launch
 /**
  * [RecyclerView.Adapter] který zobrazuje [SkiRide] pro [SkiRideListFragment].
  */
-class SkiRideListAdapter(val viewModel: SkiRideVM
-):RecyclerView.Adapter<SkiRideListAdapter.ViewHolder>() {
+class SkiRideListAdapter(
+    val viewModel: SkiRideVM
+) : RecyclerView.Adapter<SkiRideListAdapter.ViewHolder>() {
 
     private var values: List<SkiRide> = emptyList<SkiRide>()
 
@@ -39,7 +40,7 @@ class SkiRideListAdapter(val viewModel: SkiRideVM
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentSkiRide = values[position]
 
-        val temp = currentSkiRide.skiID//todo holder ski name misto id
+        val temp = currentSkiRide.skiID//todo holder ski name misto id MAP?
 
         /*
         CoroutineScope(Dispatchers.IO).launch {
@@ -48,10 +49,11 @@ class SkiRideListAdapter(val viewModel: SkiRideVM
         }
         */
         holder.content.text = "$temp\n ${currentSkiRide.result.toString()}"
-            holder.itemView.findViewById<View>(R.id.adap_layout_skiRide_row).setOnClickListener {
+        holder.itemView.findViewById<View>(R.id.adap_layout_skiRide_row).setOnClickListener {
 
-            val action = SkiRideListFragmentDirections.actionSkiRideListFragmentToUpdateSkiRideFragment(
-                currentSkiRide
+            val action =
+                SkiRideListFragmentDirections.actionSkiRideListFragmentToUpdateSkiRideFragment(
+                    currentSkiRide
                 )
 
             holder.itemView.findNavController().navigate(action)
@@ -72,7 +74,7 @@ class SkiRideListAdapter(val viewModel: SkiRideVM
         }
     }
 
-    fun setData(list: List<BaseModel>){
+    fun setData(list: List<BaseModel>) {
         this.values = list.filterIsInstance<SkiRide>()
         notifyDataSetChanged()
     }
