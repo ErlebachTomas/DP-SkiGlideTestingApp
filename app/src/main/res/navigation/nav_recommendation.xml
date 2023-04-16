@@ -2,8 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_test"
-    app:startDestination="@id/FirstFragment">
+    android:id="@+id/nav_recommendation"
+    app:startDestination="@id/resultFragment">
 
     <fragment
         android:id="@+id/FirstFragment"
@@ -23,6 +23,24 @@
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/formFragment"
+        android:name="cz.erlebach.skitesting.fragments.recommendation.FormFragment"
+        android:label="fragment_recommendation_form"
+        tools:layout="@layout/fragment_recommendation_form" >
+        <action
+            android:id="@+id/action_formFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="cz.erlebach.skitesting.fragments.recommendation.ResultFragment"
+        android:label="fragment_recommendation_result"
+        tools:layout="@layout/fragment_recommendation_result" >
+        <action
+            android:id="@+id/action_resultFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>

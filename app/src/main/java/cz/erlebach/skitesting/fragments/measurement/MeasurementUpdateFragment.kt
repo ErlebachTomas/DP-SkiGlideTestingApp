@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
-import cz.erlebach.skitesting.common.template.MyViewModelFactory
+import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentMeasurementUpdateBinding
 import cz.erlebach.skitesting.model.TestSession
 import cz.erlebach.skitesting.common.utils.generateDateISO8601string
@@ -51,7 +51,7 @@ class MeasurementUpdateFragment : Fragment() {
         binding.testType.text = resources.getStringArray(R.array.testType)[args.testSession.testType]
 
         viewModel = ViewModelProvider(this,
-           factory=MyViewModelFactory(TestSessionVM(TestSessionRepository(requireContext())))
+           factory= MyViewModelFactory(TestSessionVM(TestSessionRepository(requireContext())))
         )[TestSessionVM::class.java]
 
         fillForm(args.testSession)

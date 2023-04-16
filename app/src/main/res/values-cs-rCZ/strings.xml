@@ -41,22 +41,23 @@
     <string name="new_measurement">Nové měření</string>
     <string name="select_ski">Vybrat lyže</string>
     <string-array name="snowType">
-        <item val="1">Čerstvě napadaný prašan</item>
-        <item>Hranatozrnitý sníh</item>
-        <item>Led (extrém)</item>
-        <item>Umělý sníh</item>
-        <item>Hruboznný sníh</item>
-        <item>Jemnozrnný sníh</item>
-        <item>Padající sníh</item>
-        <item>Špinavý sníh</item>
-        <item>Starý (transformovaný) sníh </item>
         <!--
-        <item>Prachovy sníh</item>
-        <item>Vlhky sníh (čerstvý)</item>
-        <item>Přeměnný (transformovaný)</item>
-        <item>Starý / umělý</item>
-        <item>Spínavý</item>
-        -->
+      <item val="1">Čerstvě napadaný prašan</item>
+      <item>Hranatozrnitý sníh</item>
+      <item>Led (extrém)</item>
+      <item>Umělý sníh</item>
+      <item>Hruboznný sníh</item>
+      <item>Jemnozrnný sníh</item>
+      <item>Padající sníh</item>
+      <item>Špinavý sníh</item>
+      <item>Starý (transformovaný) sníh </item>
+     -->
+      <item>Prachovy sníh</item>
+      <item>Vlhky sníh (čerstvý)</item>
+      <item>Přeměnný (transformovaný)</item>
+      <item>Starý / umělý</item>
+      <item>Spínavý</item>
+
     </string-array>
     <string-array name="testType">
         <item>Čas</item>

@@ -45,7 +45,8 @@
     <string name="ski">Ski</string>
     <!--pořadí snowType musí odpovídat hodnotám číselníku  -->
     <string-array name="snowType">
-        <item>Freshly attacked powder</item>
+        <!---
+        <item>Freshly attacked powder snow</item>
         <item>Coarse-grained snow</item>
         <item>Ice / extreme</item>
         <item>Soft snow</item>
@@ -54,6 +55,12 @@
         <item>Falling snow</item>
         <item>Dirty snow</item>
         <item>Old (transformed) snow </item>
+        -->
+        <item>Powder snow</item>
+        <item>Wet snow (fresh)</item>
+        <item>Transformed snow</item>
+        <item>Old / artificial snow</item>
+        <item>Dirty snow</item>
     </string-array>
     <string-array name="testType">
         <item>Time</item>

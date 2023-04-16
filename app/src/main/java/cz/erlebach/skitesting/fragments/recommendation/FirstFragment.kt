@@ -14,7 +14,7 @@ import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.json.responseJson
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.SessionManager
-import cz.erlebach.skitesting.common.template.MyViewModelFactory
+import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentRecommendationFirstBinding
 import cz.erlebach.skitesting.network.RetrofitApiService
 import cz.erlebach.skitesting.network.model.TestDataBody
@@ -32,9 +32,6 @@ import kotlinx.coroutines.launch
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentRecommendationFirstBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(

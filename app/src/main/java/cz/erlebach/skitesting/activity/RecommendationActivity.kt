@@ -34,7 +34,7 @@ class RecommendationActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_test)
+        val navController = findNavController(R.id.nav_host_fragment_content_recommendation)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
@@ -47,7 +47,7 @@ class RecommendationActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_test)
+        val navController = findNavController(R.id.nav_host_fragment_content_recommendation)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }

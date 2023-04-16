@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.activity.SkiProfileActivity
-import cz.erlebach.skitesting.common.template.MyViewModelFactory
+import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentMeasurementAddSkiRideBinding
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.model.SkiRide
@@ -123,7 +123,8 @@ class AddSkiRideFragment : Fragment() {
     private fun initSpinnerData() {
 
       val skiViewModel = ViewModelProvider(this,
-          factory = MyViewModelFactory(SkiVM(SkiRepository(requireContext()))))[SkiVM::class.java]
+          factory = MyViewModelFactory(SkiVM(SkiRepository(requireContext())))
+      )[SkiVM::class.java]
 
        val allSkis = context?.let {
                 ArrayAdapter<Ski>(it, R.layout.adapter_spinner_measurement_ski_row,R.id.mf_twSpinnerRow)
