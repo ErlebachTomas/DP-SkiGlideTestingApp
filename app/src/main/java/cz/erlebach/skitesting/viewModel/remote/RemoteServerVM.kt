@@ -17,7 +17,7 @@ class RemoteServerVM(private val repository: RemoteServerRepository): ViewModel(
 
     var recommendationLiveData : MutableLiveData<Response<List<RecommendationDataBody>>> = MutableLiveData()
 
-    fun recomendacion(test: TestSession) {
+    fun recommendation(test: TestSession) {
         viewModelScope.launch {
             recommendationLiveData.value = repository.recomendacion(test)
         }

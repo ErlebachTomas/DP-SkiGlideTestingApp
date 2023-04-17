@@ -9,12 +9,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.fragments.recommendation.recyclerview.ChildData
-import cz.erlebach.skitesting.fragments.recommendation.recyclerview.ParentData
+import cz.erlebach.skitesting.fragments.recommendation.recyclerview.Group
 import cz.erlebach.skitesting.fragments.recommendation.recyclerview.ViewType
+import cz.erlebach.skitesting.network.model.recomendation.SkiResult
 
 /** Adaptér pro [ResultFragment] */
-class ResultAdapter(var context: Context, var list: MutableList<ParentData>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ResultAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    var list: MutableList<Group> = mutableListOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return if(viewType == ViewType.PARENT_VIEW) {
@@ -24,6 +26,7 @@ class ResultAdapter(var context: Context, var list: MutableList<ParentData>) : R
             val rowView: View = LayoutInflater.from(parent.context).inflate(R.layout.content_child_row, parent,false)
             ChildViewHolder(rowView)
         }
+
     }
 
 
@@ -38,7 +41,7 @@ class ResultAdapter(var context: Context, var list: MutableList<ParentData>) : R
             ViewType.PARENT_VIEW -> {
                 (holder as? GroupViewHolder)?.apply {
 
-                    parentTV?.text = dataList.text
+                    parentTV?.text = dataList.data?.testData?.UUID + " " + dataList.data?.distance.toString()
 
                     downIV.setOnClickListener {
                         expandOrCollapseParentItem(dataList, position)
@@ -49,12 +52,12 @@ class ResultAdapter(var context: Context, var list: MutableList<ParentData>) : R
             ViewType.CHILD_VIEW -> {
                 (holder as? ChildViewHolder)?.apply {
                     val singleService = dataList.subList.firstOrNull()
-                    childTV?.text = singleService?.text
+                    childTV?.text = "${singleService?.skiName} ${singleService?.mean}"
                 }
             }
         }
     }
-    private fun expandOrCollapseParentItem(singleBoarding: ParentData, position: Int) {
+    private fun expandOrCollapseParentItem(singleBoarding: Group, position: Int) {
 
         if (singleBoarding.isExpanded) {
             collapseParentRow(position)
@@ -74,9 +77,9 @@ class ResultAdapter(var context: Context, var list: MutableList<ParentData>) : R
         if (currentBoardingRow.type == ViewType.PARENT_VIEW) {
 
             for (service in services) {
-                val parentModel = ParentData()
+                val parentModel = Group()
                 parentModel.type = ViewType.CHILD_VIEW
-                val subList: ArrayList<ChildData> = ArrayList()
+                val subList: ArrayList<SkiResult> = ArrayList()
                 subList.add(service)
                 parentModel.subList = subList
                 list.add(++nextPosition, parentModel)
@@ -118,8 +121,10 @@ class ResultAdapter(var context: Context, var list: MutableList<ParentData>) : R
 
     }
 
-    fun setData(data: List<ParentData>) {
+    fun setData(data: List<Group>) {
         this.list = data.toMutableList()
+        expandParentRow(0) // nejlepší bude už rozbalen
+
         notifyDataSetChanged()
     }
 

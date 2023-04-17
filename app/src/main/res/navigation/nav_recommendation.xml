@@ -42,5 +42,8 @@
         <action
             android:id="@+id/action_resultFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <argument
+            android:name="test"
+            app:argType="cz.erlebach.skitesting.model.TestSession" />
     </fragment>
 </navigation>

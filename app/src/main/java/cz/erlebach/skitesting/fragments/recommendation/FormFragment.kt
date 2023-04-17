@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.gson.Gson
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.utils.err
 import cz.erlebach.skitesting.common.utils.lg
-import cz.erlebach.skitesting.databinding.FragmentRecommendationFirstBinding
 import cz.erlebach.skitesting.databinding.FragmentRecommendationFormBinding
 import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
 import cz.erlebach.skitesting.model.TestSession
@@ -49,11 +50,7 @@ class FormFragment : Fragment() {
 
         binding.btnSend.setOnClickListener {
 
-            val repo = RemoteServerRepository(requireContext())
-            val viewModelFactory = MyViewModelFactory(RemoteServerVM(repo))
-            val viewModel = ViewModelProvider(this, viewModelFactory)[RemoteServerVM::class.java]
-
-
+            // TODO get data and validation
             val test = TestSession(
               datetime = Date(),
               airTemperature = 0.0,
@@ -62,22 +59,9 @@ class FormFragment : Fragment() {
               testType = 1,
               humidity = 80.0,
                note= "input"
-            );
-            viewModel.recomendacion(test)
-
-            viewModel.recommendationLiveData.observe(viewLifecycleOwner, Observer { response ->
-                if(response.isSuccessful){
-                    lg("retrieve:")
-                    lg( response.body().toString())
-                    lg( response.code().toString())
-                    lg(response.headers().toString())
-                } else {
-                    err(response.message())
-                }
-            })
-
-            //findNavController().navigate(R.id.action_formFragment_to_resultFragment)
-
+            )
+           val action = FormFragmentDirections.actionFormFragmentToResultFragment(test)
+            findNavController().navigate(action)
         }
 
         return binding.root
