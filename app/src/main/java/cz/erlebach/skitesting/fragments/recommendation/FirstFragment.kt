@@ -17,7 +17,7 @@ import cz.erlebach.skitesting.common.SessionManager
 import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentRecommendationFirstBinding
 import cz.erlebach.skitesting.network.RetrofitApiService
-import cz.erlebach.skitesting.network.model.TestDataBody
+import cz.erlebach.skitesting.network.model.DemoDataBody
 import cz.erlebach.skitesting.repository.remote.RemoteServerRepository
 import cz.erlebach.skitesting.common.utils.err
 import cz.erlebach.skitesting.common.utils.lg
@@ -71,7 +71,7 @@ class FirstFragment : Fragment() {
        }
         binding.recapibtn2.setOnClickListener {
             // TODO api test
-            val data = TestDataBody("testuju!!!")
+            val data = DemoDataBody("testuju!!!")
 
             val repo = RemoteServerRepository(requireContext())
             val viewModelFactory = MyViewModelFactory(RemoteServerVM(repo))
@@ -80,7 +80,7 @@ class FirstFragment : Fragment() {
             viewModel.testPost(data)
 
             viewModel.get2Response()
-            viewModel.res2.observe(viewLifecycleOwner, Observer { response ->
+            viewModel.demoLiveData.observe(viewLifecycleOwner, Observer { response ->
                 if(response.isSuccessful){
                     lg("get2 retrieve:")
                     lg( response.body().toString())

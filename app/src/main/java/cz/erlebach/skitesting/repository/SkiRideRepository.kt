@@ -6,7 +6,7 @@ import cz.erlebach.skitesting.model.BaseModel
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.model.SkiRide
 import cz.erlebach.skitesting.network.RetrofitApiService
-import cz.erlebach.skitesting.network.model.DataBody
+import cz.erlebach.skitesting.network.model.GeneralDataBody
 import cz.erlebach.skitesting.repository.local.SkiRideLocalRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -59,7 +59,7 @@ class SkiRideRepository (val context: Context) : Repository(context) {
      * @param obj [BaseModel] nový záznam
      */
     override suspend fun insertRemote(userID: String, obj: BaseModel) {
-        api.insert(DataBody(userID, obj))
+        api.insert(GeneralDataBody(userID, obj))
     }
 
     /**
@@ -68,7 +68,7 @@ class SkiRideRepository (val context: Context) : Repository(context) {
      * @param obj [BaseModel] změněný záznam
      */
     override suspend fun updateRemote(userID: String, obj: BaseModel) {
-        api.update(DataBody(userID, obj))
+        api.update(GeneralDataBody(userID, obj))
     }
 
     /**
@@ -77,7 +77,7 @@ class SkiRideRepository (val context: Context) : Repository(context) {
      * @param obj [BaseModel] záznam, který bude smazán
      */
     override suspend fun deleteRemote(userID: String, obj: BaseModel) {
-        api.delete(DataBody(userID, obj))
+        api.delete(GeneralDataBody(userID, obj))
     }
 
     /**

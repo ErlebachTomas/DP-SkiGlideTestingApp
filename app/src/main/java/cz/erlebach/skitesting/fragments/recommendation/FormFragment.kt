@@ -5,10 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.common.utils.err
+import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.databinding.FragmentRecommendationFirstBinding
 import cz.erlebach.skitesting.databinding.FragmentRecommendationFormBinding
+import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
+import cz.erlebach.skitesting.model.TestSession
+import cz.erlebach.skitesting.repository.remote.RemoteServerRepository
+import cz.erlebach.skitesting.viewModel.remote.RemoteServerVM
+import java.util.Date
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,14 +28,9 @@ private const val ARG_PARAM2 = "param2"
 class FormFragment : Fragment() {
     private var _binding: FragmentRecommendationFormBinding? = null
     private val binding get() = _binding!!
-
-
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +48,36 @@ class FormFragment : Fragment() {
         _binding = FragmentRecommendationFormBinding.inflate(inflater, container, false)
 
         binding.btnSend.setOnClickListener {
-            findNavController().navigate(R.id.action_formFragment_to_resultFragment)
+
+            val repo = RemoteServerRepository(requireContext())
+            val viewModelFactory = MyViewModelFactory(RemoteServerVM(repo))
+            val viewModel = ViewModelProvider(this, viewModelFactory)[RemoteServerVM::class.java]
+
+
+            val test = TestSession(
+              datetime = Date(),
+              airTemperature = 0.0,
+              snowTemperature = 0.0,
+              snowType = 1,
+              testType = 1,
+              humidity = 80.0,
+               note= "input"
+            );
+            viewModel.recomendacion(test)
+
+            viewModel.recommendationLiveData.observe(viewLifecycleOwner, Observer { response ->
+                if(response.isSuccessful){
+                    lg("retrieve:")
+                    lg( response.body().toString())
+                    lg( response.code().toString())
+                    lg(response.headers().toString())
+                } else {
+                    err(response.message())
+                }
+            })
+
+            //findNavController().navigate(R.id.action_formFragment_to_resultFragment)
+
         }
 
         return binding.root
