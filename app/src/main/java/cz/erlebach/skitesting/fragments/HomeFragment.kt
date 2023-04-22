@@ -1,5 +1,6 @@
 package cz.erlebach.skitesting.fragments
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.activity.result.contract.ActivityResultContracts
 import cz.erlebach.skitesting.MainActivity
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.activity.MeasurementActivity
 import cz.erlebach.skitesting.activity.RecommendationActivity
 import cz.erlebach.skitesting.activity.SkiProfileActivity
+import cz.erlebach.skitesting.activity.Stopwatch
 import cz.erlebach.skitesting.activity.UserProfileActivity
+import cz.erlebach.skitesting.common.utils.lg
+import cz.erlebach.skitesting.common.utils.toast
 import cz.erlebach.skitesting.databinding.FragmentMainHomeBinding
 import cz.erlebach.skitesting.databinding.FragmentNewApiVersionBinding
 
@@ -63,8 +68,27 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
+        binding.button.setOnClickListener { _ ->
+            val intent = Intent(activity, Stopwatch::class.java)
+            resultLauncher.launch(intent) // print value
+        }
+
+
         return binding.root
 
+    }
+
+    private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            data?.let {
+                val value = data.getLongExtra(Stopwatch.timeTAG, 0)
+               lg(value.toString())
+                toast(requireContext(),value.toString())
+            }
+
+
+        }
     }
 
 }

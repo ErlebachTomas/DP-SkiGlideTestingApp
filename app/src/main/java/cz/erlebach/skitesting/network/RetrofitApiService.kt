@@ -26,15 +26,10 @@ class RetrofitApiService(context: Context) {
           return if(!BuildConfig.TEST_MODE_ENABLED) {
               "${BuildConfig.SERVER_URL}${BuildConfig.API_VERSION}"
           } else {
-              val baseUrl = "https://6f9b-2a00-1028-83ca-8026-80b-905a-45e8-ba52.ngrok-free.app"
+              val baseUrl = "https://0891-2a00-1028-83ca-8026-b88e-79b0-d278-1f7a.ngrok-free.app"
               "$baseUrl/api/"
           }
       }
-
-      /*
-      const val BASE_URL = "https://73ce-2001-718-1c01-152-2c96-5ee0-8de5-1be2.eu.ngrok.io"
-      const val URL = "$BASE_URL/api/"
-      */
 
     }
 

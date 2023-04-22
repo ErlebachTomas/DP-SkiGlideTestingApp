@@ -12,11 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import cz.erlebach.skitesting.common.utils.debug
 import cz.erlebach.skitesting.common.utils.err
 import cz.erlebach.skitesting.common.utils.info
-import cz.erlebach.skitesting.common.utils.lg
-import cz.erlebach.skitesting.fragments.recommendation.recyclerview.ChildData
+import cz.erlebach.skitesting.common.utils.wtf
 import cz.erlebach.skitesting.fragments.recommendation.recyclerview.Group
 import cz.erlebach.skitesting.databinding.FragmentRecommendationResultBinding
-import cz.erlebach.skitesting.fragments.measurement.MeasurementUpdateFragmentArgs
 import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
 import cz.erlebach.skitesting.repository.remote.RemoteServerRepository
 import cz.erlebach.skitesting.viewModel.remote.RemoteServerVM
@@ -37,49 +35,49 @@ class ResultFragment : Fragment() {
     ): View {
         _binding = FragmentRecommendationResultBinding.inflate(inflater, container, false)
 
-        lg(args.test.id)
-
-
-
-        VM()
+        load()
 
         return binding.root
     }
 
 
-    private fun VM() {
+    private fun load() {
 
         val adapter = ResultAdapter(requireContext())
         binding.rvResults.layoutManager = LinearLayoutManager(requireContext())
         binding.rvResults.adapter = adapter
 
-
         val repo = RemoteServerRepository(requireContext())
         val viewModelFactory = MyViewModelFactory(RemoteServerVM(repo))
         val viewModel = ViewModelProvider(this, viewModelFactory)[RemoteServerVM::class.java]
 
-        viewModel.recommendation(args.test)
+        try {
+            viewModel.calculateRecommendation(args.test)
 
-        viewModel.recommendationLiveData.observe(viewLifecycleOwner, Observer { response ->
+            viewModel.recommendationLiveData.observe(viewLifecycleOwner, Observer { response ->
 
-            if(response.isSuccessful){
-               info(response.raw().toString())
-               val array = response.body()!!
-               for (item in array) {
+                if (response.isSuccessful) {
+                    info(response.body().toString())
+                    val array = response.body()!!
 
-                   debug("responce " + item.testData.UUID)
+                    // TODO nic nevrati
+                    //  [RecommendationDataBody(skiResults=null, id=0, testData=null, vector=null, distance=0.0, angle=0.0)]
+                    for (item in array) {
 
-                   val grp = Group(data = item,subList = item.skiResults.toMutableList())
-                   listData.add(grp)
-               }
+                        debug("responce " + item.testData.UUID)
 
-               adapter.setData(listData)
+                        val grp = Group(data = item, subList = item.skiResults.toMutableList())
+                        listData.add(grp)
+                        adapter.setData(listData)
+                    }
 
-            } else {
-                err(response.message())
-            }
-        })
-
+                } else {
+                    err(response.message())
+                }
+            })
+        } catch (e: Error) {
+            wtf("fail",e)
+        }
     }
 
 }

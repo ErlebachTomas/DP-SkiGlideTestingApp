@@ -1,10 +1,15 @@
 package cz.erlebach.skitesting.fragments.recommendation
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.text.set
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
@@ -13,6 +18,7 @@ import com.google.gson.Gson
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.utils.err
 import cz.erlebach.skitesting.common.utils.lg
+import cz.erlebach.skitesting.common.utils.toast
 import cz.erlebach.skitesting.databinding.FragmentRecommendationFormBinding
 import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
 import cz.erlebach.skitesting.model.TestSession
@@ -47,26 +53,68 @@ class FormFragment : Fragment() {
     ): View {
 
         _binding = FragmentRecommendationFormBinding.inflate(inflater, container, false)
+        createSpinners()
 
-        binding.btnSend.setOnClickListener {
-
-            // TODO get data and validation
-            val test = TestSession(
-              datetime = Date(),
-              airTemperature = 0.0,
-              snowTemperature = 0.0,
-              snowType = 1,
-              testType = 1,
-              humidity = 80.0,
-               note= "input"
-            )
-           val action = FormFragmentDirections.actionFormFragmentToResultFragment(test)
-            findNavController().navigate(action)
+        binding.rcBtnSend.setOnClickListener {
+          sendForm()
         }
+        binding.rcSkip.setOnClickListener {
+            binding.rcTemperature.setText("-1")
+            binding.rcSnowTemperature.setText("0")
+            sendForm()
+        }
+
 
         return binding.root
     }
 
+    private fun sendForm() {
+
+        val airTemperature = binding.rcTemperature.text.toString()
+        val snowTemperature = binding.rcSnowTemperature.text.toString()
+
+        var humidity : Double? = null
+        if (!TextUtils.isEmpty(binding.rcHumidity.text)) {
+            humidity = binding.rcHumidity.text.toString().toDouble()
+        }
+
+        val snowType = binding.rcSnowSpinner.selectedItemPosition
+
+        if(!TextUtils.isEmpty(binding.rcTemperature.text)
+            && !TextUtils.isEmpty(binding.rcSnowTemperature.text)
+            && !TextUtils.isEmpty(binding.rcSnowSpinner.selectedItem.toString())
+        )  {
+
+        val test = TestSession(
+            datetime = Date(),
+            airTemperature = airTemperature.toDouble(),
+            snowTemperature = snowTemperature.toDouble(),
+            snowType = snowType,
+            testType = 1,
+            humidity = humidity,
+            note= "input"
+        )
+        val action = FormFragmentDirections.actionFormFragmentToResultFragment(test)
+        findNavController().navigate(action)
+
+        } else {
+            lg("nejsou vyplněne všechny pole")
+            val borderDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.my_btn_border)
+            binding.rcTemperature.background = borderDrawable
+            binding.rcSnowTemperature.background  = borderDrawable
+
+            Toast.makeText(context, context?.getString(R.string.errEmptyFormField), Toast.LENGTH_LONG).show()
+        }
+
+
+
+
+    }
+
+    private fun createSpinners() {
+        val adapterProfile = ArrayAdapter.createFromResource(requireContext(),R.array.snowType, android.R.layout.simple_spinner_dropdown_item)
+        binding.rcSnowSpinner.adapter = adapterProfile
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of
