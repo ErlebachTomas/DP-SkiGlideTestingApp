@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_recommendation"
+    app:startDestination="@id/formFragment">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="cz.erlebach.skitesting.fragments.recommendation.FirstFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_recommendation_first">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="cz.erlebach.skitesting.fragments.recommendation.SecondFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_recommendation_second">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/formFragment"
+        android:name="cz.erlebach.skitesting.fragments.recommendation.FormFragment"
+        android:label="fragment_recommendation_form"
+        tools:layout="@layout/fragment_recommendation_form" >
+        <action
+            android:id="@+id/action_formFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="cz.erlebach.skitesting.fragments.recommendation.ResultFragment"
+        android:label="fragment_recommendation_result"
+        tools:layout="@layout/fragment_recommendation_result" >
+        <argument
+            android:name="test"
+            app:argType="cz.erlebach.skitesting.model.TestSession" />
+        <action
+            android:id="@+id/action_resultFragment_to_formFragment"
+            app:destination="@id/formFragment" />
+        <action
+            android:id="@+id/action_resultFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+</navigation>

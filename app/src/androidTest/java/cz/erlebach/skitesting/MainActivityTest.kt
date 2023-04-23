@@ -4,9 +4,8 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
-import org.junit.Assert.*
-
 import org.junit.Test
+
 
 class MainActivityTest {
 

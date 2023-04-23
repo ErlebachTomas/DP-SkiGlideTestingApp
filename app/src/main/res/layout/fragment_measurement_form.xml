@@ -167,7 +167,7 @@
         app:layout_constraintVertical_bias="0.238">
 
         <EditText
-            android:id="@+id/mf_note"
+            android:id="@+id/sr_note"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/mfNoteHint"

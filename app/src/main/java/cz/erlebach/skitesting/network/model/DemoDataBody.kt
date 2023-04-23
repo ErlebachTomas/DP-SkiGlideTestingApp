@@ -1,5 +1,5 @@
 package cz.erlebach.skitesting.network.model
 
-data class TestDataBody(
+data class DemoDataBody(
     val data: String
 )

@@ -5,12 +5,9 @@ import androidx.room.withTransaction
 import androidx.work.WorkerParameters
 import cz.erlebach.skitesting.MyDatabase
 import cz.erlebach.skitesting.common.utils.dataStatus.DataStatus
-import cz.erlebach.skitesting.common.utils.lg
-import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.model.TestSession
 import cz.erlebach.skitesting.network.RetrofitApiService
-import cz.erlebach.skitesting.network.model.DataBody
-import cz.erlebach.skitesting.network.model.SkiDataBody
+import cz.erlebach.skitesting.network.model.GeneralDataBody
 import retrofit2.Response
 
 class SyncWorkerTestSession(context: Context,
@@ -21,7 +18,7 @@ class SyncWorkerTestSession(context: Context,
     private var database = MyDatabase.getDatabase(applicationContext).testSessionDao()
 
     override suspend fun syncData(data: TestSession): Response<TestSession> {
-       return api.syncData(DataBody(super.account.getUserID(), data))
+       return api.syncData(GeneralDataBody(super.account.getUserID(), data))
     }
 
     override suspend fun unsynchronizedData(): List<TestSession> {
@@ -35,7 +32,7 @@ class SyncWorkerTestSession(context: Context,
 
     override suspend fun deleteData(data: TestSession) {
         db.withTransaction {
-            api.delete(DataBody(userID = super.account.getUserID(), data = data))
+            api.delete(GeneralDataBody(userID = super.account.getUserID(), data = data))
             database.delete(data)
         }
     }

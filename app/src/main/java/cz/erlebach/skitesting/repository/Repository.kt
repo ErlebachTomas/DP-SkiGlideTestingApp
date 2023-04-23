@@ -9,12 +9,9 @@ import cz.erlebach.skitesting.common.interfaces.IAccountManagement
 import cz.erlebach.skitesting.common.utils.dataStatus.DataStatus
 import cz.erlebach.skitesting.common.utils.info
 import cz.erlebach.skitesting.common.utils.isDeviceOnline
-import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.common.utils.wtf
 import cz.erlebach.skitesting.model.BaseModel
-import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.network.RetrofitApiService
-import cz.erlebach.skitesting.repository.local.BaseRepository
 import cz.erlebach.skitesting.repository.resource.networkBoundResource
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -23,10 +20,10 @@ import retrofit2.Response
 /** Kombinuje lokální a vzdálená data */
 abstract class Repository (
     private val context: Context,
-    ) {
+    )
+{
     protected val db = MyDatabase.getDatabase(context)
     protected val account: IAccountManagement = SessionManager.getInstance(context)
-
     /**
      * Načtení dat z lokální ROOM databáze pomocí Dao
      */

@@ -15,7 +15,7 @@ android {
     namespace 'cz.erlebach.skitesting'
     defaultConfig {
         applicationId "cz.erlebach.skitesting"
-        minSdk 28
+        minSdk 30
         targetSdk 33
         versionCode 1
         versionName "0.1"
@@ -87,6 +87,9 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.work:work-runtime-ktx:2.8.0'
+    implementation 'androidx.test:core-ktx:1.5.0'
+    implementation 'androidx.test.ext:junit-ktx:1.1.5'
+    implementation 'androidx.test:runner:1.5.2'
 
     kapt "androidx.room:room-compiler:2.5.0" //pro room
     //coroutines
@@ -112,4 +115,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.1'
+    // Mockito mocking framework
+    testImplementation 'org.mockito:mockito-core:3.11.2'
 }

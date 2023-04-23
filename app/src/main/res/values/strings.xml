@@ -20,6 +20,13 @@
     <string name="btn_ski_profile">manage ski profile</string>
     <string name="btn_recomenndation">Ski recomenndation</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <!-- user profile -->
+    <string name="exportData">Export all data</string>
+    <string name="saved">JSON saved</string>
+    <string name="save_error">Error saving JSON file</string>
+    <string name="logged">Logged in as %1$s</string>
+    <string name="user_info">userName: %1$s\nextraInfo: %2$s\ncreatedAt: %3$s\npicture: %4$s\nemail: %5$s\nnickname: %6$s</string>
+    <string name="profile">Profile</string>
     <!-- ski profile activity -->
     <string name="btn_back">Back</string>
     <string name="btn_save">Save</string>
@@ -45,7 +52,8 @@
     <string name="ski">Ski</string>
     <!--pořadí snowType musí odpovídat hodnotám číselníku  -->
     <string-array name="snowType">
-        <item>Freshly attacked powder</item>
+        <!---
+        <item>Freshly attacked powder snow</item>
         <item>Coarse-grained snow</item>
         <item>Ice / extreme</item>
         <item>Soft snow</item>
@@ -54,6 +62,12 @@
         <item>Falling snow</item>
         <item>Dirty snow</item>
         <item>Old (transformed) snow </item>
+        -->
+        <item>Powder snow</item>
+        <item>Wet snow (fresh)</item>
+        <item>Transformed snow</item>
+        <item>Old / artificial snow</item>
+        <item>Dirty snow</item>
     </string-array>
     <string-array name="testType">
         <item>Time</item>
@@ -85,5 +99,10 @@
     <string name="new_api_version_tittle">A new version of the application has been released</string>
     <string name="btn_close">Close</string>
     <string name="logout_err_offline">the device is offline, connect to the Internet and try again</string>
+    <string name="stopwatch">stopwatch</string>
+    <string name="send">Send</string>
+    <string name="no_result_data">no matching results found, check that you have taken enough measurements</string>
+    <string name="connection_error">Connection error</string>
+    <string name="difference">Difference from the best</string>
 
 </resources>
