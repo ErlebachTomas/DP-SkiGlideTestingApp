@@ -24,7 +24,12 @@ class SkiRideVM(private val repo: SkiRideRepository): BaseVM(repo) {
 
     suspend fun getSki(skiRide: SkiRide): Ski? {
       return repo.getSki(skiRide)
-
     }
 
+    /** Vymaže všechny lyže uživatele */
+    fun deleteAll() {
+        viewModelScope.launch {
+            // todo repo.deleteAll()
+        }
+    }
 }

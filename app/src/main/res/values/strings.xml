@@ -20,6 +20,13 @@
     <string name="btn_ski_profile">manage ski profile</string>
     <string name="btn_recomenndation">Ski recomenndation</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <!-- user profile -->
+    <string name="exportData">Export all data</string>
+    <string name="saved">JSON saved</string>
+    <string name="save_error">Error saving JSON file</string>
+    <string name="logged">Logged in as %1$s</string>
+    <string name="user_info">userName: %1$s\nextraInfo: %2$s\ncreatedAt: %3$s\npicture: %4$s\nemail: %5$s\nnickname: %6$s</string>
+    <string name="profile">Profile</string>
     <!-- ski profile activity -->
     <string name="btn_back">Back</string>
     <string name="btn_save">Save</string>

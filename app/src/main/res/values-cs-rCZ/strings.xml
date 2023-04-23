@@ -81,4 +81,11 @@
     <string name="no_result_data">nebyly nalezeny žádné odpovídající výsledky, zkontrolujte, že jste provedli dostatečný počet měření pro vyhodnocení</string>
     <string name="connection_error">Připojení se nezdařilo</string>
     <string name="difference">Rozdíl od nejlepší</string>
+
+    <string name="exportData">Exportovat uživatelská data</string>
+    <string name="saved">Soubor JSON byl úspěšně uložen.</string>
+    <string name="save_error">Chyba při ukládání souboru JSON</string>
+    <string name="logged">Přihlášen jako:  %1$s</string>
+    <string name="user_info">Uživatelské jméno: %1$s\nDalší informace: %2$s\nVytvořeno dne: %3$s\nObrázek: %4$s\nE-mail: %5$s\nPřezdívka: %6$s</string>
+    <string name="profile">Profil</string>
 </resources>

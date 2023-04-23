@@ -15,7 +15,7 @@ android {
     namespace 'cz.erlebach.skitesting'
     defaultConfig {
         applicationId "cz.erlebach.skitesting"
-        minSdk 28
+        minSdk 30
         targetSdk 33
         versionCode 1
         versionName "0.1"
