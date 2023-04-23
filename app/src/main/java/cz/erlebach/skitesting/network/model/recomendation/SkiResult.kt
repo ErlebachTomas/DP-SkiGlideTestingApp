@@ -10,4 +10,11 @@ data class SkiResult(
     @SerializedName("skiDescription") val skiDescription: String?,
     @SerializedName("results") val results: List<Double>,
     @SerializedName("mean") val mean: Double
-)
+) {
+    fun getPercentageScore(): String {
+        return String.format("%.2f%%", this.score * 100)
+
+    }
+
+
+}

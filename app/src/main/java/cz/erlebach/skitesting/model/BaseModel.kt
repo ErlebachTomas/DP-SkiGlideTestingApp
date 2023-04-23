@@ -2,8 +2,8 @@ package cz.erlebach.skitesting.model
 
 import com.google.gson.annotations.SerializedName
 import cz.erlebach.skitesting.common.utils.dataStatus.DataStatus
-import cz.erlebach.skitesting.common.utils.generateDateISO8601string
-import cz.erlebach.skitesting.common.utils.getDateFromISO8601
+import cz.erlebach.skitesting.common.utils.date.generateDateISO8601string
+import cz.erlebach.skitesting.common.utils.date.getDateFromISO8601
 import java.util.*
 
 /**

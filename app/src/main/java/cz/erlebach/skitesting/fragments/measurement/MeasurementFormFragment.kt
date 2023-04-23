@@ -1,6 +1,5 @@
 package cz.erlebach.skitesting.fragments.measurement
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -17,22 +16,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import cz.erlebach.skitesting.R
-import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
-import cz.erlebach.skitesting.common.utils.debug
-import cz.erlebach.skitesting.databinding.FragmentMeasurementFormBinding
-import cz.erlebach.skitesting.model.TestSession
-import cz.erlebach.skitesting.common.utils.generateDateISO8601string
 import cz.erlebach.skitesting.common.utils.lg
+import cz.erlebach.skitesting.databinding.FragmentMeasurementFormBinding
+import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
+import cz.erlebach.skitesting.model.TestSession
 import cz.erlebach.skitesting.repository.TestSessionRepository
 import cz.erlebach.skitesting.viewModel.TestSessionVM
-import cz.erlebach.skitesting.viewModel.local.TestSessionLocalVM
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Calendar
+import java.util.GregorianCalendar
+import java.util.Locale
+import java.util.TimeZone
 
 
 /**
@@ -148,7 +146,7 @@ class MeasurementFormFragment : Fragment() {
                 snowType = snowType,
                 testType = testType,
                 humidity= humidity.toDoubleOrNull(),
-                note = binding.mfNote.text.toString(),
+                note = binding.srNote.text.toString(),
             )
 
             CoroutineScope(Dispatchers.IO).launch() {

@@ -1,5 +1,6 @@
 package cz.erlebach.skitesting.fragments.measurement
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -10,12 +11,16 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.activity.SkiProfileActivity
+import cz.erlebach.skitesting.activity.Stopwatch
+import cz.erlebach.skitesting.common.utils.lg
+import cz.erlebach.skitesting.common.utils.toast
 import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentMeasurementAddSkiRideBinding
 import cz.erlebach.skitesting.model.Ski
@@ -75,14 +80,30 @@ class AddSkiRideFragment : Fragment() {
             startActivity(intent)
         }
 
+        binding.srStopwatch.setOnClickListener {
+            val intent = Intent(activity, Stopwatch::class.java)
+            resultLauncher.launch(intent)
+
+        }
+
         return binding.root
 
     }
 
+    private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            data?.let {
+                val value = data.getLongExtra(Stopwatch.timeTAG, 0)
+                binding.srResult.setText(value.toString())
+            }
+        }
+    }
+
     private fun save() {
 
-        val result = binding.mfResult.text
-        val note = binding.mfNote.text
+        val result = binding.srResult.text
+        val note = binding.srNote.text
 
         if (!TextUtils.isEmpty(result)) {
             val ride = SkiRide(
@@ -97,14 +118,14 @@ class AddSkiRideFragment : Fragment() {
             }
             Toast.makeText(context, R.string.success, Toast.LENGTH_SHORT).show()
 
-            binding.mfResult.text = null
-            binding.mfNote.text = null
+            binding.srResult.text = null
+            binding.srNote.text = null
 
             // todo next fragment?
 
         } else {
             val borderDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.my_btn_border)
-            binding.mfResult.background = borderDrawable
+            binding.srResult.background = borderDrawable
 
             Toast.makeText(context, context?.getString(R.string.errEmptyFormField), Toast.LENGTH_LONG).show()
         }
@@ -144,9 +165,9 @@ class AddSkiRideFragment : Fragment() {
           }
 
 
-        binding.mfSkiSpinner.adapter = allSkis //todo bind spinner to custom object list https://stackoverflow.com/a/21169383
+        binding.srSkiSpinner.adapter = allSkis //todo bind spinner to custom object list https://stackoverflow.com/a/21169383
 
-        binding.mfSkiSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.srSkiSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
                     view: View?,

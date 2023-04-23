@@ -31,4 +31,6 @@ interface SkiRideDao : BaseDao<SkiRide> {
 
     @Query("SELECT * FROM ${MyDatabase.skiRideTableName} WHERE status = :status")
     suspend fun getDataByStatus(status: DataStatus = DataStatus.OFFLINE): List<SkiRide>
+
+
 }

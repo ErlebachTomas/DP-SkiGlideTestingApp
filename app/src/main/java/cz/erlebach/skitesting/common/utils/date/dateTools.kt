@@ -1,5 +1,7 @@
-package cz.erlebach.skitesting.common.utils
+package cz.erlebach.skitesting.common.utils.date
 
+import cz.erlebach.skitesting.common.utils.wtf
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.OffsetDateTime
@@ -13,9 +15,27 @@ import java.util.*
      * @param pattern [String] zvolený formát
      * @return [String] Naformátovaný text odpovídající datu
      */
-    fun getDateFormatString(date: Date, pattern: String = "MMMM d yyyy h:mm"): String {
+    fun getDateFormatString(date: Date, pattern: String = "d MMMM yyyy h:mm"): String {
         val format = SimpleDateFormat(pattern, Locale.getDefault())
         return format.format(date.time)
+    }
+
+/**
+ * Převádí datum v ISO8601 formátu na formát dle zadaného patternu a vrací výsledný řetězec
+ * @param dateString Datum v ISO8601 formátu, které má být převedeno.
+ * @param pattern Pattern pro formátování datumu.
+ * @return Formátovaný řetězec obsahující datum v požadovaném formátu.
+ */
+fun getDateFormatString(dateString: String, pattern: String = "d MMMM yyyy h:mm"): String {
+
+        return try {
+            val date = getDateFromISO8601(dateString)
+            val format = SimpleDateFormat(pattern, Locale.getDefault())
+            format.format(date.time)
+        } catch (err : Exception) {
+            wtf("chyba při formátovaní $dateString", err)
+            dateString
+        }
     }
 
     /**

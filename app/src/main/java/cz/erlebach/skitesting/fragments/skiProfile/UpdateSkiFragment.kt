@@ -16,7 +16,7 @@ import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
 import cz.erlebach.skitesting.model.Ski
-import cz.erlebach.skitesting.common.utils.generateDateISO8601string
+import cz.erlebach.skitesting.common.utils.date.generateDateISO8601string
 import cz.erlebach.skitesting.repository.SkiRepository
 import cz.erlebach.skitesting.viewModel.SkiVM
 

@@ -15,7 +15,8 @@ import retrofit2.http.POST
  */
 interface WebAPI {
 
-    @POST("recomendacion")
+     @POST("recomendacion")
+    //@POST("recomendacionDemoData")
     suspend fun recomendacion(
         @Body post: GeneralDataBody
     ): Response<List<RecommendationDataBody>>

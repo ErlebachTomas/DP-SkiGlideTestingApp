@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_marginBottom="4dp"
+
+    android:background="#99A5E6">
+
+    <TextView
+        android:id="@+id/rca_parent_tittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="parent_Title"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.100000024" />
+
+    <Button
+        android:id="@+id/btn_detail"
+        android:layout_width="85dp"
+        android:layout_height="0dp"
+        android:backgroundTint="#673AB7"
+        android:drawableStart="@android:drawable/ic_menu_view"
+        android:text="Detail"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rca_testType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:text="Rychlost"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="@+id/rca_parent_tittle" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_detail"
+        app:layout_constraintStart_toStartOf="@+id/rca_parent_tittle"
+        app:layout_constraintTop_toBottomOf="@+id/rca_parent_tittle">
+
+        <TextView
+            android:id="@+id/rca_airTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="10°C"
+            app:layout_constraintStart_toEndOf="@+id/rca_snowType"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/rca_snowTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:text="-5°C"
+            app:layout_constraintStart_toEndOf="@+id/rca_airTemperature"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/rca_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="50 hpa"
+            app:layout_constraintStart_toEndOf="@+id/rca_snowTemperature"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/rca_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="notes..."
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rca_airTemperature" />
+
+        <TextView
+            android:id="@+id/rca_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.555"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/rca_angle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rca_distance" />
+
+        <TextView
+            android:id="@+id/rca_snowType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="rca_snowType"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/icons8_snowflake_128px_1"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="1dp"
+            android:contentDescription="icons8_snowflake_128px_1"
+            android:src="@drawable/icons8_snowflake_128px_1"
+            app:layout_constraintEnd_toStartOf="@+id/rca_snowTemperature"
+            app:layout_constraintTop_toTopOf="@+id/rca_snowTemperature" />
+
+        <ImageView
+            android:id="@+id/icons8_temperature_32px_1"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="3dp"
+            android:contentDescription="icons8_temperature_32px_1"
+            android:src="@drawable/icons8_temperature_32px_1"
+            app:layout_constraintEnd_toStartOf="@+id/rca_airTemperature"
+            app:layout_constraintTop_toTopOf="@+id/rca_airTemperature" />
+
+        <ImageView
+            android:id="@+id/icons8_humidity_52px_1"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="2dp"
+            android:contentDescription="icons8_humidity_52px_1"
+            android:src="@drawable/icons8_humidity_52px_1"
+            app:layout_constraintEnd_toStartOf="@+id/rca_humidity"
+            app:layout_constraintTop_toTopOf="@+id/rca_humidity" />
+
+        <ImageView
+            android:id="@+id/icons8_map_pinpoint_48px_1"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="2dp"
+            android:contentDescription="icons8_map_pinpoint_48px_1"
+            android:src="@drawable/icons8_map_pinpoint_48px_1"
+            app:layout_constraintEnd_toStartOf="@+id/rca_distance"
+            app:layout_constraintTop_toTopOf="@+id/rca_distance" />
+
+        <ImageView
+            android:id="@+id/icons8_compare_52px_1"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="3dp"
+            android:contentDescription="icons8_compare_52px_1"
+            android:src="@drawable/icons8_compare_52px_1"
+            app:layout_constraintEnd_toStartOf="@+id/rca_angle"
+            app:layout_constraintTop_toTopOf="@+id/rca_angle" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

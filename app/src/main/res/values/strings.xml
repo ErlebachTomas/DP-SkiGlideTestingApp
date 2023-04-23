@@ -92,5 +92,10 @@
     <string name="new_api_version_tittle">A new version of the application has been released</string>
     <string name="btn_close">Close</string>
     <string name="logout_err_offline">the device is offline, connect to the Internet and try again</string>
+    <string name="stopwatch">stopwatch</string>
+    <string name="send">Send</string>
+    <string name="no_result_data">no matching results found, check that you have taken enough measurements</string>
+    <string name="connection_error">Connection error</string>
+    <string name="difference">Difference from the best</string>
 
 </resources>

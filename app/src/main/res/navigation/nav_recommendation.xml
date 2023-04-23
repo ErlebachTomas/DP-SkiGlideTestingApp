@@ -39,11 +39,14 @@
         android:name="cz.erlebach.skitesting.fragments.recommendation.ResultFragment"
         android:label="fragment_recommendation_result"
         tools:layout="@layout/fragment_recommendation_result" >
-        <action
-            android:id="@+id/action_resultFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
         <argument
             android:name="test"
             app:argType="cz.erlebach.skitesting.model.TestSession" />
+        <action
+            android:id="@+id/action_resultFragment_to_formFragment"
+            app:destination="@id/formFragment" />
+        <action
+            android:id="@+id/action_resultFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
     </fragment>
 </navigation>

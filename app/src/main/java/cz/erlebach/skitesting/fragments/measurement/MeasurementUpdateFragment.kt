@@ -15,11 +15,10 @@ import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentMeasurementUpdateBinding
 import cz.erlebach.skitesting.model.TestSession
-import cz.erlebach.skitesting.common.utils.generateDateISO8601string
-import cz.erlebach.skitesting.common.utils.getDateFormatString
+import cz.erlebach.skitesting.common.utils.date.generateDateISO8601string
+import cz.erlebach.skitesting.common.utils.date.getDateFormatString
 import cz.erlebach.skitesting.repository.TestSessionRepository
 import cz.erlebach.skitesting.viewModel.TestSessionVM
-import cz.erlebach.skitesting.viewModel.local.TestSessionLocalVM
 import java.util.*
 
 

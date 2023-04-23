@@ -64,6 +64,10 @@ class FormFragment : Fragment() {
             sendForm()
         }
 
+        binding.rcBack.setOnClickListener {
+            activity?.finish()
+        }
+
 
         return binding.root
     }
