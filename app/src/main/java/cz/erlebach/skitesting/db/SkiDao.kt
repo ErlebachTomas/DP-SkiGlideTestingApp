@@ -21,7 +21,6 @@ interface SkiDao : BaseDao<Ski>  {
     @Query("SELECT * FROM ${MyDatabase.skiTableName} WHERE status != :filterStatus")
     fun getFlow(filterStatus: DataStatus = DataStatus.REMOVED): Flow<List<Ski>>
 
-    // todo Strategy
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addSki(ski: Ski)
 

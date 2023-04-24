@@ -2,19 +2,54 @@ package cz.erlebach.skitesting.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import cz.erlebach.skitesting.common.utils.info
 import cz.erlebach.skitesting.model.BaseModel
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.model.SkiRide
+import cz.erlebach.skitesting.model.wrappers.SkiRideWithSki
 import cz.erlebach.skitesting.network.RetrofitApiService
 import cz.erlebach.skitesting.network.model.GeneralDataBody
 import cz.erlebach.skitesting.repository.local.SkiRideLocalRepository
+import cz.erlebach.skitesting.repository.resource.networkBoundResource
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 
-class SkiRideRepository (val context: Context) : Repository(context) {
+open class SkiRideRepository (val context: Context) : Repository(context) {
 
     val api get() = RetrofitApiService(this.context).skiRideAPI
     private val dao = super.db.skiRideDao()
-    val localRepository get() = SkiRideLocalRepository(dao)
+    private val localRepository get() = SkiRideLocalRepository(dao)
+
+    fun readDataWithSkisForTest(testID: String) = networkBoundResource(
+        localFlow = {
+            localRepository.getJoinedSkiRidesForTest(testID)
+        },
+        fetchFromRemote = {
+            delay(4000)
+            this.getSkiRideRemoteDataWithSkis(testID)
+        },
+        sync = { listResponse ->
+            for (onlineData: SkiRideWithSki in listResponse) {
+                val offlineData = getLocalModelByID(onlineData.skiRide.id)
+                if (offlineData != null) {
+
+                    if (onlineData.skiRide.isNewer(offlineData)) {
+                        info("aktualizuji ${onlineData.skiRide.toString()}")
+                        updateLocalModel(onlineData.skiRide)
+                    }
+                } else {
+                    info("stahuji a vkládám ${onlineData.skiRide.toString()}")
+                    insertLocalModel(onlineData.skiRide)
+                }
+            }
+            info("sync ${listResponse.count()}")
+        }
+
+    )
+    private suspend fun getSkiRideRemoteDataWithSkis(testID: String): List<SkiRideWithSki> {
+        val response = api.getDataWithSki(super.account.getUserID(), testID)
+        return super.getListFromResponse(response)
+    }
 
     suspend fun deleteLocalCache()  = dao.deleteAllSkiRides()
 

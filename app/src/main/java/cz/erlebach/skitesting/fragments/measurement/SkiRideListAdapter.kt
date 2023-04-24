@@ -7,23 +7,21 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.common.utils.date.getDateFormatString
 import cz.erlebach.skitesting.databinding.AdapterFragmentMeasurementSkiRideListBinding
-import cz.erlebach.skitesting.model.BaseModel
 import cz.erlebach.skitesting.model.SkiRide
+import cz.erlebach.skitesting.model.wrappers.SkiRideWithSki
 import cz.erlebach.skitesting.viewModel.SkiRideVM
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 /**
- * [RecyclerView.Adapter] který zobrazuje [SkiRide] pro [SkiRideListFragment].
+ * [RecyclerView.Adapter] který zobrazuje [SkiRideWithSki] (obalová třída [SkiRide]) pro [SkiRideListFragment].
  */
 class SkiRideListAdapter(
     val viewModel: SkiRideVM
 ) : RecyclerView.Adapter<SkiRideListAdapter.ViewHolder>() {
 
-    private var values: List<SkiRide> = emptyList<SkiRide>()
+    private var values: List<SkiRideWithSki> = emptyList<SkiRideWithSki>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -36,29 +34,25 @@ class SkiRideListAdapter(
         )
 
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentSkiRide = values[position]
+        val currentSkiRideWithSki = values[position]
 
-        val temp = currentSkiRide.skiID//todo holder ski name misto id MAP?
+        val skiName = currentSkiRideWithSki.ski.name
+        val result = currentSkiRideWithSki.skiRide.result
+        val note = currentSkiRideWithSki.skiRide.note
 
-        /*
-        CoroutineScope(Dispatchers.IO).launch {
-            val ski = viewModel.getSki(currentSkiRide)
-            holder.content.text = "${ski.toString()} : ${currentSkiRide.result.toString()}"
-        }
-        */
-        holder.content.text = "$temp\n ${currentSkiRide.result.toString()}"
+        holder.noteTV.text = note
+        holder.resultTV.text = result.toString()
+        holder.skiNameTV.text = skiName
+
+        holder.timestampTV.text = getDateFormatString(currentSkiRideWithSki.skiRide.updatedAt)
+
         holder.itemView.findViewById<View>(R.id.adap_layout_skiRide_row).setOnClickListener {
-
-            val action =
-                SkiRideListFragmentDirections.actionSkiRideListFragmentToUpdateSkiRideFragment(
-                    currentSkiRide
-                )
-
+            val action = SkiRideListFragmentDirections.actionSkiRideListFragmentToUpdateSkiRideFragment(
+                currentSkiRideWithSki.skiRide
+            )
             holder.itemView.findNavController().navigate(action)
         }
-
     }
 
     override fun getItemCount(): Int = values.size
@@ -66,16 +60,18 @@ class SkiRideListAdapter(
     inner class ViewHolder(binding: AdapterFragmentMeasurementSkiRideListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        ///todo holder + ski name
-        val content: TextView = binding.srlContent
+        val noteTV: TextView = binding.srlContent
+        val skiNameTV: TextView = binding.slrSkiName
+        val resultTV: TextView = binding.slrSkiResult
+        val timestampTV : TextView = binding.slrTimestamp
 
         override fun toString(): String {
-            return super.toString() + " '" + content.text + "'"
+            return super.toString() + " '" + noteTV.text + "'"
         }
     }
 
-    fun setData(list: List<BaseModel>) {
-        this.values = list.filterIsInstance<SkiRide>()
+    fun setData(list: List<SkiRideWithSki>) {
+        this.values = list
         notifyDataSetChanged()
     }
 

@@ -41,12 +41,15 @@ class MeasurementListFragment : Fragment() {
             findNavController().navigate(R.id.action_MeasurementFragment_to_measurementFormFragment)
 
         }
+        binding.mlBack.setOnClickListener {
+            activity?.finish()
+        }
 
         return binding.root
     }
     private fun init() {
 
-        val adapter = MeasurementRecyclerViewAdapter()
+        val adapter = MeasurementRecyclerViewAdapter(requireContext())
         binding.mlRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.mlRecyclerView.adapter = adapter
 

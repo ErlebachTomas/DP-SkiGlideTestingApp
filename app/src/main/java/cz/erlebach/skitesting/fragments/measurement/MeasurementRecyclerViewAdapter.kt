@@ -1,5 +1,6 @@
 package cz.erlebach.skitesting.fragments.measurement
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,7 @@ import cz.erlebach.skitesting.model.TestSession
 /**
  * [RecyclerView.Adapter] který zobrazuje [TestSession] pro [MeasurementListFragment].
  */
-class MeasurementRecyclerViewAdapter(
+class MeasurementRecyclerViewAdapter(var context: Context
 ):RecyclerView.Adapter<MeasurementRecyclerViewAdapter.ViewHolder>() {
 
     private var values: List<TestSession> = emptyList<TestSession>()
@@ -36,8 +37,17 @@ class MeasurementRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val testSession = values[position]
 
-        holder.idView.text = testSession.testType.toString()
-        holder.contentView.text = getDateFormatString(testSession.datetime)
+
+        holder.dateTV.text = getDateFormatString(testSession.datetime)
+
+        holder.airTemperatureTV.text = testSession.airTemperature.toString()
+        holder.snowTemperatureTV.text = testSession.snowTemperature.toString()
+        holder.humidityTV.text = testSession.humidity.toString()
+        holder.noteTV.text = testSession.note
+
+
+        holder.testTypeTV.text = testSession.getTestTypeString(context)
+        holder.snowTypeTV.text = testSession.getSnowTypeString(context)
 
         holder.itemView.findViewById<View>(R.id.adap_layout_measurement_row).setOnClickListener {
 
@@ -63,12 +73,15 @@ class MeasurementRecyclerViewAdapter(
 
     inner class ViewHolder(binding: AdapterFragmentMeasurementListContentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.itemNumber
-        val contentView: TextView = binding.content
+        val testTypeTV : TextView = binding.mlTestType
+        val dateTV: TextView = binding.mlDate
 
-        override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
-        }
+        val airTemperatureTV: TextView = binding.mlAirTemperature
+        val snowTemperatureTV: TextView = binding.mlSnowTemperature
+        val humidityTV: TextView = binding.mlHumidity
+        val noteTV: TextView = binding.mlNote
+        val snowTypeTV: TextView = binding.mlSnowType
+
     }
 
     /**

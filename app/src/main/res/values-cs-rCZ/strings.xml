@@ -88,4 +88,15 @@
     <string name="logged">Přihlášen jako:  %1$s</string>
     <string name="user_info">Uživatelské jméno: %1$s\nDalší informace: %2$s\nVytvořeno dne: %3$s\nObrázek: %4$s\nE-mail: %5$s\nPřezdívka: %6$s</string>
     <string name="profile">Profil</string>
+    <string name="help">Nápověda</string>
+    <string name="sync">Synchronizace zahájena</string>
+    <string name="Help">Nápověda</string>
+    <string name="help_content">
+            <li>1. V aplikaci si vytvořte profil pro všechny vaše testované lyže\n</li>
+            <li>2. Vytvořte nové měření, vyplňte meteorologické podmínky a pokračujte v zadávání výsledků\n</li>
+            <li>3. Záznamy lze upravit dlouhým kliknutím\n</li>
+            <li>4. Z naměřených údajů můžete v aktivitě doporučení předpovědět nejlepší lyže (Tato funkce je jediná, která vyžaduje připojení k internetu)\n</li>
+            <li>5. Veškerá uživatelská data jsou ke stažení v profilu\n</li>
+    </string>
+    <string name="syncBtn">Sync</string>
 </resources>

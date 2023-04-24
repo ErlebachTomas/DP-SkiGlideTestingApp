@@ -14,6 +14,7 @@
         android:layout_marginBottom="24dp"
         android:text="@string/hello_home_fragment"
         android:textColor="#263238"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,12 +62,12 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_measurement" />
         <!---  android:enabled="false" !-->
     <Button
-        android:id="@+id/btnTest"
+        android:id="@+id/btnInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:backgroundTint="@color/design_default_color_primary_dark"
-        android:text="Synchronizace"
+        android:text="@string/Help"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/mf_textView2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,17 +80,17 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:text="@string/title_activity_user_profile"
-        app:layout_constraintBottom_toTopOf="@+id/btnTest"
+        app:layout_constraintBottom_toTopOf="@+id/btnInfo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_sync"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:text="test"
+        android:text="@string/syncBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

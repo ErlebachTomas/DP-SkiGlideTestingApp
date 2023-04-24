@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_skiRideListFragment_to_updateSkiRideFragment"
             app:destination="@id/updateSkiRideFragment" />
+        <action
+            android:id="@+id/action_skiRideListFragment_to_MeasurementFragment"
+            app:destination="@id/MeasurementFragment" />
     </fragment>
     <fragment
         android:id="@+id/measurementUpdateFragment"

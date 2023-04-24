@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/ski"
-        app:layout_constraintBottom_toTopOf="@+id/sr_skiSpinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,9 +20,9 @@
 
     <Spinner
         android:id="@+id/sr_skiSpinner"
-        android:layout_width="237dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="235dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
         android:contentDescription="@string/select_ski"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,15 +31,15 @@
     <EditText
         android:id="@+id/sr_result"
         android:layout_width="235dp"
-        android:layout_height="49dp"
+        android:layout_height="50dp"
         android:ems="10"
         android:hint="@string/ma_hint_result"
         android:inputType="number|numberDecimal"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="@+id/sr_skiSpinner"
-        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/sr_skiSpinner"
-        app:layout_constraintTop_toBottomOf="@+id/sr_skiSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/sr_note" />
 
     <Button
         android:id="@+id/sr_btnSave"
@@ -51,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sr_note" />
+        app:layout_constraintTop_toBottomOf="@+id/sr_result" />
 
     <Button
         android:id="@+id/sr_btnBack"
@@ -65,16 +64,16 @@
 
     <EditText
         android:id="@+id/sr_note"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="235dp"
+        android:layout_height="50dp"
         android:ems="10"
         android:hint="@string/ma_hint_note"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="@+id/sr_result"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="@+id/sr_result"
-        app:layout_constraintTop_toBottomOf="@+id/sr_stopwatch" />
+        app:layout_constraintTop_toBottomOf="@+id/sr_skiSpinner" />
 
     <Button
         android:id="@+id/sr_addSki"
@@ -89,9 +88,11 @@
         android:id="@+id/sr_stopwatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:text="@string/stopwatch"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sr_result" />
+        app:layout_constraintTop_toBottomOf="@+id/sr_btnSave" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

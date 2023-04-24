@@ -2,6 +2,7 @@ package cz.erlebach.skitesting.model
 
 import android.content.Context
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -18,6 +19,7 @@ import java.util.*
 @Entity(tableName = MyDatabase.testSessionsTableName)
 data class TestSession(
     @PrimaryKey
+    @ColumnInfo(name = "id")
     @SerializedName("UUID")
     override val id: String = generateID(),
     @SerializedName("datetime")

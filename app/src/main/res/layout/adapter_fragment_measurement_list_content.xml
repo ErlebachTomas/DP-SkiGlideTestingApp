@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/adap_layout_measurement_row"
@@ -8,24 +8,101 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/item_number"
+        android:id="@+id/ml_test_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:layout_marginTop="16dp"
-        android:text="num"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:layout_marginEnd="8dp"
+        android:text="test"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/ml_snowType"
+        app:layout_constraintTop_toBottomOf="@+id/ml_airTemperature" />
 
     <TextView
-        android:id="@+id/content"
+        android:id="@+id/ml_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:layout_marginStart="427dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="341dp"
-        android:layout_marginBottom="16dp"
         android:text="content"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/ml_airTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="10°C"
+        app:layout_constraintEnd_toStartOf="@+id/icons8_snowflake_128px_1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ml_snowTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="-5°C"
+        app:layout_constraintEnd_toStartOf="@+id/icons8_humidity_52px_1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ml_humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50 %"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/ml_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="notes..."
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ml_date" />
+
+    <TextView
+        android:id="@+id/ml_snowType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="rca_snowType"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ml_snowTemperature" />
+
+    <ImageView
+        android:id="@+id/icons8_snowflake_128px_1"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="1dp"
+        android:contentDescription="icons8_snowflake_128px_1"
+        android:src="@drawable/icons8_snowflake_128px_1"
+        app:layout_constraintEnd_toStartOf="@+id/ml_snowTemperature"
+        app:layout_constraintTop_toTopOf="@+id/ml_snowTemperature" />
+
+    <ImageView
+        android:id="@+id/icons8_temperature_32px_1"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="3dp"
+        android:contentDescription="icons8_temperature_32px_1"
+        android:src="@drawable/icons8_temperature_32px_1"
+        app:layout_constraintEnd_toStartOf="@+id/ml_airTemperature"
+        app:layout_constraintTop_toTopOf="@+id/ml_airTemperature" />
+
+    <ImageView
+        android:id="@+id/icons8_humidity_52px_1"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="2dp"
+        android:contentDescription="icons8_humidity_52px_1"
+        android:src="@drawable/icons8_humidity_52px_1"
+        app:layout_constraintEnd_toStartOf="@+id/ml_humidity"
+        app:layout_constraintTop_toTopOf="@+id/ml_humidity" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

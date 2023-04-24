@@ -47,6 +47,11 @@ class SkiRideListFragment : Fragment() {
 
         }
 
+        binding.srlBtnBack.setOnClickListener {
+            val action = SkiRideListFragmentDirections.actionSkiRideListFragmentToMeasurementFragment()
+            findNavController().navigate(action)
+        }
+
         return binding.root
     }
 
@@ -66,18 +71,12 @@ class SkiRideListFragment : Fragment() {
         binding.srlRecyclerView.adapter = adapter
 
 
-        val liveData = viewModel.loadTestSessionRideByID(args.idTestSession)
-        liveData.observe(viewLifecycleOwner) { item ->
-            adapter.setData(item)
+        val liveData = viewModel.getDataWithSki(args.idTestSession)
+
+        liveData.observe(viewLifecycleOwner) { resource ->
+            resource.data?.let {
+                adapter.setData(it) }
         }
-
-
-
-        /*
-        viewModel.readAllData.observe(viewLifecycleOwner) { item ->
-            adapter.setData(item)  // todo read data with id!!!!!
-        }
-        */
     }
 
 }

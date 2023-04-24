@@ -25,6 +25,7 @@ import com.google.gson.Gson
 import cz.erlebach.skitesting.common.SessionManager
 import cz.erlebach.skitesting.common.utils.debug
 import cz.erlebach.skitesting.common.utils.err
+import cz.erlebach.skitesting.common.utils.info
 import cz.erlebach.skitesting.common.utils.isDeviceOnline
 import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.databinding.ActivityMainBinding
@@ -63,10 +64,13 @@ class MainActivity : AppCompatActivity() {
         checkAllpermissions()
 
         if (!isDeviceOnline(this)) {
-            changeFragmentTo(NoConnectionFragment()) // undone offline politika
+            changeFragmentTo(NoConnectionFragment())
         } else {
             versionCheck()
             if (authManager.checkIfloginIsValid()) {
+
+                syncWithServer()
+
                 changeFragmentTo(HomeFragment())
             } else {
                 lg("Authent")
@@ -109,7 +113,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onSuccess(result: Void?) {
-
                     syncWithServer()
 
                     lifecycleScope.launch(Dispatchers.Default) {
@@ -117,7 +120,7 @@ class MainActivity : AppCompatActivity() {
                         test.deleteLocalCache()
                         ride.deleteLocalCache()
                     }
-                    toast(getString(R.string.login_success_message)) // undone logout msg
+                    toast(getString(R.string.login_success_message))
                     changeFragmentTo(LoginFragment())
                 }
             })
@@ -298,7 +301,8 @@ class MainActivity : AppCompatActivity() {
 
     /** Synchronizace dat (nahrávání dat na server z offline modu)*/
     fun syncWithServer() {
-        toast("Synchronizace zahájena")
+
+        info("Syncing")
 
         val workManager = WorkManager.getInstance(this)
         val listOfWorkers = listOf(
@@ -306,7 +310,6 @@ class MainActivity : AppCompatActivity() {
             OneTimeWorkRequestBuilder<SyncWorkerSkiRide>().build(),
             OneTimeWorkRequestBuilder<SyncWorkerTestSession>().build()
         )
-
         for (worker in listOfWorkers) {
             workManager.enqueue(worker)
         }

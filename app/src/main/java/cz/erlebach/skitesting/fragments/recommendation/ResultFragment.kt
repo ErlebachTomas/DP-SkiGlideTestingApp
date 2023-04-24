@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -33,12 +34,14 @@ class ResultFragment : Fragment() {
     private val args by navArgs<ResultFragmentArgs>()
 
     private val listData : MutableList<Group> = ArrayList()
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRecommendationResultBinding.inflate(inflater, container, false)
+        progressBar = binding.rvProgressBar
 
         load()
 
@@ -52,6 +55,7 @@ class ResultFragment : Fragment() {
     }
 
     private fun load() {
+        progressBar.visibility = View.VISIBLE
 
         val adapter = ResultAdapter(requireContext())
         binding.rvResults.layoutManager = LinearLayoutManager(requireContext())
@@ -77,11 +81,14 @@ class ResultFragment : Fragment() {
                                 listData.add(grp)
                                 adapter.setData(listData)
                             }
+                            progressBar.visibility = View.GONE
                         }
                         210 -> {
+                            progressBar.visibility = View.GONE
                             noData()
                         }
                         else -> {
+                           progressBar.visibility = View.GONE
                            toast(requireContext(),response.message().toString())
                         }
                     }

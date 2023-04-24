@@ -11,6 +11,7 @@ import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import cz.erlebach.skitesting.MainActivity
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.activity.HelpActivity
 import cz.erlebach.skitesting.activity.MeasurementActivity
 import cz.erlebach.skitesting.activity.RecommendationActivity
 import cz.erlebach.skitesting.activity.SkiProfileActivity
@@ -60,16 +61,17 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.btnTest.setOnClickListener { _ ->
+        binding.btnSync.setOnClickListener { _ ->
             (activity as MainActivity?)!!.syncWithServer()
+            toast(requireContext(),getString(R.string.sync))
         }
         binding.btnUserProfile.setOnClickListener { _ ->
             val intent = Intent(activity, UserProfileActivity::class.java)
             startActivity(intent)
         }
 
-        binding.button.setOnClickListener { _ ->
-            val intent = Intent(activity, Stopwatch::class.java)
+        binding.btnInfo.setOnClickListener { _ ->
+            val intent = Intent(activity, HelpActivity::class.java)
             resultLauncher.launch(intent) // print value
         }
 

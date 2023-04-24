@@ -23,10 +23,13 @@ data class Ski (
     @ColumnInfo(name = "id")
     @SerializedName("UUID")
     override val id: String = generateID(),
+    @ColumnInfo(name = "name")
     @SerializedName("name")
     val name: String,
+    @ColumnInfo(name = "description")
     @SerializedName("description")
     val description: String? = null,
+    @ColumnInfo(name = "icon")
     @SerializedName("icon")
     val icon: String? = null,
     @SerializedName("updated_at")

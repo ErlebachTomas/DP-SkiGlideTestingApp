@@ -1,6 +1,7 @@
 package cz.erlebach.skitesting.network.api
 
 import cz.erlebach.skitesting.model.SkiRide
+import cz.erlebach.skitesting.model.wrappers.SkiRideWithSki
 import cz.erlebach.skitesting.network.model.GeneralDataBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -21,4 +22,7 @@ interface SkiRideAPI {
 
     @POST("syncSkiRide")
     suspend fun syncData(@Body body: GeneralDataBody): Response<SkiRide>
+
+    @GET("getAllSkiRideWithSki")
+    suspend fun getDataWithSki(@Query("user") userID: String, @Query("testID") testID: String ): Response<List<SkiRideWithSki>>
 }

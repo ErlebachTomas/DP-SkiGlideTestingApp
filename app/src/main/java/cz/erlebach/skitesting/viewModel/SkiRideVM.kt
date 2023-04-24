@@ -1,6 +1,7 @@
 package cz.erlebach.skitesting.viewModel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.model.SkiRide
@@ -12,6 +13,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 class SkiRideVM(private val repo: SkiRideRepository): BaseVM(repo) {
+
+    fun getDataWithSki(testID: String) = repo.readDataWithSkisForTest(testID).asLiveData()
 
     /**
      * Načte všechny provedené jízdy z testu
@@ -26,10 +29,4 @@ class SkiRideVM(private val repo: SkiRideRepository): BaseVM(repo) {
       return repo.getSki(skiRide)
     }
 
-    /** Vymaže všechny lyže uživatele */
-    fun deleteAll() {
-        viewModelScope.launch {
-            // todo repo.deleteAll()
-        }
-    }
 }
