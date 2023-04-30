@@ -91,7 +91,12 @@
     <string name="second_fragment_label" translatable="false">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
+    <!--- stopwatch !-->
+    <string name="stopwatch">stopwatch</string>
+    <string name="stopwatch_start">Start!</string>
+    <string name="stopwatch_stop">Stop</string>
+    <string name="stopwatch_reset">Reset</string>
+    <!-- === -->
     <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
     <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
     <string name="select_ski">Select ski</string>
@@ -102,7 +107,6 @@
     <string name="new_api_version_tittle">A new version of the application has been released</string>
     <string name="btn_close">Close</string>
     <string name="logout_err_offline">the device is offline, connect to the Internet and try again</string>
-    <string name="stopwatch">stopwatch</string>
     <string name="send">Send</string>
     <string name="no_result_data">no matching results found, check that you have taken enough measurements</string>
     <string name="connection_error">Connection error</string>
@@ -118,6 +122,7 @@
          </ul>
     </string>
     <string name="syncBtn">Sync</string>
+
 
 
 </resources>

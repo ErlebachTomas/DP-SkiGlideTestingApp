@@ -14,6 +14,7 @@ import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.activity.HelpActivity
 import cz.erlebach.skitesting.activity.MeasurementActivity
 import cz.erlebach.skitesting.activity.RecommendationActivity
+import cz.erlebach.skitesting.activity.Sandbox
 import cz.erlebach.skitesting.activity.SkiProfileActivity
 import cz.erlebach.skitesting.activity.Stopwatch
 import cz.erlebach.skitesting.activity.UserProfileActivity
@@ -71,8 +72,16 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnInfo.setOnClickListener { _ ->
-            val intent = Intent(activity, HelpActivity::class.java)
+            val intent = Intent(activity, HelpActivity::class.java) 
+        }
+       
+        binding.button.setOnClickListener { _ ->
+            startActivity(Intent(activity, Sandbox::class.java))
+
+           /* val intent = Intent(activity, Stopwatch::class.java)
             resultLauncher.launch(intent) // print value
+            */
+
         }
 
 
@@ -80,6 +89,7 @@ class HomeFragment : Fragment() {
 
     }
 
+    /*
     private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
@@ -88,9 +98,9 @@ class HomeFragment : Fragment() {
                lg(value.toString())
                 toast(requireContext(),value.toString())
             }
-
-
         }
     }
+
+     */
 
 }

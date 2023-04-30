@@ -1,5 +1,6 @@
 package cz.erlebach.skitesting.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.Button
 import android.widget.Toast
 import cz.erlebach.skitesting.MainActivity
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.activity.Sandbox
 
 
 /**
@@ -27,7 +29,7 @@ class NoConnectionFragment : Fragment() {
             (activity as MainActivity?)!!.login()
         }
         myView.findViewById<Button>(R.id.btn_skip).setOnClickListener { _ ->
-           Toast.makeText(activity,"not implemented", Toast.LENGTH_SHORT).show() //undone debug feature
+            startActivity(Intent(activity, Sandbox::class.java))
         }
         return myView
     }

@@ -99,4 +99,8 @@
             <li>5. Veškerá uživatelská data jsou ke stažení v profilu\n</li>
     </string>
     <string name="syncBtn">Sync</string>
+
+    <string name="stopwatch_start">Start!</string>
+    <string name="stopwatch_stop">Stop</string>
+    <string name="stopwatch_reset">Reset</string>
 </resources>

@@ -24,7 +24,11 @@
             android:exported="false" />
         <activity
             android:name=".activity.Stopwatch"
-            android:exported="true"></activity>
+            android:exported="true"></activity>          
+        <activity
+            android:name=".activity.Sandbox"
+            android:exported="false" />
+            
         <activity
             android:name=".activity.UserProfileActivity"
             android:exported="false"
