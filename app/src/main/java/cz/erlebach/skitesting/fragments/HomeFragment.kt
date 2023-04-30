@@ -75,7 +75,7 @@ class HomeFragment : Fragment() {
             val intent = Intent(activity, HelpActivity::class.java) 
         }
        
-        binding.button.setOnClickListener { _ ->
+        binding.sandbox.setOnClickListener { _ ->
             startActivity(Intent(activity, Sandbox::class.java))
 
            /* val intent = Intent(activity, Stopwatch::class.java)
