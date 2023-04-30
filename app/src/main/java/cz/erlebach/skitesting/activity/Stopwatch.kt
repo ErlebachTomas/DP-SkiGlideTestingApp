@@ -5,11 +5,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
+import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.databinding.ActivityStopwatchBinding
 import java.util.Locale
 
+/**
+ * Jednopduché stopky bžící v hlavním vlákně aplikace
+ * @property timeTAG Konstanta pro ukládání času časomíry
+ * @property format Formátovací řetězec pro zobrazení času časomíry
+ * @property timer čas
+ * @property isRunning flag zda je časomíra spuštěna
+ * @property handler Handler pro manipulaci s časovačem a UI
+ */
 class Stopwatch : AppCompatActivity() {
     private lateinit var binding: ActivityStopwatchBinding
 
@@ -37,17 +47,7 @@ class Stopwatch : AppCompatActivity() {
 
         binding.swRun.setOnClickListener {
 
-            if (!isRunning) {
-                isRunning = true
-                startTimer()
-                binding.swRun.text = "STOP!" // TODO @string
-
-            } else {
-               isRunning = false
-               stopTimer()
-                binding.swRun.text = "START!" // TODO @string
-
-            }
+            toggleStopwatch()
         }
 
         binding.swReset.setOnClickListener {
@@ -59,6 +59,32 @@ class Stopwatch : AppCompatActivity() {
         }
 
     }
+
+    /** Ovládání stopek */
+    private fun toggleStopwatch() {
+        if (!isRunning) {
+            isRunning = true
+            startTimer()
+            binding.swRun.text = getString(R.string.stopwatch_stop)
+
+        } else {
+            isRunning = false
+            stopTimer()
+            binding.swRun.text = getString(R.string.stopwatch_start)
+
+        }
+    }
+
+    /** Ovládání stopek tlačítkem pro hlasitost */
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return if (keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            toggleStopwatch()
+            true
+        } else {
+            super.onKeyDown(keyCode, event)
+        }
+    }
+
     override fun onSaveInstanceState(
         savedInstanceState: Bundle
     ) {
@@ -92,7 +118,7 @@ class Stopwatch : AppCompatActivity() {
                 val delay: Long = 10
                 val ms = ((timer * delay) % 1000) / 10 // výpis pouze 2
                 val sec = (timer * delay) / 1000
-                val minutes = (sec  % 3600) / 60
+                val minutes = (sec % 3600) / 60
                 val hours = sec / 3600
 
                 val time: String = java.lang.String.format(
@@ -100,7 +126,7 @@ class Stopwatch : AppCompatActivity() {
                     format, hours, minutes, sec, ms
                 )
 
-              binding.swTime.text = time
+                binding.swTime.text = time
 
                 if (isRunning) {
                     timer++
@@ -111,11 +137,12 @@ class Stopwatch : AppCompatActivity() {
         })
     }
 
-    fun closeAndReturn() {
-     val intent = Intent()
-     intent.putExtra(timeTAG, timer)
-     setResult(Activity.RESULT_OK, intent)
-     finish()
+    /** Návratová funkce s výsledkem */
+    private fun closeAndReturn() {
+        val intent = Intent()
+        intent.putExtra(timeTAG, timer)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
 

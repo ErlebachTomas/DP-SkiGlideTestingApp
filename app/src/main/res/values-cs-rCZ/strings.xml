@@ -88,4 +88,8 @@
     <string name="logged">Přihlášen jako:  %1$s</string>
     <string name="user_info">Uživatelské jméno: %1$s\nDalší informace: %2$s\nVytvořeno dne: %3$s\nObrázek: %4$s\nE-mail: %5$s\nPřezdívka: %6$s</string>
     <string name="profile">Profil</string>
+
+    <string name="stopwatch_start">Start!</string>
+    <string name="stopwatch_stop">Stop</string>
+    <string name="stopwatch_reset">Reset</string>
 </resources>

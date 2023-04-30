@@ -19,9 +19,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.Sandbox"
+            android:exported="false" />
+        <activity
             android:name=".activity.Stopwatch"
-            android:exported="true">
-            </activity>
+            android:exported="true" />
         <activity
             android:name=".activity.UserProfileActivity"
             android:exported="false"
@@ -47,6 +49,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
