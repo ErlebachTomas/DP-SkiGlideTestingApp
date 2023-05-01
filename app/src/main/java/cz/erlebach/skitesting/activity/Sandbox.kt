@@ -2,6 +2,7 @@ package cz.erlebach.skitesting.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
@@ -13,6 +14,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.utils.err
 import cz.erlebach.skitesting.common.utils.info
@@ -21,15 +23,19 @@ import cz.erlebach.skitesting.common.utils.wtf
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import java.io.BufferedReader
 import java.io.IOException
+import java.io.InputStreamReader
 import java.io.OutputStream
 import java.util.UUID
 
 @SuppressLint("MissingPermission")
 class Sandbox : AppCompatActivity() {
 
-    private val myUUID = "00001101-0000-1000-8000-00805F9B34FB"
-    private val MAC = "00:21:07:34:D3:16"
+    private val myUUID = "00001101-0000-1000-8000-00805F9B34FB" // get????
+    private var MAC: String? = null;
     private lateinit var textView: TextView
 
     private lateinit var bluetoothManager: BluetoothManager
@@ -37,7 +43,6 @@ class Sandbox : AppCompatActivity() {
 
     private val isBluetoothEnabled: Boolean
         get() = bluetoothAdapter.isEnabled
-
 
     private lateinit var bluetoothSocket: BluetoothSocket
 
@@ -55,60 +60,60 @@ class Sandbox : AppCompatActivity() {
 
         textView = findViewById<TextView>(R.id.blTV)
 
-        val enableBluetoothLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { //callback
-        }
-        val permissionLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { perms ->
-            val canEnableBluetooth = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                perms[Manifest.permission.BLUETOOTH_CONNECT] == true // pro api 31
-            } else true
-            if (canEnableBluetooth && !isBluetoothEnabled) {
-                enableBluetoothLauncher.launch(
-                    Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-                )
-            }
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            permissionLauncher.launch(
-                arrayOf(
-                    Manifest.permission.BLUETOOTH_SCAN,
-                    Manifest.permission.BLUETOOTH_CONNECT,
-                )
-            )
-        }
+        checkPermission()
 
         findViewById<Button>(R.id.bluetooth).setOnClickListener {
             if (!isDeviceConnected) {
                 connectToBluetoothDevice()
             } else {
-                writeOneToBluetoothDevice()
+                controlLEDusingBluetooth()
             }
         }
 
-    }
+        findViewById<Button>(R.id.picker).setOnClickListener {
 
+            selectDevice { device ->
+                if (device != null) {
+                    info("Selected ${device.name} MAC address: ${device.address}")
+                    toast(this,device.address)
+                    MAC = device.address
+                } else {
+                    info("No device selected")
+                }
+            }
+
+        }
+
+
+    }
     private fun connectToBluetoothDevice() {
+
+        if(MAC == null) {
+            err("Please select device MAC")
+            toast(this,"Please select device MAC")
+            return;
+        }
+
         val device: BluetoothDevice? = bluetoothAdapter.getRemoteDevice(this.MAC)
         if (device != null) {
             info(device.address + " " + device.name)
         } else {
             err("device not found")
+            return
         }
         CoroutineScope(Dispatchers.IO).launch {
             try {
 
                 bluetoothSocket =
-                    device?.createRfcommSocketToServiceRecord(UUID.fromString(myUUID))!!
+                    device.createRfcommSocketToServiceRecord(UUID.fromString(myUUID))!!
+
                 bluetoothSocket.connect()
 
                 info("connected")
                 outputStream = bluetoothSocket.outputStream
 
                 isDeviceConnected = true
-               
+
             } catch (e: IOException) {
                 err("error connecting")
                 wtf("error connecting", e)
@@ -118,7 +123,7 @@ class Sandbox : AppCompatActivity() {
         toast(this@Sandbox, "connected")
     }
 
-    private fun writeOneToBluetoothDevice() {
+    private fun controlLEDusingBluetooth() {
 
         if (LEDSwitch) {
             textView.text = "1"
@@ -145,8 +150,62 @@ class Sandbox : AppCompatActivity() {
                 wtf("error writing", e)
             }
         }
+    }
 
 
+    private fun selectDevice(callback: (BluetoothDevice?) -> Unit) {
+
+        val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter.bondedDevices
+        val deviceNames = pairedDevices?.map { it.name }?.toTypedArray()
+
+        if (!deviceNames.isNullOrEmpty()) {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Select")
+            builder.setItems(deviceNames) { _, index ->
+                val selectedDevice = pairedDevices.elementAt(index)
+                callback(selectedDevice)
+            }
+            builder.setNegativeButton("Cancel") { dialog, _ ->
+                callback(null)
+                dialog.dismiss()
+            }
+            builder.setOnCancelListener { dialog ->
+                callback(null)
+                dialog.dismiss()
+            }
+            builder.show()
+        } else {
+            callback(null)
+        }
+
+    }
+
+
+    private fun checkPermission() {
+        val enableBluetoothLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { //callback
+        }
+        val permissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { perms ->
+            val canEnableBluetooth = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                perms[Manifest.permission.BLUETOOTH_CONNECT] == true // pro api 31
+            } else true
+            if (canEnableBluetooth && !isBluetoothEnabled) {
+                enableBluetoothLauncher.launch(
+                    Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                )
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            permissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.BLUETOOTH_SCAN,
+                    Manifest.permission.BLUETOOTH_CONNECT,
+                )
+            )
+        }
     }
 
     override fun onDestroy() {
