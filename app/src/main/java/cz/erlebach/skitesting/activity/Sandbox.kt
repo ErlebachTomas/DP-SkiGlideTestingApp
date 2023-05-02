@@ -18,10 +18,12 @@ import androidx.lifecycle.lifecycleScope
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.utils.err
 import cz.erlebach.skitesting.common.utils.info
+import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.common.utils.toast
 import cz.erlebach.skitesting.common.utils.wtf
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -34,7 +36,7 @@ import java.util.UUID
 @SuppressLint("MissingPermission")
 class Sandbox : AppCompatActivity() {
 
-    private val myUUID = "00001101-0000-1000-8000-00805F9B34FB" // get????
+    private val myUUID = "00001101-0000-1000-8000-00805F9B34FB" // get ????
     private var MAC: String? = null;
     private lateinit var textView: TextView
 
@@ -63,12 +65,32 @@ class Sandbox : AppCompatActivity() {
         checkPermission()
 
         findViewById<Button>(R.id.bluetooth).setOnClickListener {
+
             if (!isDeviceConnected) {
                 connectToBluetoothDevice()
             } else {
                 controlLEDusingBluetooth()
             }
+
         }
+
+
+        findViewById<Button>(R.id.json).setOnClickListener {
+
+            if (!isDeviceConnected) {
+                MAC = "10:51:07:73:F8:38"
+                connectToBluetoothDevice()
+            } else {
+                lifecycleScope.launch {
+
+                    readData()
+
+                }
+            }
+
+
+        }
+
 
         findViewById<Button>(R.id.picker).setOnClickListener {
 
@@ -86,6 +108,53 @@ class Sandbox : AppCompatActivity() {
 
 
     }
+
+    private fun readData() {
+
+        if(!isDeviceConnected) {
+            err("Device is not connected")
+            return
+        }
+        CoroutineScope(Dispatchers.IO).launch {
+
+            try {
+                val outputStream = bluetoothSocket.outputStream
+                outputStream.write('2'.code)
+
+            } catch (e: IOException) {
+                err("error writing")
+                wtf("error writing", e)
+            }
+
+            try {
+                val inputStream = bluetoothSocket.inputStream
+
+                lg("Reading:")
+                while (isActive) {
+                    // dokud coroutine běží
+                    val buffer = ByteArray(1024)
+                    val bytes = inputStream.read(buffer)
+                    val data = String(buffer, 0, bytes)
+                    lg(data)
+
+                    val jsonObject = JSONObject(data)
+                    val airTemperature = jsonObject.getDouble("airTemperature")
+                    val snowTemperature = jsonObject.getDouble("snowTemperature")
+                    val humidity = jsonObject.getDouble("humidity")
+                    val responseString = "Air Temperature: $airTemperature\nSnow Temperature: $snowTemperature\nHumidity: $humidity"
+
+                    withContext(Dispatchers.Main) {
+                        textView.text = responseString
+                    }
+
+                }
+            } catch (e: IOException) {
+                err("Error reading")
+                wtf("Error", e)
+            }
+        }
+    }
+
     private fun connectToBluetoothDevice() {
 
         if(MAC == null) {
@@ -94,7 +163,7 @@ class Sandbox : AppCompatActivity() {
             return;
         }
 
-        val device: BluetoothDevice? = bluetoothAdapter.getRemoteDevice(this.MAC)
+        val device: BluetoothDevice? = bluetoothAdapter.getRemoteDevice(MAC)
         if (device != null) {
             info(device.address + " " + device.name)
         } else {
@@ -151,8 +220,6 @@ class Sandbox : AppCompatActivity() {
             }
         }
     }
-
-
     private fun selectDevice(callback: (BluetoothDevice?) -> Unit) {
 
         val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter.bondedDevices
@@ -208,14 +275,19 @@ class Sandbox : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun disconnect() {
         try {
             isDeviceConnected = false
             bluetoothSocket.close()
         } catch (e: IOException) {
             err(e.printStackTrace().toString())
         }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disconnect()
     }
 
 }
