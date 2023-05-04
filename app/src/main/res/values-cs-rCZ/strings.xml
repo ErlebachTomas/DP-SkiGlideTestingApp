@@ -32,7 +32,7 @@
     <string name="No">Ne</string>
     <string name="snow_temperature">Teplota sněhu °C</string>
     <string name="btn_add_measurement">Nové měření</string>
-    <string name="snow">Sníh</string>
+    <string name="snow">Sníh: </string>
     <string name="temperature">Teplota °C</string>
     <string name="title_activity">Aktivita</string>
     <string name="next">Další</string>
@@ -71,7 +71,7 @@
     <string name="usr_edit">Editace</string>
     <string name="testType">Typ testu</string>
     <string name="mfNoteHint">note</string>
-    <string name="humidity">Vlhkost</string>
+    <string name="humidity">Vlhkost %</string>
     <string name="new_api_version_tittle">Byla vydána nová verze aplikace</string>
     <string name="btn_close">Zavřít</string>
     <string name="title_activity_user_profile">Profil uživatele</string>
@@ -92,15 +92,35 @@
     <string name="sync">Synchronizace zahájena</string>
     <string name="Help">Nápověda</string>
     <string name="help_content">
-            <li>1. V aplikaci si vytvořte profil pro všechny vaše testované lyže\n</li>
-            <li>2. Vytvořte nové měření, vyplňte meteorologické podmínky a pokračujte v zadávání výsledků\n</li>
-            <li>3. Záznamy lze upravit dlouhým kliknutím\n</li>
-            <li>4. Z naměřených údajů můžete v aktivitě doporučení předpovědět nejlepší lyže (Tato funkce je jediná, která vyžaduje připojení k internetu)\n</li>
-            <li>5. Veškerá uživatelská data jsou ke stažení v profilu\n</li>
+        <ul>
+            <li>V aplikaci si vytvořte profil pro všechny vaše testované lyže\n</li>
+            <li>Vytvořte nové měření, vyplňte meteorologické podmínky a pokračujte v zadávání výsledků\n</li>
+            <li> Záznamy lze upravit dlouhým kliknutím\n</li>
+            <li>Z naměřených údajů můžete v aktivitě doporučení předpovědět nejlepší lyže (Tato funkce je jediná, která vyžaduje připojení k internetu)\n</li>
+            <li>Veškerá uživatelská data jsou ke stažení v profilu\n</li>
+        </ul>
     </string>
     <string name="syncBtn">Sync</string>
 
     <string name="stopwatch_start">Start!</string>
     <string name="stopwatch_stop">Stop</string>
     <string name="stopwatch_reset">Reset</string>
+
+    <string name="mf_pick_date">datum</string>
+    <string name="mf_pick_time">čas</string>
+    <string name="bluetooth_open_activity">Načíst údaje z Arduina</string>
+    <string name="mf_test_type">Typ:</string>
+
+    <string name="bluetooth_tittle">Připojení přes Bluetooth</string>
+    <string name="bluetooth_connect">Připojit</string>
+    <string name="bluetooth_connected">Připojeno</string>
+    <string name="bluetooth_disconnect">Odpojit</string>
+    <string name="bluetooth_disconnected">Odpojeno</string>
+    <string name="bluetooth_led">LED</string>
+    <string name="bluetooth_get_data">Načíst meteodata</string>
+    <string name="bluetooth_select">Vyberete zařízení</string>
+    <string name="bluetooth_cancel">Zrušit</string>
+    <string name="bluetooth_not_mac">Vyberte MAC zařízení</string>
+    <string name="bluetooth_not_found">Zařízení nenalezeno</string>
+
 </resources>

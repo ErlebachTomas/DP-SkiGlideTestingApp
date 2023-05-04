@@ -33,7 +33,7 @@
             android:name=".activity.Stopwatch"
             android:exported="true"></activity>          
         <activity
-            android:name=".activity.Sandbox"
+            android:name=".activity.BluetoothActivity"
             android:exported="false" />
             
         <activity

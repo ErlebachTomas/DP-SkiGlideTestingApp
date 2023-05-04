@@ -2,6 +2,8 @@ package cz.erlebach.skitesting.fragments.skiProfile
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -91,11 +93,14 @@ class UpdateSkiFragment : Fragment() {
 
             viewModel.update(updatedSki)
 
-
             Toast.makeText(requireContext(), getString(R.string.update_success_message), Toast.LENGTH_SHORT).show()
 
+            Handler(Looper.getMainLooper()).postDelayed({
+                findNavController().navigate(R.id.action_updateSkiFragment_to_skiListFragment)
+            }, 1000)
 
-            findNavController().navigate(R.id.action_updateSkiFragment_to_skiListFragment)
+
+
         }
     }
     /** Zobrazí dialog a vymaže záznam */

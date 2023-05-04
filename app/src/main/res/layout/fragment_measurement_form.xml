@@ -7,10 +7,43 @@
     android:layout_height="match_parent"
     tools:context=".fragments.measurement.MeasurementFormFragment">
 
+    <ImageView
+        android:id="@+id/icons8_humidity"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="icons8_humidity_52px_1"
+        android:src="@drawable/icons8_humidity_52px_1"
+        app:layout_constraintBottom_toBottomOf="@+id/mf_humidity"
+        app:layout_constraintEnd_toStartOf="@+id/mf_humidity"
+        app:layout_constraintTop_toTopOf="@+id/mf_humidity" />
+
+    <ImageView
+        android:id="@+id/icons8_snowflake"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="icons8_snowflake_128px_1"
+        android:src="@drawable/icons8_snowflake_128px_1"
+        app:layout_constraintBottom_toBottomOf="@+id/mf_snowTemperature"
+        app:layout_constraintEnd_toStartOf="@+id/mf_snowTemperature"
+        app:layout_constraintTop_toTopOf="@+id/mf_snowTemperature" />
+
+    <ImageView
+        android:id="@+id/icons8_temperature"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="icons8_temperature_32px_1"
+        android:src="@drawable/icons8_temperature_32px_1"
+        app:layout_constraintBottom_toTopOf="@+id/mf_snowSpinner"
+        app:layout_constraintEnd_toStartOf="@+id/mf_temperature"
+        app:layout_constraintTop_toBottomOf="@+id/mf_snowTemperature" />
+
     <EditText
         android:id="@+id/mf_humidity"
-        android:layout_width="251dp"
-        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:autofillHints="@string/humidity"
         android:ems="10"
@@ -18,14 +51,14 @@
         android:inputType="numberSigned"
         android:minHeight="48dp"
         android:textColorHint="#757575"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/mf_snowSpinner"
+        app:layout_constraintStart_toStartOf="@+id/mf_temperature"
         app:layout_constraintTop_toBottomOf="@+id/mf_btnDatePicker" />
 
     <Spinner
         android:id="@+id/mf_TestTypeSpinner"
-        android:layout_width="237dp"
-        android:layout_height="49dp"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
         android:contentDescription="@string/testType"
         app:layout_constraintBottom_toTopOf="@+id/mf_snowTemperature"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,9 +70,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="showTimePickerDialog"
-        android:text="pick_time"
-        app:layout_constraintEnd_toEndOf="@+id/mf_snowSpinner"
-        app:layout_constraintStart_toEndOf="@+id/mf_btnDatePicker"
+        android:text="@string/mf_pick_time"
+        app:layout_constraintEnd_toEndOf="@+id/mf_humidity"
         app:layout_constraintTop_toTopOf="@+id/mf_btnDatePicker" />
 
     <Button
@@ -64,8 +96,8 @@
 
     <EditText
         android:id="@+id/mf_snowTemperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:layout_marginTop="7dp"
         android:autofillHints="@string/snow_temperature"
         android:ems="10"
@@ -73,9 +105,9 @@
         android:inputType="numberSigned"
         android:minHeight="48dp"
         android:textColorHint="#757575"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/mf_TestTypeSpinner"
         app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/mf_TestTypeSpinner"
         app:layout_constraintTop_toBottomOf="@+id/mf_TestTypeSpinner" />
 
     <TextView
@@ -83,6 +115,7 @@
         android:layout_width="65dp"
         android:layout_height="31dp"
         android:text="@string/snow"
+        android:textAlignment="viewEnd"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/mf_snowSpinner"
         app:layout_constraintEnd_toStartOf="@+id/mf_snowSpinner"
@@ -90,27 +123,26 @@
 
     <Spinner
         android:id="@+id/mf_snowSpinner"
-        android:layout_width="237dp"
-        android:layout_height="49dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:contentDescription="@string/snow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/mf_temperature"
+        app:layout_constraintStart_toStartOf="@+id/mf_temperature"
         app:layout_constraintTop_toBottomOf="@+id/mf_temperature" />
 
     <EditText
         android:id="@+id/mf_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="7dp"
         android:autofillHints="@string/temperature"
         android:ems="10"
         android:hint="@string/temperature"
         android:inputType="numberSigned"
         android:minHeight="48dp"
         android:textColorHint="#757575"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/mf_snowTemperature"
+        app:layout_constraintStart_toStartOf="@+id/mf_snowTemperature"
         app:layout_constraintTop_toBottomOf="@+id/mf_snowTemperature" />
 
     <TextView
@@ -132,39 +164,38 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="136dp"
         android:onClick="showTimePickerDialog"
-        android:text="pick_date"
+        android:text="@string/mf_pick_date"
         app:layout_constraintEnd_toEndOf="@+id/mf_snowSpinner"
+        app:layout_constraintStart_toStartOf="@+id/mf_humidity"
         app:layout_constraintTop_toBottomOf="@+id/mf_snowSpinner" />
 
     <TextView
         android:id="@+id/mf_twDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
         android:layout_marginTop="32dp"
         android:text="datum"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/mf_btnDatePicker"
+        app:layout_constraintStart_toStartOf="@+id/mf_btnDatePicker"
         app:layout_constraintTop_toBottomOf="@+id/mf_snowSpinner" />
 
     <TextView
         android:id="@+id/mf_twTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
         android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/mf_btnTimePicker"
         app:layout_constraintStart_toStartOf="@+id/mf_btnTimePicker"
         app:layout_constraintTop_toTopOf="@+id/mf_twDate" />
 
     <ScrollView
         android:id="@+id/ScrollView01"
-        android:layout_width="328dp"
-        android:layout_height="97dp"
-        app:layout_constraintBottom_toTopOf="@+id/mf_btnBack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mf_humidity"
-        app:layout_constraintVertical_bias="0.238">
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/mf_humidity"
+        app:layout_constraintStart_toStartOf="@+id/mf_humidity"
+        app:layout_constraintTop_toBottomOf="@+id/mf_humidity">
 
         <EditText
             android:id="@+id/sr_note"
@@ -176,5 +207,34 @@
             android:minHeight="48dp" />
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/mf_bluetooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bluetooth_open_activity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ScrollView01" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:text="@string/mf_test_type"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/mf_TestTypeSpinner"
+        app:layout_constraintEnd_toStartOf="@+id/mf_TestTypeSpinner"
+        app:layout_constraintTop_toTopOf="@+id/mf_TestTypeSpinner" />
+
+    <ImageView
+        android:id="@+id/icon_note"
+        android:layout_width="32dp"
+        android:layout_height="63dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/icons8_note_64px"
+        app:layout_constraintEnd_toStartOf="@+id/ScrollView01"
+        app:layout_constraintTop_toBottomOf="@+id/mf_humidity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

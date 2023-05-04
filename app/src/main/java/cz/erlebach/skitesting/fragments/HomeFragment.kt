@@ -1,27 +1,21 @@
 package cz.erlebach.skitesting.fragments
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.activity.result.contract.ActivityResultContracts
 import cz.erlebach.skitesting.MainActivity
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.activity.HelpActivity
 import cz.erlebach.skitesting.activity.MeasurementActivity
 import cz.erlebach.skitesting.activity.RecommendationActivity
-import cz.erlebach.skitesting.activity.Sandbox
+import cz.erlebach.skitesting.activity.BluetoothActivity
 import cz.erlebach.skitesting.activity.SkiProfileActivity
-import cz.erlebach.skitesting.activity.Stopwatch
 import cz.erlebach.skitesting.activity.UserProfileActivity
-import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.common.utils.toast
 import cz.erlebach.skitesting.databinding.FragmentMainHomeBinding
-import cz.erlebach.skitesting.databinding.FragmentNewApiVersionBinding
 
 /**
 Domovská obrazovka
@@ -72,11 +66,12 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnInfo.setOnClickListener { _ ->
-            val intent = Intent(activity, HelpActivity::class.java) 
+            val intent = Intent(activity, HelpActivity::class.java)
+            startActivity(intent)
         }
        
         binding.sandbox.setOnClickListener { _ ->
-            startActivity(Intent(activity, Sandbox::class.java))
+            startActivity(Intent(activity, BluetoothActivity::class.java))
 
            /* val intent = Intent(activity, Stopwatch::class.java)
             resultLauncher.launch(intent) // print value

@@ -60,7 +60,9 @@ class SkiListAdapter(): RecyclerView.Adapter<SkiListAdapter.MyViewHolder>(){
 
         holder.itemView.findViewById<View>(R.id.adap_layout_skiRow).setOnLongClickListener() {
 
-            Toast.makeText(holder.itemView.context, "Long click " + currentItem.name, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(holder.itemView.context, "Long click " + currentItem.name, Toast.LENGTH_SHORT).show()
+            val action = SkiListFragmentDirections.actionSkiListFragmentToUpdateSkiFragment(currentItem)
+            holder.itemView.findNavController().navigate(action)
             true
         }
     }

@@ -49,7 +49,7 @@ abstract class Repository (
             this.getLocalDataFlow()
         },
         fetchFromRemote = {
-            delay(4000) // jinak se při mazání zase stáhne a nic se nesmaže
+            delay(3000) // jinak se při mazání zase stáhne a nic se nesmaže
             this.getRemoteData()
         },
         sync = { listResponse ->
@@ -82,6 +82,7 @@ abstract class Repository (
             db.withTransaction {
                 deleteRemote(account.getUserID(), obj)
                 deleteLocalModel(obj)
+                info("deleting" + obj.id )
             }
         } else {
            obj.status = DataStatus.REMOVED

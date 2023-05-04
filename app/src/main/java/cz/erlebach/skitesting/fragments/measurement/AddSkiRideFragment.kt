@@ -179,7 +179,7 @@ class AddSkiRideFragment : Fragment() {
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    TODO("Not yet implemented")
+                    //TODO("Not yet implemented")
                 }
             }
 

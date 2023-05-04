@@ -6,6 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".fragments.recommendation.FormFragment">
 
+    <ImageView
+        android:id="@+id/icons8_humidity2"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="icons8_humidity_52px_1"
+        android:src="@drawable/icons8_humidity_52px_1"
+        app:layout_constraintBottom_toBottomOf="@+id/rc_humidity"
+        app:layout_constraintEnd_toStartOf="@+id/rc_humidity"
+        app:layout_constraintTop_toBottomOf="@+id/rc_snowTemperature" />
+
+    <ImageView
+        android:id="@+id/icons8_temperature2"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="icons8_temperature_32px_1"
+        android:src="@drawable/icons8_temperature_32px_1"
+        app:layout_constraintBottom_toTopOf="@+id/rc_snowTemperature"
+        app:layout_constraintEnd_toStartOf="@+id/rc_temperature"
+        app:layout_constraintTop_toTopOf="@+id/rc_temperature" />
+
+    <ImageView
+        android:id="@+id/icons8_snowflake2"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="icons8_snowflake_128px_1"
+        android:src="@drawable/icons8_snowflake_128px_1"
+        app:layout_constraintBottom_toBottomOf="@+id/rc_snowTemperature"
+        app:layout_constraintEnd_toStartOf="@+id/rc_snowTemperature"
+        app:layout_constraintTop_toTopOf="@+id/rc_snowTemperature" />
+
     <EditText
         android:id="@+id/rc_snowTemperature"
         android:layout_width="wrap_content"

@@ -114,15 +114,30 @@
     <string name="Help">Open help</string>
     <string name="help_content">
         <ul>
-            <li>1. Create a profile in the application for all your tested skis\n</li>
-            <li>2. Create a new measurement, fill in the meteorological conditions and proceed to enter the results\n</li>
-            <li>3. Records can be edited with a long click\n</li>
-            <li>4. From the measured data, you can predict the best skis in the recommendation activity (This function is the only one that requires an Internet connection)\n</li>
-            <li>5. All user data is downloadable in profile activity\n</li>
+            <li>Create a profile in the application for all your tested skis\n</li>
+            <li>Create a new measurement, fill in the meteorological conditions and proceed to enter the results\n</li>
+            <li>Records can be edited with a long click\n</li>
+            <li>From the measured data, you can predict the best skis in the recommendation activity (This function is the only one that requires an Internet connection)\n</li>
+            <li>All user data is downloadable in profile activity\n</li>
          </ul>
     </string>
     <string name="syncBtn">Sync</string>
+    <string name="mf_pick_date">Pick date</string>
+    <string name="mf_pick_time">Pick time</string>
+    <string name="mf_test_type">Type:</string>
 
+    <string name="bluetooth_open_activity">Load data from Arduino</string>
+    <string name="bluetooth_tittle">Bluetooth controller</string>
+    <string name="bluetooth_connect">Connect</string>
+    <string name="bluetooth_disconnect">Disconnect</string>
+    <string name="bluetooth_connected">Connected</string>
+    <string name="bluetooth_disconnected">Disconnected</string>
+    <string name="bluetooth_led">LED</string>
+    <string name="bluetooth_get_data">Get meteodata</string>
+    <string name="bluetooth_select">Select Weather Station</string>
+    <string name="bluetooth_cancel">Cancel</string>
+    <string name="bluetooth_not_mac">Please select device MAC</string>
+    <string name="bluetooth_not_found">Device not found</string>
 
 
 </resources>

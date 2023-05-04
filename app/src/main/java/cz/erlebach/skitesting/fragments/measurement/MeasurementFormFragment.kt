@@ -1,7 +1,9 @@
 package cz.erlebach.skitesting.fragments.measurement
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -11,11 +13,13 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import cz.erlebach.skitesting.R
+import cz.erlebach.skitesting.activity.BluetoothActivity
 import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.databinding.FragmentMeasurementFormBinding
 import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
@@ -26,6 +30,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.GregorianCalendar
@@ -60,9 +65,29 @@ class MeasurementFormFragment : Fragment() {
             factory= MyViewModelFactory(TestSessionVM(TestSessionRepository(requireContext())))
         )[TestSessionVM::class.java]
 
+        binding.mfBluetooth.setOnClickListener {
+            val intent = Intent(activity, BluetoothActivity::class.java)
+            resultLauncher.launch(intent) // print value
+
+        }
         return binding.root
 
     }
+    private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+
+            if (data != null) {
+                val json = data.getStringExtra(BluetoothActivity.TAG)
+                val jsonObject = json?.let { JSONObject(it) }
+                binding.mfHumidity.setText(jsonObject?.getString("humidity"))
+                binding.mfTemperature.setText(jsonObject?.getString("airTemperature"))
+                binding.mfSnowTemperature.setText(jsonObject?.getString("snowTemperature")) // todo nahradit za gson třídu
+            }
+        }
+    }
+
+
 
     /**
      * Naplní volice

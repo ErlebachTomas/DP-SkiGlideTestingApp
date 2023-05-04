@@ -1,6 +1,8 @@
 package cz.erlebach.skitesting.fragments.measurement
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -76,8 +78,11 @@ class MeasurementUpdateFragment : Fragment() {
 
     private fun deleteItem() {
         viewModel.delete(args.testSession)
-        Toast.makeText(requireContext(), R.string.success, Toast.LENGTH_SHORT).show()
-        findNavController().navigate(R.id.action_measurementUpdateFragment_to_MeasurementFragment)
+        Toast.makeText(requireContext(), R.string.success, Toast.LENGTH_LONG).show()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            findNavController().navigate(R.id.action_measurementUpdateFragment_to_MeasurementFragment)
+        }, 1000)
     }
 
 
