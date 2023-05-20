@@ -1,17 +1,14 @@
 package cz.erlebach.skitesting.fragments.skiProfile
 
-import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.model.BaseModel
-
 import cz.erlebach.skitesting.model.Ski
 
 class SkiListAdapter(): RecyclerView.Adapter<SkiListAdapter.MyViewHolder>(){
@@ -20,10 +17,7 @@ class SkiListAdapter(): RecyclerView.Adapter<SkiListAdapter.MyViewHolder>(){
 
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        // todo jednotlivé položky
-        //val name:TextView  = itemView.findViewById(R.id.adap_tx_name)
-
-        /**
+          /**
          * Nastaví data v jednotlivém řádku recyclerViewu
          */
         fun blindSki(ski: Ski) {

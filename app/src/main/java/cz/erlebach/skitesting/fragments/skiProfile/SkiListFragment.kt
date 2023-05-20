@@ -12,9 +12,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cz.erlebach.skitesting.R
-import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
+import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.common.utils.toast
+import cz.erlebach.skitesting.databinding.FragmentSkiListBinding
 import cz.erlebach.skitesting.repository.SkiRepository
 import cz.erlebach.skitesting.viewModel.SkiVM
 
@@ -23,43 +24,40 @@ class SkiListFragment : Fragment() {
 
     private lateinit var viewModel: SkiVM
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private var _binding: FragmentSkiListBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_ski_list, container, false)
+    ): View {
 
-        initVM(view)
+        _binding = FragmentSkiListBinding.inflate(inflater, container, false)
 
-        view.findViewById<View>(R.id.fsl_btnAddSki).setOnClickListener {
+        initVM()
+
+        binding.fslBtnAddSki.setOnClickListener {
             // přepnutí fragmentu na vkládání přes nav
             findNavController().navigate(R.id.action_skiListFragment_to_addSkiFragment)
         }
 
-        view.findViewById<View>(R.id.fsl_btnBack).setOnClickListener {
+        binding.fslBtnBack.setOnClickListener {
             // ukončit aktivitu
             activity?.finish()
 
         }
-        view.findViewById<View>(R.id.fsl_btnDelete).setOnClickListener {
+        binding.fslBtnDelete.setOnClickListener {
             deleteAllItems()
         }
 
-
-        return view
+        return binding.root
     }
 
-    private fun initVM(view: View) {
+    private fun initVM() {
 
         val adapter = SkiListAdapter()
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.fsl_recyclerView)
+        val recyclerView = binding.fslRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
