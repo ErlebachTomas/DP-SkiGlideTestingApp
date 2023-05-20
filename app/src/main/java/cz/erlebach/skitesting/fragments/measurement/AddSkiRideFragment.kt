@@ -21,7 +21,7 @@ import cz.erlebach.skitesting.activity.SkiProfileActivity
 import cz.erlebach.skitesting.activity.Stopwatch
 import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.common.utils.toast
-import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
+import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentMeasurementAddSkiRideBinding
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.model.SkiRide

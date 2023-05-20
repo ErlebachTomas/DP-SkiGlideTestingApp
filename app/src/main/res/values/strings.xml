@@ -113,13 +113,11 @@
     <string name="difference">Difference from the best</string>
     <string name="Help">Open help</string>
     <string name="help_content">
-        <ul>
-            <li>Create a profile in the application for all your tested skis\n</li>
-            <li>Create a new measurement, fill in the meteorological conditions and proceed to enter the results\n</li>
-            <li>Records can be edited with a long click\n</li>
-            <li>From the measured data, you can predict the best skis in the recommendation activity (This function is the only one that requires an Internet connection)\n</li>
-            <li>All user data is downloadable in profile activity\n</li>
-         </ul>
+           \u2022 Create a profile in the application for all your tested skis.\n
+           \u2022Create a new measurement, fill in the meteorological conditions and proceed to enter the results.\n
+           \u2022 Records can be edited with a long click.\n
+           \u2022 From the measured data, you can predict the best skis in the recommendation activity (This function is the only one that requires an Internet connection).\n
+           \u2022 All user data is downloadable in profile activity.\n
     </string>
     <string name="syncBtn">Sync</string>
     <string name="mf_pick_date">Pick date</string>

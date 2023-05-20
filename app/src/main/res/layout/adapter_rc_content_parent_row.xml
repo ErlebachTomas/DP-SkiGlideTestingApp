@@ -6,7 +6,7 @@
     android:layout_height="70dp"
     android:layout_marginBottom="4dp"
 
-    android:background="#99A5E6">
+    android:background="?attr/colorPrimaryContainer">
 
     <TextView
         android:id="@+id/rca_parent_tittle"
@@ -25,8 +25,7 @@
         android:id="@+id/btn_detail"
         android:layout_width="85dp"
         android:layout_height="0dp"
-        android:backgroundTint="#673AB7"
-        android:drawableStart="@android:drawable/ic_menu_view"
+        android:background="?attr/colorPrimaryContainer"
         android:text="Detail"
         android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -92,9 +91,11 @@
             android:id="@+id/rca_distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
             android:text="3.555"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/icons8_compare_52px_1"
+            app:layout_constraintTop_toTopOf="@+id/rca_angle" />
 
         <TextView
             android:id="@+id/rca_angle"
@@ -102,8 +103,8 @@
             android:layout_height="wrap_content"
             android:text="1"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rca_distance" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/rca_snowType"
@@ -150,12 +151,11 @@
             android:id="@+id/icons8_map_pinpoint_48px_1"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:layout_marginTop="3dp"
             android:layout_marginEnd="2dp"
             android:contentDescription="icons8_map_pinpoint_48px_1"
             android:src="@drawable/icons8_map_pinpoint_48px_1"
             app:layout_constraintEnd_toStartOf="@+id/rca_distance"
-            app:layout_constraintTop_toTopOf="@+id/rca_distance" />
+            app:layout_constraintTop_toTopOf="@+id/icons8_compare_52px_1" />
 
         <ImageView
             android:id="@+id/icons8_compare_52px_1"

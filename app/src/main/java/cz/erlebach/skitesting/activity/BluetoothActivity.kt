@@ -264,7 +264,7 @@ class BluetoothActivity : AppCompatActivity() {
 
     }
 
-
+    /** vyžádání oprávnění  */
     private fun checkPermission() {
         val enableBluetoothLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -272,9 +272,9 @@ class BluetoothActivity : AppCompatActivity() {
         }
         val permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
-        ) { perms ->
+        ) { permission ->
             val canEnableBluetooth = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                perms[Manifest.permission.BLUETOOTH_CONNECT] == true // pro api 31
+                permission[Manifest.permission.BLUETOOTH_CONNECT] == true // pro api 31
             } else true
             if (canEnableBluetooth && !isBluetoothEnabled) {
                 enableBluetoothLauncher.launch(

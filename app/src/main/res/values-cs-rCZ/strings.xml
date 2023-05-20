@@ -53,10 +53,10 @@
       <item>Starý (transformovaný) sníh </item>
      -->
       <item>Prachovy sníh</item>
-      <item>Vlhky sníh (čerstvý)</item>
-      <item>Přeměnný (transformovaný)</item>
-      <item>Starý / umělý</item>
-      <item>Spínavý</item>
+      <item>Vlhky sníh/čerstvý</item>
+      <item>Přeměnný/transformovaný</item>
+      <item>Starý/umělý</item>
+      <item>Špinavý</item>
 
     </string-array>
     <string-array name="testType">

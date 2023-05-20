@@ -22,7 +22,7 @@ import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.activity.BluetoothActivity
 import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.databinding.FragmentMeasurementFormBinding
-import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
+import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.model.TestSession
 import cz.erlebach.skitesting.repository.TestSessionRepository
 import cz.erlebach.skitesting.viewModel.TestSessionVM

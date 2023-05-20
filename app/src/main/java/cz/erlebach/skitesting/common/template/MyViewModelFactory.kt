@@ -1,4 +1,4 @@
-package cz.erlebach.skitesting.fragments.template
+package cz.erlebach.skitesting.common.template
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

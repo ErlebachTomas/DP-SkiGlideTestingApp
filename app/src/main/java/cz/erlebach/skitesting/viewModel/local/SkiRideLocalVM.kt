@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import cz.erlebach.skitesting.MyDatabase
 import cz.erlebach.skitesting.model.SkiRide
-import cz.erlebach.skitesting.repository.local.BaseRepository
+import cz.erlebach.skitesting.repository.local.LocalBaseRepository
 import cz.erlebach.skitesting.repository.local.SkiRideLocalRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,7 +28,7 @@ class SkiRideLocalVM(application: Application) : BaseLocalVM<SkiRide>(applicatio
         readAllData = _repository.readAllData
     }
 
-    override val repository: BaseRepository<SkiRide>
+    override val repository: LocalBaseRepository<SkiRide>
         get() = _repository
 
     /**

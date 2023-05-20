@@ -20,7 +20,7 @@ import cz.erlebach.skitesting.common.utils.toast
 import cz.erlebach.skitesting.common.utils.wtf
 import cz.erlebach.skitesting.fragments.recommendation.recyclerview.Group
 import cz.erlebach.skitesting.databinding.FragmentRecommendationResultBinding
-import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
+import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.network.model.recomendation.RecommendationDataBody
 import cz.erlebach.skitesting.repository.remote.RemoteServerRepository
 import cz.erlebach.skitesting.viewModel.remote.RemoteServerVM
