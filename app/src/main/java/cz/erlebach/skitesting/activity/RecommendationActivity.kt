@@ -37,13 +37,7 @@ class RecommendationActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_recommendation)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-
-        /*
-        binding.fab.setOnClickListener { view ->
-            retrofitApiCall(view) //todo smazat
-        }
-        */
-
+        supportActionBar?.setTitle(R.string.rc_navBar)
 
     }
 

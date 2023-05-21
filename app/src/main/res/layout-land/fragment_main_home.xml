@@ -36,9 +36,8 @@
         android:id="@+id/gridLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
         android:alignmentMode="alignMargins"
-        android:columnCount="2"
+        android:columnCount="4"
         android:columnOrderPreserved="false"
         android:padding="16dp"
         android:rowCount="3"
@@ -46,7 +45,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
 
 
         <!-- Sync -->
@@ -57,10 +55,10 @@
             android:layout_columnWeight="1"
             android:layout_margin="16dp"
             android:drawableTop="@drawable/sync"
-            android:text="@string/syncBtn"
-            android:textSize="12sp"
+            android:maxLines="1"
             android:singleLine="true"
-            android:maxLines="1" />
+            android:text="@string/syncBtn"
+            android:textSize="12sp" />
 
         <!-- Logout -->
         <Button
@@ -70,10 +68,10 @@
             android:layout_columnWeight="1"
             android:layout_margin="16dp"
             android:drawableTop="@drawable/icons8_logout_60px"
-            android:text="@string/btn_sign_out"
-            android:textSize="12sp"
+            android:maxLines="1"
             android:singleLine="true"
-            android:maxLines="1" />
+            android:text="@string/btn_sign_out"
+            android:textSize="12sp" />
 
         <!-- Help -->
         <Button
@@ -83,10 +81,10 @@
             android:layout_columnWeight="1"
             android:layout_margin="16dp"
             android:drawableTop="@drawable/icons8_questions_60px"
-            android:text="@string/Help"
-            android:textSize="12sp"
+            android:maxLines="1"
             android:singleLine="true"
-            android:maxLines="1" />
+            android:text="@string/Help"
+            android:textSize="12sp" />
 
         <!-- User Profile -->
         <Button
@@ -96,10 +94,10 @@
             android:layout_columnWeight="1"
             android:layout_margin="16dp"
             android:drawableTop="@drawable/user"
-            android:text="@string/title_activity_user_profile"
-            android:textSize="12sp"
+            android:maxLines="1"
             android:singleLine="true"
-            android:maxLines="1" />
+            android:text="@string/title_activity_user_profile"
+            android:textSize="12sp" />
 
         <!-- Ski Profile -->
         <Button
@@ -109,10 +107,10 @@
             android:layout_columnWeight="1"
             android:layout_margin="16dp"
             android:drawableTop="@drawable/icons8_ski_60px"
-            android:text="@string/btn_ski_profile"
-            android:textSize="12sp"
+            android:maxLines="1"
             android:singleLine="true"
-            android:maxLines="1" />
+            android:text="@string/btn_ski_profile"
+            android:textSize="12sp" />
 
         <!-- Ski Recommendation -->
         <Button
@@ -122,11 +120,10 @@
             android:layout_columnWeight="1"
             android:layout_margin="16dp"
             android:drawableTop="@drawable/icons8_analyze_60px"
-            android:text="@string/btn_recomenndation"
-            android:textSize="12sp"
+            android:maxLines="1"
             android:singleLine="true"
-            android:maxLines="1" />
-
+            android:text="@string/btn_recomenndation"
+            android:textSize="12sp" />
 
 
         <!-- Measurement -->
@@ -134,14 +131,14 @@
             android:id="@+id/btn_measurement"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
             android:layout_columnSpan="2"
+            android:layout_columnWeight="1"
             android:layout_margin="16dp"
             android:drawableTop="@drawable/icons8_alpine_skiing_60px"
-            android:text="@string/btn_add_measurement"
-            android:textSize="12sp"
+            android:maxLines="1"
             android:singleLine="true"
-            android:maxLines="1" />
+            android:text="@string/btn_add_measurement"
+            android:textSize="12sp" />
 
     </GridLayout>
 
