@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import cz.erlebach.skitesting.BuildConfig
 import cz.erlebach.skitesting.MainActivity
 import cz.erlebach.skitesting.R
 
@@ -28,6 +30,9 @@ class LoginFragment : Fragment() {
             (activity as MainActivity?)!!.login() // volání funkce aktivity z fragmentu
 
         }
+
+        myView.findViewById<TextView>(R.id.lg_info).text = getString(R.string.lg_app_version,BuildConfig.VERSION_NAME.toDouble().toString())
+
 
         return myView
     }

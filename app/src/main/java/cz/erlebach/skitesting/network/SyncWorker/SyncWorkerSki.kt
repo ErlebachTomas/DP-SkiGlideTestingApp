@@ -40,7 +40,7 @@ class SyncWorkerSki(context: Context,
 
     override suspend fun updateData(data: Ski) {
         data.status = DataStatus.ONLINE
-        database.updateSki(data)
+        database.update(data)
         lg("nahrávám offline záznam ${data.name} na server")
 
     }

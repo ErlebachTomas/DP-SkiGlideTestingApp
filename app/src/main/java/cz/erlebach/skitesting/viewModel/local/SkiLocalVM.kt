@@ -36,18 +36,6 @@ class SkiLocalVM(application: Application): AndroidViewModel(application)  {
         }
     }
 
-    fun updateSki(Ski: Ski){
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.updateSki(Ski)
-        }
-    }
-
-    fun deleteSki(Ski: Ski){
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteSki(Ski)
-        }
-    }
-
     fun deleteAll(){
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteAll()

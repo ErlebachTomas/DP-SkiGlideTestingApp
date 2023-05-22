@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cz.erlebach.skitesting.R
-import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
+import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentMeasurementUpdateSkiRideBinding
 import cz.erlebach.skitesting.model.SkiRide
 import cz.erlebach.skitesting.common.utils.date.generateDateISO8601string
@@ -79,7 +79,7 @@ class UpdateSkiRideFragment : Fragment() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             findNavController().navigate(R.id.action_updateSkiRideFragment_to_skiRideListFragment)
-        }, 1000)
+        }, 500)
     }
 
     /**

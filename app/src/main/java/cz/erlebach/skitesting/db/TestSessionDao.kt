@@ -16,7 +16,7 @@ interface TestSessionDao : BaseDao<TestSession>{
     /**
      * Vrátí id posledního přidaného prvku
      */
-    @Insert(onConflict = OnConflictStrategy.IGNORE) //todo předělat pak
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun add(testSession : TestSession)
 
     @Query("DELETE FROM " + MyDatabase.testSessionsTableName)

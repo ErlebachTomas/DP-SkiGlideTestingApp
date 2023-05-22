@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import cz.erlebach.skitesting.db.TestSessionDao
 import cz.erlebach.skitesting.model.TestSession
 
-class TestSessionLocalRepository(private val testSessionDao: TestSessionDao) : BaseRepository<TestSession>(testSessionDao){
+class TestSessionLocalRepository(private val testSessionDao: TestSessionDao) : LocalBaseRepository<TestSession>(testSessionDao){
 
     val readAllData: LiveData<List<TestSession>> = testSessionDao.getLiveData()
 
