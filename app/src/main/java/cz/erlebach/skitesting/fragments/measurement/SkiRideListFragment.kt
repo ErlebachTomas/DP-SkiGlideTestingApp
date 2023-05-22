@@ -67,7 +67,7 @@ class SkiRideListFragment : Fragment() {
         )[SkiRideVM::class.java]
 
         viewModel.data.observe(viewLifecycleOwner) {
-                resource ->  info(resource.data?.size.toString())
+                resource ->  info( "skiride count:"+ resource.data?.size.toString())
         }
         val adapter = SkiRideListAdapter(viewModel)
 

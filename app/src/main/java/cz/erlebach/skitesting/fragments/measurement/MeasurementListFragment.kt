@@ -10,8 +10,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.template.MyViewModelFactory
+import cz.erlebach.skitesting.common.utils.info
 import cz.erlebach.skitesting.common.utils.toast
 import cz.erlebach.skitesting.databinding.FragmentMeasurementListBinding
+import cz.erlebach.skitesting.repository.SkiRepository
 import cz.erlebach.skitesting.repository.TestSessionRepository
 import cz.erlebach.skitesting.viewModel.SkiVM
 import cz.erlebach.skitesting.viewModel.TestSessionVM
@@ -66,7 +68,6 @@ class MeasurementListFragment : Fragment() {
         } catch (E: Exception) {
             toast(requireContext(), E.message.toString())
         }
-
     }
 
 

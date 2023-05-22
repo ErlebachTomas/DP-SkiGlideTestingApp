@@ -30,7 +30,9 @@ open class SkiRideRepository (val context: Context) : Repository(context) {
         },
         sync = { listResponse ->
             for (onlineData: SkiRideWithSki in listResponse) {
+
                 val offlineData = getLocalModelByID(onlineData.skiRide.id)
+
                 if (offlineData != null) {
 
                     if (onlineData.skiRide.isNewer(offlineData)) {

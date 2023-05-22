@@ -58,7 +58,7 @@ class ResultAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.Vi
         holder?.apply {
 
 
-            tittleTV.text = testData?.getFormatedDatetime()
+            tittleTV.text = testData?.datetime //getFormatedDatetime()
 
            testTypeTV.text = testData?.getTestTypeString(context)
            snowTypeTV.text = testData?.getSnowTypeString(context)

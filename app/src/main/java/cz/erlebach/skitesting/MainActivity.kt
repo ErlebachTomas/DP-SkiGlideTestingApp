@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
@@ -23,11 +25,13 @@ import com.github.kittinunf.fuel.json.responseJson
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import cz.erlebach.skitesting.common.SessionManager
+import cz.erlebach.skitesting.common.template.MyViewModelFactory
 import cz.erlebach.skitesting.common.utils.debug
 import cz.erlebach.skitesting.common.utils.err
 import cz.erlebach.skitesting.common.utils.info
 import cz.erlebach.skitesting.common.utils.isDeviceOnline
 import cz.erlebach.skitesting.common.utils.lg
+import cz.erlebach.skitesting.common.utils.wtf
 import cz.erlebach.skitesting.databinding.ActivityMainBinding
 import cz.erlebach.skitesting.fragments.HomeFragment
 import cz.erlebach.skitesting.fragments.LoginFragment
@@ -41,8 +45,10 @@ import cz.erlebach.skitesting.network.SyncWorker.SyncWorkerTestSession
 import cz.erlebach.skitesting.repository.SkiRepository
 import cz.erlebach.skitesting.repository.SkiRideRepository
 import cz.erlebach.skitesting.repository.TestSessionRepository
+import cz.erlebach.skitesting.viewModel.SkiVM
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 
 class MainActivity : AppCompatActivity() {
@@ -303,7 +309,6 @@ class MainActivity : AppCompatActivity() {
     fun syncWithServer() {
 
         info("Syncing")
-
         val workManager = WorkManager.getInstance(this)
         val listOfWorkers = listOf(
             OneTimeWorkRequestBuilder<SyncWorkerSki>().build(),
@@ -312,6 +317,17 @@ class MainActivity : AppCompatActivity() {
         )
         for (worker in listOfWorkers) {
             workManager.enqueue(worker)
+        }
+
+        // stažení lyží pro užití v jiných aktivitách
+        try {
+            val viewModelFactory = MyViewModelFactory(SkiVM(SkiRepository(applicationContext)))
+            val vm = ViewModelProvider(this, viewModelFactory)[SkiVM::class.java]
+            vm.data.observe(this, Observer { resource ->
+                lg("Skis: " + resource.data?.size.toString())
+            })
+        }  catch (err : Exception) {
+            wtf("Failed to sync ski", err)
         }
     }
 
