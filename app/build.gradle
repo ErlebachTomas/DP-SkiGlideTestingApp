@@ -17,8 +17,8 @@ android {
         applicationId "cz.erlebach.skitesting"
         minSdk 30
         targetSdk 33
-        versionCode 2
-        versionName "0.2"
+        versionCode 4
+        versionName "1.0"
         multiDexEnabled true
         manifestPlaceholders = [auth0Domain: "@string/auth0_domain", auth0Scheme: "@string/auth0_scheme"]
 
