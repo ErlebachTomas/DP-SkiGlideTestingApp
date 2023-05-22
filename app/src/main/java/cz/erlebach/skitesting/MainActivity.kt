@@ -75,9 +75,9 @@ class MainActivity : AppCompatActivity() {
             versionCheck()
             if (authManager.checkIfloginIsValid()) {
 
+                changeFragmentTo(HomeFragment())
                 syncWithServer()
 
-                changeFragmentTo(HomeFragment())
             } else {
                 lg("Authent")
                 changeFragmentTo(LoginFragment())
@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onSuccess(result: Void?) {
-                    syncWithServer()
+                    syncWithServer(false)
 
                     lifecycleScope.launch(Dispatchers.Default) {
                         ski.deleteLocalCache()
@@ -306,7 +306,7 @@ class MainActivity : AppCompatActivity() {
 */
 
     /** Synchronizace dat (nahrávání dat na server z offline modu)*/
-    fun syncWithServer() {
+    fun syncWithServer(download: Boolean = true) {
 
         info("Syncing")
         val workManager = WorkManager.getInstance(this)
@@ -318,16 +318,17 @@ class MainActivity : AppCompatActivity() {
         for (worker in listOfWorkers) {
             workManager.enqueue(worker)
         }
-
-        // stažení lyží pro užití v jiných aktivitách
-        try {
-            val viewModelFactory = MyViewModelFactory(SkiVM(SkiRepository(applicationContext)))
-            val vm = ViewModelProvider(this, viewModelFactory)[SkiVM::class.java]
-            vm.data.observe(this, Observer { resource ->
-                lg("Skis: " + resource.data?.size.toString())
-            })
-        }  catch (err : Exception) {
-            wtf("Failed to sync ski", err)
+        if (download) {
+            // stažení lyží pro užití v jiných aktivitách
+            try {
+                val viewModelFactory = MyViewModelFactory(SkiVM(SkiRepository(applicationContext)))
+                val vm = ViewModelProvider(this, viewModelFactory)[SkiVM::class.java]
+                vm.data.observe(this, Observer { resource ->
+                    lg("Skis: " + resource.data?.size.toString())
+                })
+            }  catch (err : Exception) {
+                wtf("Failed to sync ski", err)
+            }
         }
     }
 

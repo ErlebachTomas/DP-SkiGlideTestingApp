@@ -6,6 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".fragments.measurement.MeasurementUpdateFragment">
 
+    <ScrollView
+        android:id="@+id/ScrollView01"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/umf_snowSpinner"
+        app:layout_constraintStart_toStartOf="@+id/umf_snowSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/umf_btnTimePicker">
+
+        <EditText
+            android:id="@+id/umf_note"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/mfNoteHint"
+            android:inputType="text|textMultiLine"
+            android:minWidth="32dp"
+            android:minHeight="48dp"
+            app:layout_constraintStart_toStartOf="@+id/umf_btnTimePicker" />
+    </ScrollView>
+
     <Button
         android:id="@+id/umf_btnTimePicker"
         android:layout_width="wrap_content"
@@ -24,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/next"
+        android:text="@string/btn_save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -40,7 +60,7 @@
 
     <EditText
         android:id="@+id/umf_snowTemperature"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:autofillHints="@string/snow_temperature"
         android:ems="10"
@@ -48,9 +68,9 @@
         android:inputType="numberDecimal"
         android:minHeight="48dp"
         android:textColorHint="#757575"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/umf_temperature"
         app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/umf_temperature"
         app:layout_constraintTop_toBottomOf="@+id/testType" />
 
     <TextView
@@ -76,7 +96,7 @@
 
     <EditText
         android:id="@+id/umf_temperature"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:autofillHints="@string/temperature"
@@ -85,9 +105,9 @@
         android:inputType="numberDecimal"
         android:minHeight="48dp"
         android:textColorHint="#757575"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/umf_snowSpinner"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/umf_snowSpinner"
         app:layout_constraintTop_toBottomOf="@+id/umf_snowTemperature" />
 
     <TextView
