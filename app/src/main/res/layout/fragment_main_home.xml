@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#4B00B8D4"
     android:visibility="visible"
     tools:context=".fragments.HomeFragment">
 
@@ -21,128 +22,88 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/btn_sign_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/btn_sign_out"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_ski_profile"
+        android:layout_width="215dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/btn_ski_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mf_textView2" />
+
+    <Button
+        android:id="@+id/btn_measurement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="@string/btn_add_measurement"
+        app:layout_constraintEnd_toEndOf="@+id/btn_ski_profile"
+        app:layout_constraintStart_toStartOf="@+id/btn_ski_profile"
+        app:layout_constraintTop_toBottomOf="@+id/btn_ski_profile" />
+
+    <Button
+        android:id="@+id/btn_recommendation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_recomenndation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_measurement" />
+    <!---  android:enabled="false" !-->
+    <Button
+        android:id="@+id/btnInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:backgroundTint="@color/design_default_color_primary_dark"
+        android:text="@string/Help"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/mf_textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btn_userProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="@string/title_activity_user_profile"
+        app:layout_constraintBottom_toTopOf="@+id/btnInfo"
+        app:layout_constraintEnd_toEndOf="@+id/btn_ski_profile"
+        app:layout_constraintStart_toStartOf="@+id/btn_ski_profile" />
+
+    <Button
+        android:id="@+id/btn_sync"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/syncBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/sandbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="24dp"
         android:enabled="false"
         android:text="Sandbox :)"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <GridLayout
-        android:id="@+id/gridLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
-        android:alignmentMode="alignMargins"
-        android:columnCount="2"
-        android:columnOrderPreserved="false"
-        android:padding="16dp"
-        android:rowCount="3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-
-        <!-- Sync -->
-        <Button
-            android:id="@+id/btn_sync"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="16dp"
-            android:drawableTop="@drawable/sync"
-            android:text="@string/syncBtn"
-            android:textSize="12sp"
-            android:singleLine="true"
-            android:maxLines="1" />
-
-        <!-- Logout -->
-        <Button
-            android:id="@+id/btn_sign_out"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="16dp"
-            android:drawableTop="@drawable/icons8_logout_60px"
-            android:text="@string/btn_sign_out"
-            android:textSize="12sp"
-            android:singleLine="true"
-            android:maxLines="1" />
-
-        <!-- Help -->
-        <Button
-            android:id="@+id/btnInfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="16dp"
-            android:drawableTop="@drawable/icons8_questions_60px"
-            android:text="@string/Help"
-            android:textSize="12sp"
-            android:singleLine="true"
-            android:maxLines="1" />
-
-        <!-- User Profile -->
-        <Button
-            android:id="@+id/btn_userProfile"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="16dp"
-            android:drawableTop="@drawable/user"
-            android:text="@string/title_activity_user_profile"
-            android:textSize="12sp"
-            android:singleLine="true"
-            android:maxLines="1" />
-
-        <!-- Ski Profile -->
-        <Button
-            android:id="@+id/btn_ski_profile"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="16dp"
-            android:drawableTop="@drawable/icons8_ski_60px"
-            android:text="@string/btn_ski_profile"
-            android:textSize="12sp"
-            android:singleLine="true"
-            android:maxLines="1" />
-
-        <!-- Ski Recommendation -->
-        <Button
-            android:id="@+id/btn_recommendation"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="16dp"
-            android:drawableTop="@drawable/icons8_analyze_60px"
-            android:text="@string/btn_recomenndation"
-            android:textSize="12sp"
-            android:singleLine="true"
-            android:maxLines="1" />
-
-
-
-        <!-- Measurement -->
-        <Button
-            android:id="@+id/btn_measurement"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_columnSpan="2"
-            android:layout_margin="16dp"
-            android:drawableTop="@drawable/icons8_alpine_skiing_60px"
-            android:text="@string/btn_add_measurement"
-            android:textSize="12sp"
-            android:singleLine="true"
-            android:maxLines="1" />
-
-    </GridLayout>
+        app:layout_constraintTop_toBottomOf="@+id/btn_recommendation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import cz.erlebach.skitesting.R
-import cz.erlebach.skitesting.common.utils.wtf
 import cz.erlebach.skitesting.fragments.recommendation.recyclerview.Group
 import cz.erlebach.skitesting.fragments.recommendation.recyclerview.ViewType
 import cz.erlebach.skitesting.network.model.recomendation.SkiResult
@@ -59,7 +58,7 @@ class ResultAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.Vi
         holder?.apply {
 
 
-           tittleTV.text = testData?.datetime.toString() //testData?.getFormatedDatetime()
+            tittleTV.text = testData?.getFormatedDatetime()
 
            testTypeTV.text = testData?.getTestTypeString(context)
            snowTypeTV.text = testData?.getSnowTypeString(context)

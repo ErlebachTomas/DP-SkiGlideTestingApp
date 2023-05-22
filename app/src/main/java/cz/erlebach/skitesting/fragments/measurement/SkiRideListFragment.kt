@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import cz.erlebach.skitesting.common.template.MyViewModelFactory
-import cz.erlebach.skitesting.common.utils.info
 
 import cz.erlebach.skitesting.databinding.FragmentMeasurementSkiRideListBinding
 import cz.erlebach.skitesting.repository.SkiRideRepository
@@ -66,9 +65,6 @@ class SkiRideListFragment : Fragment() {
             MyViewModelFactory(SkiRideVM(SkiRideRepository(requireContext())))
         )[SkiRideVM::class.java]
 
-        viewModel.data.observe(viewLifecycleOwner) {
-                resource ->  info(resource.data?.size.toString())
-        }
         val adapter = SkiRideListAdapter(viewModel)
 
         binding.srlRecyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -76,7 +72,6 @@ class SkiRideListFragment : Fragment() {
 
 
         val liveData = viewModel.getDataWithSki(args.idTestSession)
-
 
         liveData.observe(viewLifecycleOwner) { resource ->
             resource.data?.let {

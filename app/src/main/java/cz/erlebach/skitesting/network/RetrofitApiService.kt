@@ -30,7 +30,7 @@ class RetrofitApiService(context: Context) {
                   //  "http://skitest.nti.tul.cz:1337" // debug
                   // "http://skitest.nti.tul.cz:3333" // release
                   // localhost
-                  "https://a4db-2a00-1028-83ca-8026-241f-9c7f-5f07-af28.ngrok-free.app"
+                  "https://3dd7-2a00-1028-83ca-8026-eca1-a6c6-ec91-c378.ngrok-free.app"
               "$baseUrl/api/"
           }
       }

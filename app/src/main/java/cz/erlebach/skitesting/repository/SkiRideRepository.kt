@@ -3,7 +3,6 @@ package cz.erlebach.skitesting.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import cz.erlebach.skitesting.common.utils.info
-import cz.erlebach.skitesting.common.utils.lg
 import cz.erlebach.skitesting.model.BaseModel
 import cz.erlebach.skitesting.model.Ski
 import cz.erlebach.skitesting.model.SkiRide
