@@ -27,10 +27,9 @@ class RetrofitApiService(context: Context) {
               "${BuildConfig.SERVER_URL}${BuildConfig.API_VERSION}"
           } else {
               val baseUrl =
-                  //  "http://skitest.nti.tul.cz:1337" // debug
-                  // "http://skitest.nti.tul.cz:3333" // release
-                  // localhost
-                  "https://3dd7-2a00-1028-83ca-8026-eca1-a6c6-ec91-c378.ngrok-free.app"
+                    "http://skitest.nti.tul.cz:1337"
+                 // "http://skitest.nti.tul.cz:3333"
+                 // "https://8f40-2001-718-1c01-152-11df-e90b-cf54-335b.ngrok-free.app"
               "$baseUrl/api/"
           }
       }

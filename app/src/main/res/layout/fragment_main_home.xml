@@ -33,8 +33,8 @@
 
     <Button
         android:id="@+id/btn_ski_profile"
-        android:layout_width="215dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/btn_ski_profile"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,12 +43,13 @@
 
     <Button
         android:id="@+id/btn_measurement"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:text="@string/btn_add_measurement"
-        app:layout_constraintEnd_toEndOf="@+id/btn_ski_profile"
-        app:layout_constraintStart_toStartOf="@+id/btn_ski_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_ski_profile" />
 
     <Button
@@ -76,13 +77,13 @@
 
     <Button
         android:id="@+id/btn_userProfile"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/title_activity_user_profile"
         app:layout_constraintBottom_toTopOf="@+id/btnInfo"
-        app:layout_constraintEnd_toEndOf="@+id/btn_ski_profile"
-        app:layout_constraintStart_toStartOf="@+id/btn_ski_profile" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_sync"

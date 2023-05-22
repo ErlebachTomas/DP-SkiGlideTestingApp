@@ -24,6 +24,12 @@ interface SkiDao : BaseDao<Ski>  {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addSki(ski: Ski)
 
+    @Update
+    suspend fun updateSki(ski: Ski)
+
+    @Delete
+    suspend fun deleteSki(ski: Ski)
+
     @Query("DELETE FROM ${MyDatabase.skiTableName}")
     suspend fun deleteAllSkis()
 

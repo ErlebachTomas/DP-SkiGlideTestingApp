@@ -14,7 +14,7 @@ import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.json.responseJson
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.SessionManager
-import cz.erlebach.skitesting.common.template.MyViewModelFactory
+import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentRecommendationFirstBinding
 import cz.erlebach.skitesting.network.RetrofitApiService
 import cz.erlebach.skitesting.network.model.DemoDataBody

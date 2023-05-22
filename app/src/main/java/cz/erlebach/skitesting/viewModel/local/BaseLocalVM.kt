@@ -3,7 +3,7 @@ package cz.erlebach.skitesting.viewModel.local
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import cz.erlebach.skitesting.repository.local.LocalBaseRepository
+import cz.erlebach.skitesting.repository.local.BaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
  */
 abstract class BaseLocalVM<T>(application: Application): AndroidViewModel(application)  {
 
-    abstract val repository: LocalBaseRepository<T>
+    abstract val repository: BaseRepository<T>
 
     fun insert(entity: T) {
         viewModelScope.launch(Dispatchers.IO) {

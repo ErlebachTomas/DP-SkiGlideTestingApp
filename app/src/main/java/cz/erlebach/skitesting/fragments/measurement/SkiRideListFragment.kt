@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import cz.erlebach.skitesting.common.template.MyViewModelFactory
+import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
 
 import cz.erlebach.skitesting.databinding.FragmentMeasurementSkiRideListBinding
 import cz.erlebach.skitesting.repository.SkiRideRepository

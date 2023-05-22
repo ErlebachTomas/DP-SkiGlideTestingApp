@@ -1,4 +1,4 @@
-package cz.erlebach.skitesting.common.template
+package cz.erlebach.skitesting.fragments.template
 
 
 /**

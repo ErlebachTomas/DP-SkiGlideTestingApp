@@ -37,7 +37,7 @@ class SyncWorkerSkiOld(
                         val response = api.syncData(SkiDataBody(account.getUserID(), data)) // provést volání API pro synchronizaci dat
                         if (response.isSuccessful) {
                             data.status = DataStatus.ONLINE
-                            database.update(data)
+                            database.updateSki(data)
                             lg("nahrávám offline záznam ${data.name} na server")
 
                         } else {

@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import cz.erlebach.skitesting.R
-import cz.erlebach.skitesting.common.template.MyViewModelFactory
+import cz.erlebach.skitesting.fragments.template.MyViewModelFactory
 import cz.erlebach.skitesting.databinding.FragmentMeasurementAddSkiRideBinding
 import cz.erlebach.skitesting.databinding.FragmentSkiAddSkiBinding
 import cz.erlebach.skitesting.model.Ski
@@ -31,6 +31,11 @@ class AddSkiFragment : Fragment() {
 
     lateinit var viewModel : SkiVM
 
+
+
+     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +64,7 @@ class AddSkiFragment : Fragment() {
 
         val name = binding.fasTxName.text.toString()
 
-        // kontrola správného vyplnění polí
+        //kontrola správného vyplnění polí
         if(!TextUtils.isEmpty(name))  {
 
             val ski = Ski(name= name)
