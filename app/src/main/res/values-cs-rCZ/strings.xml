@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Ski testing</string>
+    <string name="app_name">Aplikace pro měření skluznosti lyží</string>
     <string name="login_failure_message">Přihlášení selhalo</string>
     <string name="login_success_message">Ok</string>
     <string name="btn_login">Přihlásit se</string>
@@ -10,7 +10,7 @@
     <string name="hello_home_fragment">Domovská obrazovka</string>
     <string name="btn_sign_out">Odhlásit se</string>
     <string name="logout_succes_message">Uživatel byl odhlášen</string>
-    <string name="btn_ski_profile">"Spravovat lyže "</string>
+    <string name="btn_ski_profile">Spravovat lyže</string>
     <string name="btn_recomenndation">Doporučení lyží</string>
 
     <string name="btn_back">Zpět</string>
@@ -100,7 +100,7 @@
             <li>Veškerá uživatelská data jsou ke stažení v profilu\n</li>
         </ul>
     </string>
-    <string name="syncBtn">Sync</string>
+    <string name="syncBtn">Synchronizace </string>
 
     <string name="stopwatch_start">Start!</string>
     <string name="stopwatch_stop">Stop</string>
@@ -122,5 +122,8 @@
     <string name="bluetooth_cancel">Zrušit</string>
     <string name="bluetooth_not_mac">Vyberte MAC zařízení</string>
     <string name="bluetooth_not_found">Zařízení nenalezeno</string>
-
+    <string name="skier">Lyžař</string>
+    <string name="lg_app_version">Verze aplikace: %1$s</string>
+    <string name="rc_navBar">Doporučení</string>
+    <string name="btn_delete_all">Vymazat vše</string>
 </resources>

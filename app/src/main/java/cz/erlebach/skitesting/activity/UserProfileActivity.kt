@@ -16,6 +16,7 @@ import com.auth0.android.result.UserProfile
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.json.responseJson
+import cz.erlebach.skitesting.BuildConfig
 import cz.erlebach.skitesting.R
 import cz.erlebach.skitesting.common.SessionManager
 import cz.erlebach.skitesting.common.utils.lg
@@ -44,6 +45,7 @@ class UserProfileActivity : AppCompatActivity() {
         binding = ActivityUserProfileBinding.inflate(layoutInflater)
 
         binding.upUsername.text = getString(R.string.profile)
+        binding.upServer.text = "API: ${BuildConfig.SERVER_URL}${BuildConfig.API_VERSION}"
 
         manager = SessionManager.getInstance(this@UserProfileActivity)
         lifecycleScope.launch(Dispatchers.IO) {

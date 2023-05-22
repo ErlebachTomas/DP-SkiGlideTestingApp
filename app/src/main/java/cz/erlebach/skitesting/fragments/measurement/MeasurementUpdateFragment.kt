@@ -82,7 +82,7 @@ class MeasurementUpdateFragment : Fragment() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             findNavController().navigate(R.id.action_measurementUpdateFragment_to_MeasurementFragment)
-        }, 1000)
+        }, 500)
     }
 
 

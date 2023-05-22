@@ -79,7 +79,7 @@ class UpdateSkiRideFragment : Fragment() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             findNavController().navigate(R.id.action_updateSkiRideFragment_to_skiRideListFragment)
-        }, 1000)
+        }, 500)
     }
 
     /**

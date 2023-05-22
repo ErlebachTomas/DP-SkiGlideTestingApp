@@ -2,7 +2,7 @@
     <!-- <resources> -->
     <string name="cachedCredentials" translatable="false">cachedCredentials</string>
     <!-- MAIN -->
-    <string name="app_name">Ski testing</string>
+    <string name="app_name">Ski Glide Testing</string>
     <string name="Yes">Yes</string>
     <string name="No">No</string>
 
@@ -31,6 +31,7 @@
     <string name="user_info">userName: %1$s\nextraInfo: %2$s\ncreatedAt: %3$s\npicture: %4$s\nemail: %5$s\nnickname: %6$s</string>
     <string name="profile">Profile</string>
     <!-- ski profile activity -->
+    <string name="btn_delete_all">Delete all</string>
     <string name="btn_back">Back</string>
     <string name="btn_save">Save</string>
     <string name="addSki">Add new ski</string>
@@ -103,7 +104,7 @@
     <string name="testType">type of test</string>
     <string name="mfNoteHint">note</string>
     <string name="humidity">Humidity %</string>
-    <string name="title_activity_user_profile">UserProfileActivity</string>
+    <string name="title_activity_user_profile">User Profile</string>
     <string name="new_api_version_tittle">A new version of the application has been released</string>
     <string name="btn_close">Close</string>
     <string name="logout_err_offline">the device is offline, connect to the Internet and try again</string>
@@ -119,7 +120,7 @@
            \u2022 From the measured data, you can predict the best skis in the recommendation activity (This function is the only one that requires an Internet connection).\n
            \u2022 All user data is downloadable in profile activity.\n
     </string>
-    <string name="syncBtn">Sync</string>
+    <string name="syncBtn">Synchronization</string>
     <string name="mf_pick_date">Pick date</string>
     <string name="mf_pick_time">Pick time</string>
     <string name="mf_test_type">Type:</string>
@@ -136,6 +137,7 @@
     <string name="bluetooth_cancel">Cancel</string>
     <string name="bluetooth_not_mac">Please select device MAC</string>
     <string name="bluetooth_not_found">Device not found</string>
-
-
+    <string name="skier">skier</string>
+    <string name="lg_app_version">App version: %1$s</string>
+    <string name="rc_navBar">Recommendation</string>
 </resources>
